@@ -18,13 +18,22 @@
 #import "SavedPagesFunnel.h"
 #import "NSObject+ConstraintsScale.h"
 #import "PaddedLabel.h"
+#import "QueuesSingleton.h"
+#import "SavedArticlesFetcher.h"
+#import "WMFPullToRefreshView+WMFDefault.h"
+
 
 #define SAVED_PAGES_TITLE_TEXT_COLOR [UIColor colorWithWhite:0.0f alpha:0.7f]
 #define SAVED_PAGES_TEXT_COLOR [UIColor colorWithWhite:0.0f alpha:1.0f]
 #define SAVED_PAGES_LANGUAGE_COLOR [UIColor colorWithWhite:0.0f alpha:0.4f]
 #define SAVED_PAGES_RESULT_HEIGHT (116.0 * MENUS_SCALE_MULTIPLIER)
 
-@interface SavedPagesViewController ()
+/**
+ *  Must be retained or will be dealloced because of the weak refernce of the delegate of the article fetcher
+ */
+static SavedArticlesFetcher* _sharedFetcher = nil;
+
+@interface SavedPagesViewController ()<SavedArticlesFetcherDelegate, WMFPullToRefreshViewDelegate>
 {
     MWKSavedPageList *savedPageList;
     MWKUserDataStore *userDataStore;
@@ -40,26 +49,40 @@
 
 @property (strong, nonatomic) IBOutlet UIView *emptyContainerView;
 
+@property (strong, nonatomic) WMFPullToRefreshView* pullToRefreshView;
+
+
 @end
 
 @implementation SavedPagesViewController
 
--(NavBarMode)navBarMode
++ (SavedArticlesFetcher*)sharedFetcher{
+    
+    return _sharedFetcher;
+    
+}
+
++ (void)setSharedFetcher:(SavedArticlesFetcher*)fetcher{
+    
+    _sharedFetcher = fetcher;
+}
+
+
+- (void)dealloc
+{
+    [[self class] sharedFetcher].fetchFinishedDelegate = nil;
+    [self.pullToRefreshView uninstall];
+}
+
+
+- (NavBarMode)navBarMode
 {
     return NAVBAR_MODE_PAGES_SAVED;
 }
 
--(NSString *)title
+- (NSString *)title
 {
     return MWLocalizedString(@"saved-pages-title", nil);
-}
-
-#pragma mark - Memory
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Top menu
@@ -110,12 +133,22 @@
                                              selector: @selector(navItemTappedNotification:)
                                                  name: @"NavItemTapped"
                                                object: nil];
+    
+    
+    SavedArticlesFetcher* fetcher = [[self class] sharedFetcher];
+    
+    if(fetcher){
+        
+        fetcher.fetchFinishedDelegate = self;
+        [self.pullToRefreshView startLoadingAndExpand:YES animated:YES];
+    }
+
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
     userDataStore = [SessionSingleton sharedInstance].userDataStore;
     savedPageList = userDataStore.savedPageList;
     
@@ -123,11 +156,7 @@
 
     self.navigationItem.hidesBackButton = YES;
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.tableView.rowHeight = SAVED_PAGES_RESULT_HEIGHT;
     
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 10.0 * MENUS_SCALE_MULTIPLIER, 5.0 * MENUS_SCALE_MULTIPLIER)];
     self.tableView.tableHeaderView = headerView;
@@ -146,6 +175,20 @@
     
     self.emptyTitle.font = [UIFont boldSystemFontOfSize:17.0 * MENUS_SCALE_MULTIPLIER];
     self.emptyDescription.font = [UIFont systemFontOfSize:14.0 * MENUS_SCALE_MULTIPLIER];
+
+    self.pullToRefreshView = [WMFPullToRefreshView defaultDeterminateProgressViewWithScrollView:self.tableView delegate:self];
+    
+    [self.pullToRefreshView pullToRefreshContentView].refreshPromptString = MWLocalizedString(@"saved-pages-pull-to-refresh-prompt", nil);
+    [self.pullToRefreshView pullToRefreshContentView].refreshRunningString = MWLocalizedString(@"saved-pages-pull-to-refresh-is-refreshing", nil);
+
+    __weak typeof(self) weakSelf = self;
+    
+    [self.pullToRefreshView pullToRefreshContentView].refreshCancelBlock = ^{
+        
+        [[QueuesSingleton sharedInstance].savedPagesFetchManager.operationQueue cancelAllOperations];
+        [weakSelf.pullToRefreshView finishLoading];
+    };
+    
 }
 
 
@@ -232,11 +275,6 @@
     [self popModalToRoot];
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return SAVED_PAGES_RESULT_HEIGHT;
-}
-
 #pragma mark - Delete
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -321,11 +359,43 @@
     [dialog show];
 }
 
-#pragma mark - Pull to refresh
+#pragma mark - Update
 
-- (UIScrollView *)refreshScrollView
-{
-    return self.tableView;
+- (void)updateAllEntries{
+    
+    [[QueuesSingleton sharedInstance].savedPagesFetchManager.operationQueue cancelAllOperations];
+    
+    SavedArticlesFetcher* fetcher = [[SavedArticlesFetcher alloc] initAndFetchArticlesForSavedPageList:savedPageList inDataStore:userDataStore.dataStore withManager:[QueuesSingleton sharedInstance].savedPagesFetchManager thenNotifyDelegate:self];
+    
+    [[self class] setSharedFetcher:fetcher];
+    
 }
+
+#pragma mark - SavedArticlesFetcherDelegate
+
+- (void)savedArticlesFetcher:(SavedArticlesFetcher *)savedArticlesFetcher didFetchArticle:(MWKArticle *)article remainingArticles:(NSInteger)remaining totalArticles:(NSInteger)total status:(FetchFinalStatus)status error:(NSError *)error{
+
+    CGFloat progress = 1.0-(CGFloat)((CGFloat)remaining/(CGFloat)total);
+    [[self.pullToRefreshView pullToRefreshContentView] setLoadingProgress:progress animated:YES];
+    
+}
+
+- (void)fetchFinished:(id)sender fetchedData:(id)fetchedData status:(FetchFinalStatus)status error:(NSError *)error{
+    
+    [self.pullToRefreshView finishLoading];
+    [[self class] setSharedFetcher:nil];
+}
+
+#pragma mark - WMPullToRefreshViewDelegate
+
+- (void)pullToRefreshViewDidStartLoading:(WMFPullToRefreshView *)view{
+    
+    if([[self class] sharedFetcher])
+        return;
+    
+    [self updateAllEntries];
+    
+}
+
 
 @end
