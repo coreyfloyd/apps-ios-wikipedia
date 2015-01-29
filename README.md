@@ -36,7 +36,7 @@ Once all the dependencies are installed, you'll have to do a couple of things be
 - Setup CocoaPods
   - Install the **`cocoapods`** gem
   - Setup the CocoaPods specs repo by running `pod setup` (prepend `bundle exec` as needed)
-  - Install our CocoaPods dependencies via `pod install` (**not** `pod update`)
+  - Install our CocoaPods dependencies by going to the repository's root directory and running `pod install` (**not** `pod update`)
 - Setup web components (if you're feeling lucky: `cd www && npm install && grunt`)
   - Go into the `www` directory
   - Run `npm install` to install our node dependencies
