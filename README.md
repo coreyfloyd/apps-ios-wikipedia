@@ -45,7 +45,7 @@ Once all the dependencies are installed, you'll have to do a couple of things be
 - Build the project!
 - Profit! (Just kidding, we're non-profit)
 
-If the build failed, we're _really_ sorry and would be really grateful if you filed a bug or even bugged us via IRC or email. See the top of this file for our contact information.
+If the build failed, we're _really_ sorry! We'll be more than happy to help you if you file a bug and/or bug us via IRC or email. See the top of this file for our contact information. Please include any console logs and/or Xcode screenshots along with a description of your environment.
 
 > Due to Apple's restrictions on iOS app installation, to run a custom build on a standard iOS device you must pay for a [developer account with Apple](https://developer.apple.com/devcenter/ios/index.action) and register the device with your account.
 
