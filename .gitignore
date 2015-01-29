@@ -24,4 +24,5 @@ Pods/
 
 # www
 node_modules/
-www/assets/
+# TODO: remove this when assets is moved into build/
+Wikipedia/assets/
