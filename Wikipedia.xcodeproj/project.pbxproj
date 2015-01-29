@@ -1751,7 +1751,6 @@
 			buildConfigurationList = D499146A181D51DF00E6073C /* Build configuration list for PBXNativeTarget "Wikipedia" */;
 			buildPhases = (
 				F33F4F6424C55FEF072D1A81 /* Check Pods Manifest.lock */,
-				048702AE19F75B0800B7D307 /* run-cocoapods */,
 				D4991431181D51DE00E6073C /* Sources */,
 				D4991432181D51DE00E6073C /* Frameworks */,
 				04272E7619404CDF00CC682F /* run-grunt */,
@@ -2016,20 +2015,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "echo \"Uncomment the following line to run this automatically when building.\"\n# scripts/icon-svgs-to-pngs.sh";
-		};
-		048702AE19F75B0800B7D307 /* run-cocoapods */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "run-cocoapods";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "#scripts/run-cocoapods.sh";
 		};
 		04E0C2771A7750AB00FE22DA /* copy-wmflogo-to-assets */ = {
 			isa = PBXShellScriptBuildPhase;
