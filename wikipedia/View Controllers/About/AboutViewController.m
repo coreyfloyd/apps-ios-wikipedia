@@ -7,6 +7,24 @@
 #import "UIWebView+LoadAssetsHtml.h"
 #import "Defines.h"
 
+static NSString* const kWMFAboutHTMLFile = @"about.html";
+static NSString* const kWMFAboutPlistName = @"AboutViewController";
+
+static NSString* const kWMFURLsKey = @"urls";
+static NSString* const kWMFURLsFeedbackKey = @"feedback";
+static NSString* const kWMFURLsTranslateWikiKey = @"twn";
+static NSString* const kWMFURLsWikimediaKey = @"wmf";
+static NSString* const kWMFURLsSpecialistGuildKey = @"tsg";
+
+static NSString* const kWMFRepositoriesKey = @"repositories";
+
+static NSString* const kWMFLibrariesKey = @"libraries";
+static NSString* const kWMFLibraryNameKey = @"Name";
+static NSString* const kWMFLibraryURLKey = @"Source URL";
+static NSString* const kWMFLibraryFileNameKey = @"Licence File Name";
+
+static NSString* const kWMFContributorsKey = @"contributors";
+
 @interface AboutViewController ()
 
 @property (nonatomic, retain) NSDictionary *data;
@@ -23,10 +41,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    NSString *plistPath = [[NSBundle mainBundle] pathForResource:@"AboutViewController" ofType:@"plist"];
+    NSString *plistPath = [[NSBundle mainBundle] pathForResource:kWMFAboutPlistName ofType:@"plist"];
     self.data = [NSMutableDictionary dictionaryWithContentsOfFile:plistPath];
     self.webView.delegate = self;
-    [self.webView loadHTMLFromAssetsFile:@"about.html"];
+    [self.webView loadHTMLFromAssetsFile:kWMFAboutHTMLFile];
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -78,17 +96,17 @@
 
 -(NSString *)contributors
 {
-    return [self.data[@"contributors"] componentsJoinedByString:@", "];
+    return [self.data[kWMFContributorsKey] componentsJoinedByString:@", "];
 }
 
 -(NSDictionary *)urls
 {
-    return self.data[@"urls"];
+    return self.data[kWMFURLsKey];
 }
 
 -(NSString *)libraryLinks
 {
-    NSMutableDictionary *libraries = (NSMutableDictionary *)self.data[@"libraries"];
+    NSMutableDictionary *libraries = (NSMutableDictionary *)self.data[kWMFLibrariesKey];
     
     for (NSString *library in libraries.copy) {
         libraries[library] = [self getLinkHTMLForURL:libraries[library] title:library];
@@ -100,7 +118,7 @@
 
 -(NSString *)repositoryLinks
 {
-    NSMutableDictionary *repos = (NSMutableDictionary *)self.data[@"repositories"];
+    NSMutableDictionary *repos = (NSMutableDictionary *)self.data[kWMFRepositoriesKey];
     
     for (NSString *repo in repos.copy) {
         repos[repo] = [self getLinkHTMLForURL:repos[repo] title:repo];
@@ -112,7 +130,7 @@
 
 -(NSString *)feedbackURL
 {
-    NSString *feedbackUrl = self.urls[@"feedback"];
+    NSString *feedbackUrl = self.urls[kWMFURLsFeedbackKey];
     feedbackUrl = [feedbackUrl stringByReplacingOccurrencesOfString:@"$1" withString:[WikipediaAppUtils versionedUserAgent]];
 
     NSString *encodedUrlString =
@@ -158,21 +176,21 @@
     setDivHTML(@"repositories_body", self.repositoryLinks);
     setDivHTML(@"feedback_body", [self getLinkHTMLForURL:self.feedbackURL title:MWLocalizedString(@"about-send-feedback", nil)]);
     
-    NSString *twnUrl = self.urls[@"twn"];
+    NSString *twnUrl = self.urls[kWMFURLsTranslateWikiKey];
     NSString *translatorsLink = [self getLinkHTMLForURL:twnUrl title:[twnUrl substringFromIndex:7]];
     NSString *translatorDetails =
     [MWLocalizedString(@"about-translators-details", nil) stringByReplacingOccurrencesOfString: @"$1"
                                                                                     withString: translatorsLink];
     setDivHTML(@"translators_body", translatorDetails);
     
-    NSString *tsgUrl = self.urls[@"tsg"];
+    NSString *tsgUrl = self.urls[kWMFURLsSpecialistGuildKey];
     NSString *tsgLink = [self getLinkHTMLForURL:tsgUrl title:[tsgUrl substringFromIndex:7]];
     NSString *tsgDetails =
     [MWLocalizedString(@"about-testers-details", nil) stringByReplacingOccurrencesOfString: @"$1"
                                                                                     withString: tsgLink];
     setDivHTML(@"testers_body", tsgDetails);
     
-    NSString *wmfUrl = self.urls[@"wmf"];
+    NSString *wmfUrl = self.urls[kWMFURLsWikimediaKey];
     NSString *foundation = [self getLinkHTMLForURL:wmfUrl title:MWLocalizedString(@"about-wikimedia-foundation", nil)];
     NSString *footer =
     [MWLocalizedString(@"about-product-of", nil) stringByReplacingOccurrencesOfString: @"$1"
