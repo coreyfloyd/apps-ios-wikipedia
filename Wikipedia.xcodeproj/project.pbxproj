@@ -182,6 +182,12 @@
 		954BA118838BF8BA6B01C34A /* libPods-WikipediaUnitTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CE61C6963F825760822A28A /* libPods-WikipediaUnitTests.a */; };
 		BC42735D1A7C73B300068882 /* NSArray+Predicate.m in Sources */ = {isa = PBXBuildFile; fileRef = 04CBAC7219A9B786009F3D7E /* NSArray+Predicate.m */; };
 		BC42735E1A7C73B300068882 /* NSArray+PredicateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8309C81A7C370B003FC5C7 /* NSArray+PredicateTests.m */; };
+		C459B4881A8411B3007031B0 /* MantleLicense.txt in Resources */ = {isa = PBXBuildFile; fileRef = C459B4821A8411B3007031B0 /* MantleLicense.txt */; };
+		C459B4891A8411B3007031B0 /* WikiFontLicense.txt in Resources */ = {isa = PBXBuildFile; fileRef = C459B4831A8411B3007031B0 /* WikiFontLicense.txt */; };
+		C459B48A1A8411B3007031B0 /* CocoaPodsLicense.txt in Resources */ = {isa = PBXBuildFile; fileRef = C459B4841A8411B3007031B0 /* CocoaPodsLicense.txt */; };
+		C459B48B1A8411B3007031B0 /* AFNetworkingLicense.txt in Resources */ = {isa = PBXBuildFile; fileRef = C459B4851A8411B3007031B0 /* AFNetworkingLicense.txt */; };
+		C459B48C1A8411B3007031B0 /* NSDate-ExtensionsLicense.txt in Resources */ = {isa = PBXBuildFile; fileRef = C459B4861A8411B3007031B0 /* NSDate-ExtensionsLicense.txt */; };
+		C459B48D1A8411B3007031B0 /* HppleLicense.txt in Resources */ = {isa = PBXBuildFile; fileRef = C459B4871A8411B3007031B0 /* HppleLicense.txt */; };
 		C9180EC418AED30C006C1DCA /* WikipediaAppUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = C9180EC318AED30C006C1DCA /* WikipediaAppUtils.m */; };
 		D401C2C01A659E5000D4D127 /* DataMigrationProgressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D401C2BE1A659E5000D4D127 /* DataMigrationProgressViewController.m */; };
 		D401C2C11A659E5000D4D127 /* DataMigrationProgressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D401C2BF1A659E5000D4D127 /* DataMigrationProgressViewController.xib */; };
@@ -583,6 +589,12 @@
 		BC4273521A7C736800068882 /* WikipediaUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WikipediaUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC8309961A7BF935003FC5C7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BC8309C81A7C370B003FC5C7 /* NSArray+PredicateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSArray+PredicateTests.m"; path = "Utilities/NSArray+PredicateTests.m"; sourceTree = "<group>"; };
+		C459B4821A8411B3007031B0 /* MantleLicense.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MantleLicense.txt; sourceTree = "<group>"; };
+		C459B4831A8411B3007031B0 /* WikiFontLicense.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = WikiFontLicense.txt; sourceTree = "<group>"; };
+		C459B4841A8411B3007031B0 /* CocoaPodsLicense.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CocoaPodsLicense.txt; sourceTree = "<group>"; };
+		C459B4851A8411B3007031B0 /* AFNetworkingLicense.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AFNetworkingLicense.txt; sourceTree = "<group>"; };
+		C459B4861A8411B3007031B0 /* NSDate-ExtensionsLicense.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "NSDate-ExtensionsLicense.txt"; sourceTree = "<group>"; };
+		C459B4871A8411B3007031B0 /* HppleLicense.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = HppleLicense.txt; sourceTree = "<group>"; };
 		C9180EC218AED30C006C1DCA /* WikipediaAppUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WikipediaAppUtils.h; sourceTree = "<group>"; };
 		C9180EC318AED30C006C1DCA /* WikipediaAppUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WikipediaAppUtils.m; sourceTree = "<group>"; };
 		D401C2BD1A659E5000D4D127 /* DataMigrationProgressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataMigrationProgressViewController.h; path = DataMigration/DataMigrationProgressViewController.h; sourceTree = "<group>"; };
@@ -1094,6 +1106,12 @@
 				045D871F19FAD2FA0035C1F9 /* AboutViewController.h */,
 				045D872019FAD2FA0035C1F9 /* AboutViewController.m */,
 				0484411D19FF15AF00FD26C5 /* AboutViewController.plist */,
+				C459B4821A8411B3007031B0 /* MantleLicense.txt */,
+				C459B4831A8411B3007031B0 /* WikiFontLicense.txt */,
+				C459B4841A8411B3007031B0 /* CocoaPodsLicense.txt */,
+				C459B4851A8411B3007031B0 /* AFNetworkingLicense.txt */,
+				C459B4861A8411B3007031B0 /* NSDate-ExtensionsLicense.txt */,
+				C459B4871A8411B3007031B0 /* HppleLicense.txt */,
 			);
 			path = About;
 			sourceTree = "<group>";
@@ -2034,18 +2052,24 @@
 				04090A33187F53E400577EDF /* clear.png in Resources */,
 				0412362E189C29EA00E0CF8E /* abuse-filter-disallowed.png in Resources */,
 				0443961D1A3C134F0081557D /* NearbyResultCollectionCell.xib in Resources */,
+				C459B48C1A8411B3007031B0 /* NSDate-ExtensionsLicense.txt in Resources */,
 				04082B5518ADA25A00FAF3D6 /* text_field_x_circle_gray@2x.png in Resources */,
 				04C91CF219554B310035ED1B /* logo-onboarding.png in Resources */,
 				045A9F0D18F6090E0057EA85 /* assets in Resources */,
 				D47FEE2019C8CB0000B998C8 /* (null) in Resources */,
 				04123638189C29EA00E0CF8E /* abuse-filter-flag-white@2x.png in Resources */,
 				04C91CEF195520990035ED1B /* logo-onboarding-subtitle@2x.png in Resources */,
+				C459B48A1A8411B3007031B0 /* CocoaPodsLicense.txt in Resources */,
+				C459B48B1A8411B3007031B0 /* AFNetworkingLicense.txt in Resources */,
+				C459B4881A8411B3007031B0 /* MantleLicense.txt in Resources */,
+				C459B48D1A8411B3007031B0 /* HppleLicense.txt in Resources */,
 				0484411E19FF15AF00FD26C5 /* AboutViewController.plist in Resources */,
 				04C91CEE195520990035ED1B /* logo-onboarding-subtitle.png in Resources */,
 				045EFF1A19A25FEB00D0EDBB /* logo-placeholder-search.png in Resources */,
 				0424874F1A54A93C00A5C905 /* lead-default.png in Resources */,
 				04224502197F5E09005DD0BF /* BulletedLabel.xib in Resources */,
 				041E588219B2D2C500AC140C /* logo-placeholder-saved.png in Resources */,
+				C459B4891A8411B3007031B0 /* WikiFontLicense.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
