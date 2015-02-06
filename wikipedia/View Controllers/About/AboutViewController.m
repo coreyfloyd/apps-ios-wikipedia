@@ -6,6 +6,7 @@
 #import "UIViewController+ModalPop.h"
 #import "UIWebView+LoadAssetsHtml.h"
 #import "Defines.h"
+#import <BlocksKit/BlocksKit.h>
 
 static NSString* const kWMFAboutHTMLFile = @"about.html";
 static NSString* const kWMFAboutPlistName = @"AboutViewController";
@@ -24,6 +25,7 @@ static NSString* const kWMFLibraryURLKey = @"Source URL";
 static NSString* const kWMFLibraryFileNameKey = @"Licence File Name";
 
 static NSString* const kWMFContributorsKey = @"contributors";
+
 
 @interface AboutViewController ()
 
@@ -106,14 +108,17 @@ static NSString* const kWMFContributorsKey = @"contributors";
 
 -(NSString *)libraryLinks
 {
-    NSMutableDictionary *libraries = (NSMutableDictionary *)self.data[kWMFLibrariesKey];
+    NSArray *libraries = [self.data[kWMFLibrariesKey] bk_map:^id(NSDictionary *obj) {
+        
+        NSString* sourceLink = [[self class] linkHTMLForURLString:obj[kWMFLibraryURLKey] title:obj[kWMFLibraryNameKey]];
+        
+        NSString* filePath = [[NSBundle mainBundle] pathForResource:obj[kWMFLibraryFileNameKey] ofType:@"txt"];
+        NSString* licenseLink = [[self class] linkHTMLForURLString:filePath title:MWLocalizedString(@"about-libraries-license", nil)];
+        
+        return [sourceLink stringByAppendingFormat:@" (%@)", licenseLink];
+    }];
     
-    for (NSString *library in libraries.copy) {
-        libraries[library] = [self getLinkHTMLForURL:libraries[library] title:library];
-    }
-    
-    NSString *output = [libraries.allValues componentsJoinedByString:@", "];
-    return output;
+    return [libraries componentsJoinedByString:@", "];
 }
 
 -(NSString *)repositoryLinks
