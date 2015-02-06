@@ -120,8 +120,8 @@ static NSString* const kWMFContributorsKey = @"contributors";
 {
     NSMutableDictionary *repos = (NSMutableDictionary *)self.data[kWMFRepositoriesKey];
     
-    for (NSString *repo in repos.copy) {
-        repos[repo] = [self getLinkHTMLForURL:repos[repo] title:repo];
+    for (NSString *repo in [repos copy]) {
+        repos[repo] = [[self class] linkHTMLForURLString:repos[repo] title:repo];
     }
     
     NSString *output = [repos.allValues componentsJoinedByString:@", "];
@@ -137,11 +137,6 @@ static NSString* const kWMFContributorsKey = @"contributors";
     [feedbackUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
     return encodedUrlString;
-}
-
--(NSString *)getLinkHTMLForURL:(NSString *)url title:(NSString *)title
-{
-    return [NSString stringWithFormat:@"<a href='%@'>%@</a>", url, title];
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
@@ -174,24 +169,24 @@ static NSString* const kWMFContributorsKey = @"contributors";
     setDivHTML(@"libraries_body", self.libraryLinks);
     setDivHTML(@"repositories_title", MWLocalizedString(@"about-repositories", nil));
     setDivHTML(@"repositories_body", self.repositoryLinks);
-    setDivHTML(@"feedback_body", [self getLinkHTMLForURL:self.feedbackURL title:MWLocalizedString(@"about-send-feedback", nil)]);
+    setDivHTML(@"feedback_body", [[self class] linkHTMLForURLString:self.feedbackURL title:MWLocalizedString(@"about-send-feedback", nil)]);
     
     NSString *twnUrl = self.urls[kWMFURLsTranslateWikiKey];
-    NSString *translatorsLink = [self getLinkHTMLForURL:twnUrl title:[twnUrl substringFromIndex:7]];
+    NSString *translatorsLink = [[self class] linkHTMLForURLString:twnUrl title:[twnUrl substringFromIndex:7]];
     NSString *translatorDetails =
     [MWLocalizedString(@"about-translators-details", nil) stringByReplacingOccurrencesOfString: @"$1"
                                                                                     withString: translatorsLink];
     setDivHTML(@"translators_body", translatorDetails);
     
     NSString *tsgUrl = self.urls[kWMFURLsSpecialistGuildKey];
-    NSString *tsgLink = [self getLinkHTMLForURL:tsgUrl title:[tsgUrl substringFromIndex:7]];
+    NSString *tsgLink = [[self class] linkHTMLForURLString:tsgUrl title:[tsgUrl substringFromIndex:7]];
     NSString *tsgDetails =
     [MWLocalizedString(@"about-testers-details", nil) stringByReplacingOccurrencesOfString: @"$1"
                                                                                     withString: tsgLink];
     setDivHTML(@"testers_body", tsgDetails);
     
     NSString *wmfUrl = self.urls[kWMFURLsWikimediaKey];
-    NSString *foundation = [self getLinkHTMLForURL:wmfUrl title:MWLocalizedString(@"about-wikimedia-foundation", nil)];
+    NSString *foundation = [[self class] linkHTMLForURLString:wmfUrl title:MWLocalizedString(@"about-wikimedia-foundation", nil)];
     NSString *footer =
     [MWLocalizedString(@"about-product-of", nil) stringByReplacingOccurrencesOfString: @"$1"
                                                                            withString: foundation];
@@ -205,38 +200,29 @@ static NSString* const kWMFContributorsKey = @"contributors";
     [self.webView stringByEvaluatingJavaScriptFromString:fontSizeJS];
 }
 
-// Force web view links to open in Safari.
-// From: http://stackoverflow.com/a/2532884
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType;
 {
     NSURL *requestURL = [request URL];
+    
     if (
+        (navigationType == UIWebViewNavigationTypeLinkClicked)
+        &&
         (
          [[requestURL scheme] isEqualToString:@"http"]
          ||
          [[requestURL scheme] isEqualToString:@"https"]
          ||
          [[requestURL scheme] isEqualToString:@"mailto"])
-        && (navigationType == UIWebViewNavigationTypeLinkClicked)
         ) {
         return ![[UIApplication sharedApplication] openURL:requestURL];
     }
     return YES;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
++ (NSString *)linkHTMLForURLString:(NSString *)url title:(NSString *)title
+{
+    return [NSString stringWithFormat:@"<a href='%@'>%@</a>", url, title];
 }
 
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
 
 @end
