@@ -7,6 +7,7 @@
 #import "UIWebView+LoadAssetsHtml.h"
 #import "Defines.h"
 #import <BlocksKit/BlocksKit.h>
+#import "ModalContentViewController.h"
 
 static NSString* const kWMFAboutHTMLFile = @"about.html";
 static NSString* const kWMFAboutPlistName = @"AboutViewController";
@@ -76,6 +77,9 @@ static NSString* const kWMFContributorsKey = @"contributors";
         case NAVBAR_BUTTON_X:
             [self popModal];
             break;
+        case NAVBAR_BUTTON_ARROW_LEFT:
+            [self.webView loadHTMLFromAssetsFile:kWMFAboutHTMLFile];
+            break;
         default:
             break;
     }
@@ -83,11 +87,21 @@ static NSString* const kWMFContributorsKey = @"contributors";
 
 -(NavBarMode)navBarMode
 {
+    if([[[[self.webView request] URL] pathExtension] isEqualToString:@"txt"]){
+
+        return NAVBAR_MODE_BACK_WITH_LABEL;
+    }
+    
     return NAVBAR_MODE_X_WITH_LABEL;
 }
 
 -(NSString *)title
 {
+    if([[[[self.webView request] URL] pathExtension] isEqualToString:@"txt"]){
+        
+        return MWLocalizedString(@"about-libraries-license", nil);
+    }
+
     return MWLocalizedString(@"about-title", nil);
 }
 
@@ -203,6 +217,15 @@ static NSString* const kWMFContributorsKey = @"contributors";
 
     NSString *fontSizeJS = [NSString stringWithFormat:@"document.body.style.fontSize = '%f%%'", (MENUS_SCALE_MULTIPLIER * 100.0f)];
     [self.webView stringByEvaluatingJavaScriptFromString:fontSizeJS];
+
+    /*
+     HACK: This is pretty terrible. The current VC should not need to know about the containing view controller to set its nav bar buttons and title.
+     We really need to change the modal display logic to make sure modal VCs can update their navigation bar.
+     That is obviously a pretty big refactor and effects several VCs - so not doing that here. In the mean time, we are casting what we know the containing VC to be so we can make the needed changes.
+     */
+    [(ModalContentViewController*)self.parentViewController setNavBarMode:self.navBarMode];
+    [(ModalContentViewController*)self.parentViewController setTopMenuText:self.title];
+
 }
 
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType;
