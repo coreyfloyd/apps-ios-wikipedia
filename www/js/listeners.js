@@ -7,6 +7,7 @@ var refs = require("./refs");
 document.addEventListener("DOMContentLoaded", function(event) {
 
     transformer.transform( "moveFirstGoodParagraphUp", document );
+    transformer.transform( "hideTables", document );
     transformer.transform( "hideRedlinks", document );
     transformer.transform( "disableFilePageEdit", document );
 
