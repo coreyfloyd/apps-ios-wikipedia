@@ -1371,7 +1371,6 @@ NSString* const kSelectedStringJS = @"window.getSelection().toString()";
 
                     // Remove the article so it doesn't get saved.
                     [session.userDataStore.historyList removeEntry:history];
-                    [session.article remove];
 
                     // Redirect!
                     [self retrieveArticleForPageTitle: redirectedTitle
@@ -1392,17 +1391,10 @@ NSString* const kSelectedStringJS = @"window.getSelection().toString()";
                 [self showAlert:errorMsg type:ALERT_TYPE_TOP duration:-1];
 
                 [self loadingIndicatorHide];
-
-                // Remove the article so it doesn't get saved.
-                //[article.managedObjectContext deleteObject:article];
-                [article remove];
             }
                 break;
             case FETCH_FINAL_STATUS_CANCELLED:
             {
-                // Remove the article so it doesn't get saved.
-                //[article.managedObjectContext deleteObject:article];
-                [article remove];
             }
                 break;
 
