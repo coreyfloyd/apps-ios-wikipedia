@@ -60,7 +60,8 @@ NSString* const kSelectedStringJS                      = @"window.getSelection()
     __weak WebViewController* weakSelf = self;
     [self.bridge addListener:@"DOMContentLoaded" withBlock:^(NSString* type, NSDictionary* payload) {
         [weakSelf performSelector:@selector(loadingIndicatorHide) withObject:nil afterDelay:0.22f];
-        [weakSelf.tocVC centerCellForWebViewTopMostSectionAnimated:NO];
+        [weakSelf.tocVC updateTocForArticle:[SessionSingleton sharedInstance].currentArticle];
+        [weakSelf updateTOCScrollPositionWithoutAnimationIfHidden];
         [weakSelf jumpToFragmentIfNecessary];
         [weakSelf performSelector:@selector(autoScrollToLastScrollOffsetIfNecessary) withObject:nil afterDelay:0.5f];
 
@@ -759,6 +760,18 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
     }];
 }
 
+- (void)updateTOCScrollPositionIfVisible {
+    if ([self tocDrawerIsOpen]) {
+        [self.tocVC centerCellForWebViewTopMostSectionAnimated:YES];
+    }
+}
+
+- (void)updateTOCScrollPositionWithoutAnimationIfHidden {
+    if (![self tocDrawerIsOpen]) {
+        [self.tocVC centerCellForWebViewTopMostSectionAnimated:NO];
+    }
+}
+
 #pragma mark UIContainerViewControllerCallbacks
 
 - (BOOL)shouldAutomaticallyForwardAppearanceMethods {
@@ -1016,14 +1029,6 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
     [self scrollViewScrollingEnded:scrollView];
 }
 
-- (void)scrollViewWillBeginDecelerating:(UIScrollView*)scrollView {
-    // If user quickly scrolls web view make toc update when user lifts finger.
-    // (in addition to when scroll ends)
-    if (scrollView == self.webView.scrollView) {
-        [self.tocVC centerCellForWebViewTopMostSectionAnimated:YES];
-    }
-}
-
 - (void)scrollViewScrollingEnded:(UIScrollView*)scrollView {
     if (scrollView == self.webView.scrollView) {
         // Once we've started scrolling around don't allow the webview delegate to scroll
@@ -1034,7 +1039,8 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
         //NSLog(@"%@", NSStringFromCGPoint(scrollView.contentOffset));
         [self saveWebViewScrollOffset];
 
-        [self.tocVC centerCellForWebViewTopMostSectionAnimated:YES];
+        [self updateTOCScrollPositionIfVisible];
+        [self updateTOCScrollPositionWithoutAnimationIfHidden];
 
         self.pullToRefreshView.alpha = 0.0f;
     }
@@ -1133,6 +1139,8 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
         // No need to report scroll event to pull to refresh super vc if toc open.
         [super scrollViewDidScroll:scrollView];
     }
+
+    [self updateTOCScrollPositionIfVisible];
 }
 
 - (void)scrollViewWillBeginDragging:(UIScrollView*)scrollView {
@@ -1140,7 +1148,8 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
 }
 
 - (void)scrollViewDidScrollToTop:(UIScrollView*)scrollView {
-    [self.tocVC centerCellForWebViewTopMostSectionAnimated:NO];
+    [self updateTOCScrollPositionIfVisible];
+    [self updateTOCScrollPositionWithoutAnimationIfHidden];
     [self saveWebViewScrollOffset];
     self.scrollingToTop = NO;
 }
@@ -1296,7 +1305,7 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
     }
 }
 
-#pragma mark Article loading ops
+#pragma mark Article loading
 
 - (void)  navigateToPage:(MWKTitle*)title
          discoveryMethod:(MWKHistoryDiscoveryMethod)discoveryMethod
@@ -1381,7 +1390,6 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
                 }
 
                 // Update the toc and web view.
-                [self.tocVC setTocSectionDataForSections:article.sections];
                 [self displayArticle:article.title];
             }
             break;
@@ -1494,7 +1502,6 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
 
     // If article with sections just show them (unless needsRefresh is YES)
     if ([article.sections count] > 0 && !article.needsRefresh) {
-        [self.tocVC setTocSectionDataForSections:session.currentArticle.sections];
         [self displayArticle:session.currentArticle.title];
         //[self showAlert:MWLocalizedString(@"search-loading-article-loaded", nil) type:ALERT_TYPE_TOP duration:-1];
         [self fadeAlert];
@@ -1608,11 +1615,7 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
     }
 
     if ([self tocDrawerIsOpen]) {
-        // Drawer is already open, so just refresh the toc quickly w/o animation.
-        // Make sure "tocShowWithDuration:" is allowed to happen even if the TOC
-        // is already onscreen or non-lead sections won't appear in the TOC when
-        // they've been retrieved if the TOC is open.
-        [self tocShowWithDuration:@0.0f];
+        [self tocHide];
     }
 }
 
@@ -2002,7 +2005,7 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
     }];
 }
 
-#pragma mark Lead image container
+#pragma mark Lead image
 
 - (void)setupLeadImageContainer {
     self.leadImageContainer = [[[NSBundle mainBundle] loadNibNamed:@"LeadImageContainer"
@@ -2024,6 +2027,12 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
     [self.bridge sendMessage:@"setLeadImageDivHeight"
                  withPayload:@{ @"height": height }];
 }
+
+- (void)didTouchLeadImage:(id)sender {
+    [self presentGalleryForArticle:session.currentArticle showingImage:session.currentArticle.image];
+}
+
+#pragma mark Sharing
 
 - (BOOL)canPerformAction:(SEL)action withSender:(id)sender {
     if (action == @selector(shareSnippet:)) {
@@ -2050,10 +2059,6 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
 - (NSString*)getSelectedtext {
     NSString* selectedText = [self.webView stringByEvaluatingJavaScriptFromString:kSelectedStringJS];
     return selectedText.length < kMinimumTextSelectionLength ? @"" : selectedText;
-}
-
-- (void)didTouchLeadImage:(id)sender {
-    [self presentGalleryForArticle:session.currentArticle showingImage:session.currentArticle.image];
 }
 
 #pragma mark Tracking Footer

@@ -19,6 +19,8 @@
 @interface TOCViewController (){
 }
 
+@property (strong, nonatomic, readwrite) MWKArticle* article;
+
 @property (strong, nonatomic) NSArray* sectionCells;
 
 @property (strong, nonatomic) UIView* scrollContainer;
@@ -122,7 +124,6 @@
 - (void)refreshForCurrentArticle {
     self.scrollView.delegate = nil;
 
-    // Set up the scrollContainer fresh every time!
     [self setupScrollContainer];
 
     [self setupSectionCells];
@@ -131,15 +132,11 @@
         [self.scrollContainer addSubview:cell];
     }
 
-    // Ensure the scrollContainer is scrolled to the top before its sub-views are constrained.
     self.scrollView.contentOffset = CGPointZero;
 
     [self.view setNeedsUpdateConstraints];
 
-    // Don't start monitoring scrollView scrolling until view has appeared.
     self.scrollView.delegate = self;
-
-    //CFTimeInterval begin = CACurrentMediaTime();
 }
 
 - (void)setupScrollContainer {
@@ -557,6 +554,14 @@
     }
 
     //NSLog(@"%f", CACurrentMediaTime() - begin);
+}
+
+- (void)updateTocForArticle:(MWKArticle*)article {
+    if ([self.article isEqual:article]) {
+        return;
+    }
+    self.article = article;
+    [self setTocSectionDataForSections:article.sections];
 }
 
 - (void)setTocSectionDataForSections:(MWKSectionList*)sections {
