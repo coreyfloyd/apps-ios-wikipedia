@@ -22,6 +22,9 @@
 @property (strong, nonatomic, readwrite) MWKArticle* article;
 
 @property (strong, nonatomic) NSArray* sectionCells;
+@property (assign, nonatomic) NSInteger highlightedCell;
+
+@property (strong, nonatomic) NSArray* sectionOffsetsBySectionIndex;
 
 @property (strong, nonatomic) UIView* scrollContainer;
 
@@ -56,6 +59,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.highlightedCell = 0;
     // Do any additional setup after loading the view.
 
     self.view.translatesAutoresizingMaskIntoConstraints = NO;
@@ -137,6 +142,11 @@
     [self.view setNeedsUpdateConstraints];
 
     self.scrollView.delegate = self;
+
+
+    NSArray* result = [self.webVC.webView getWebViewrectsForHtmlElementsWithPrefix:@"section_heading_and_content_block_" elementCount:self.sectionCells.count];
+    self.sectionOffsetsBySectionIndex = result;
+    
 }
 
 - (void)setupScrollContainer {
@@ -279,6 +289,7 @@
                           thenHideTOC:(BOOL)hideTOC {
     cell.isSelected    = YES;
     cell.isHighlighted = YES;
+    self.highlightedCell = [self.sectionCells indexOfObject:cell];
 
     NSString* elementId = [NSString stringWithFormat:@"section_heading_and_content_block_%ld", (long)cell.tag];
 
@@ -331,6 +342,7 @@
 
                 cell.isSelected    = YES;
                 cell.isHighlighted = YES;
+                self.highlightedCell = [self.sectionCells indexOfObject:cell];
             }
         }
 
@@ -338,6 +350,9 @@
             [self limitVerticalScrolling:self.scrollView];
         }
     }
+    
+    [self scrollWebViewToHighlightedSection];
+
 }
 
 - (void)limitVerticalScrolling:(UIScrollView*)scrollView {
@@ -389,16 +404,20 @@
 
 - (void)scrollViewScrollingEnded:(UIScrollView*)scrollView {
     [self scrollViewDidScroll:scrollView];
-
-    for (TOCSectionCellView* cell in [self.sectionCells copy]) {
-        if (cell.isSelected) {
-            [self scrollWebViewToSectionForCell:cell
-                                       duration:TOC_SELECTION_SCROLL_DURATION
-                                    thenHideTOC:NO];
-            break;
-        }
-    }
 }
+
+- (void)scrollWebViewToHighlightedSection{
+
+    if(self.highlightedCell >= [self.sectionCells count]){
+        return;
+    }
+
+    TOCSectionCellView* cell = self.sectionCells[self.highlightedCell];
+    [self scrollWebViewToSectionForCell:cell
+                               duration:TOC_SELECTION_SCROLL_DURATION
+                            thenHideTOC:NO];
+}
+
 
 - (void)centerCellForWebViewTopMostSectionAnimated:(BOOL)animated {
     if (!self.scrollView.isDragging) {
@@ -410,12 +429,13 @@
 #pragma mark Highlighted cell
 
 - (TOCSectionCellView*)getHighlightedCell {
-    for (TOCSectionCellView* cell in [self.sectionCells copy]) {
-        if (cell.isSelected) {
-            return cell;
-        }
+    
+    if(self.highlightedCell >= [self.sectionCells count]){
+        
+        return nil;
     }
-    return nil;
+    
+    return self.sectionCells[self.highlightedCell];
 }
 
 - (void)scrollHighlightedCellToSelectionLineWithDuration:(CGFloat)duration {
@@ -483,12 +503,30 @@
 - (void)updateHighlightedCellToReflectWebView {
     // Highlight cell for section currently nearest top of webview.
     if (self.sectionCells.count > 0) {
+
+        CGPoint offset = self.webVC.webView.scrollView.contentOffset;
+        
+        __block NSInteger indexOfFirstOnscreenSection;
+        
+        [self.sectionOffsetsBySectionIndex enumerateObjectsUsingBlock:^(NSNumber* offsetAsNumber, NSUInteger idx, BOOL *stop) {
+            
+            CGFloat yOffset = [offsetAsNumber floatValue];
+            
+            if(yOffset > offset.y){
+                
+                *stop = YES;
+            }
+            
+            indexOfFirstOnscreenSection = idx;
+
+        }];
+        
+        if(self.highlightedCell != NSNotFound && indexOfFirstOnscreenSection == self.highlightedCell){
+            return;
+        }
+        
         [self deSelectAllCells];
         [self unHighlightAllCells];
-
-        NSInteger indexOfFirstOnscreenSection =
-            [self.webVC.webView getIndexOfTopOnScreenElementWithPrefix:@"section_heading_and_content_block_"
-                                                                 count:self.sectionCells.count];
 
         //NSLog(@"indexOfFirstOnscreenSection = %ld sectionCells.count = %ld", indexOfFirstOnscreenSection, self.sectionCells.count);
 
@@ -502,6 +540,7 @@
             TOCSectionCellView* cell = ((TOCSectionCellView*)self.sectionCells[indexOfFirstOnscreenSection]);
             cell.isSelected    = YES;
             cell.isHighlighted = YES;
+            self.highlightedCell = indexOfFirstOnscreenSection;
         }
     }
 }

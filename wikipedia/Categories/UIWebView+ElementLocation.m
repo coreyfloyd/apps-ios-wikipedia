@@ -2,6 +2,7 @@
 //  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import "UIWebView+ElementLocation.h"
+#import <BlocksKit/BlocksKit.h>
 
 @implementation UIWebView (ElementLocation)
 
@@ -40,6 +41,33 @@
         p.y + floor(self.scrollView.contentOffset.y)
         );
 }
+
+- (NSArray*)getWebViewrectsForHtmlElementsWithPrefix:(NSString*)prefix elementCount:(NSUInteger)count{
+
+    NSString* strToEval =
+    [NSString stringWithFormat:@"window.elementLocation.getOffestsOfElementsWithPrefix('%@', %lu);", prefix, (unsigned long)count];
+    NSString* jsonString = [self stringByEvaluatingJavaScriptFromString:strToEval];
+
+    if (jsonString.length == 0) {
+        return nil;
+    }
+    NSData* jsonData              = [jsonString dataUsingEncoding:NSUTF8StringEncoding];
+    NSError* error                = nil;
+    NSArray* json = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:&error];
+    if (error) {
+        return nil;
+    }
+    
+    json = [json bk_map:^id(NSString* offsetAsString) {
+        
+        CGFloat offset = [offsetAsString floatValue];
+        offset += floor(self.scrollView.contentOffset.y);
+        return @(offset);
+    }];
+    
+    return json;
+}
+
 
 - (CGRect)getScreenRectForHtmlElementWithId:(NSString*)elementId {
     NSString* strToEval =
@@ -92,5 +120,6 @@
     NSString* result = [self stringByEvaluatingJavaScriptFromString:strToEval];
     return (result) ? result.integerValue : -1;
 }
+
 
 @end

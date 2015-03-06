@@ -47,3 +47,23 @@ exports.getIndexOfFirstOnScreenElementWithTopGreaterThanY = function(elementPref
     }
     return -1;
 }
+
+exports.getOffestsOfElementsWithPrefix = function(elementPrefix, elementCount){
+    
+    var elementOffsets = [];
+    
+    for (var i = 0; i < elementCount; ++i) {
+        var element = elementPrefix + i;
+        var div = document.getElementById(element);
+        if(div == null){
+            elementOffsets.push(0);
+        }else{
+            var rect = this.getElementRect(div);
+            elementOffsets.push(rect['top']);
+        }
+    }
+    
+    var result = JSON.stringify(elementOffsets);
+    
+    return result;
+}

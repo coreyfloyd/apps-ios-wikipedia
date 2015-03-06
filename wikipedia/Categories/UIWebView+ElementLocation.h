@@ -10,9 +10,12 @@
 - (CGRect)getScreenRectForHtmlElementWithId:(NSString*)elementId;
 - (CGRect)getWebViewRectForHtmlElementWithId:(NSString*)elementId;
 
+- (NSArray*)getWebViewrectsForHtmlElementsWithPrefix:(NSString*)prefix elementCount:(NSUInteger)count;
+
 - (CGPoint)getScreenCoordsForHtmlImageWithSrc:(NSString*)src;
 - (CGPoint)getWebViewCoordsForHtmlImageWithSrc:(NSString*)src;
 
 - (NSInteger)getIndexOfTopOnScreenElementWithPrefix:(NSString*)prefix count:(NSUInteger)count;
+
 
 @end
