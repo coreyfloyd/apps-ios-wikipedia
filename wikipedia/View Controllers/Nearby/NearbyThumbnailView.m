@@ -15,9 +15,6 @@
 #define NEARBY_COMPASS_LINE_COUNT 57
 #define NEARBY_OPPOSITE_LINE_WIDTH 2.0f
 
-#define RADIANS_TO_DEGREES(radians) ((radians) * (180.0 / M_PI))
-#define DEGREES_TO_RADIANS(angle) ((angle) / 180.0 * M_PI)
-
 @interface NearbyThumbnailView ()
 
 @property (strong, nonatomic) UIImageView* thumbImageView;

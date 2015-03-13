@@ -21,9 +21,6 @@
 
 #define TABLE_CELL_ID @"NearbyResultCollectionCell"
 
-#define RADIANS_TO_DEGREES(radians) ((radians) * (180.0 / M_PI))
-#define DEGREES_TO_RADIANS(angle) ((angle) / 180.0 * M_PI)
-
 @interface NearbyViewController ()
 
 @property (strong, nonatomic) NSArray* nearbyDataArray;
