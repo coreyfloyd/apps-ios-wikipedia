@@ -3431,6 +3431,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(PROJECT_DIR)/vendor/Frameworks\"",
 					"$(inherited)",
@@ -3451,6 +3452,7 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = Wikipedia;
 				PROVISIONING_PROFILE = "";
+				VERSIONING_SYSTEM = "apple-generic";
 				WARNING_CFLAGS = (
 					"$(inherited)",
 					"-Werror=switch",
@@ -3470,6 +3472,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
 				FRAMEWORK_SEARCH_PATHS = (
 					"\"$(PROJECT_DIR)/vendor/Frameworks\"",
 					"$(inherited)",
@@ -3491,6 +3494,7 @@
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = Wikipedia;
 				PROVISIONING_PROFILE = "";
+				VERSIONING_SYSTEM = "apple-generic";
 				WARNING_CFLAGS = (
 					"$(inherited)",
 					"-Werror=switch",
