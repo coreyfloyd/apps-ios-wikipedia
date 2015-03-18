@@ -8,13 +8,6 @@
 before_all do
   cocoapods
   increment_build_number $BUILD_NUMBER
-  ipa({
-    workspace: "Wikipedia.xcworkspace",
-    configuration: "Debug",
-    scheme: "Wikipedia",
-  })
-
-  # xctool
 end
 
 lane :test do
@@ -23,7 +16,15 @@ end
 
 lane :alpha do
   sigh :adhoc
-  #deliver :testflight
+
+  ipa({
+    workspace: "Wikipedia.xcworkspace",
+    configuration: "Debug",
+    scheme: "Wikipedia",
+  })
+
+  # xctool
+  # deliver :testflight
 end
 
 lane :beta do
