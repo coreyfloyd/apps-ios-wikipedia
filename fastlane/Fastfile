@@ -7,7 +7,7 @@
 
 before_all do
   cocoapods
-  increment_build_number $BUILD_NUMBER
+  increment_build_number ENV["BUILD_NUMBER"]
 end
 
 lane :test do
@@ -15,7 +15,16 @@ lane :test do
 end
 
 lane :alpha do
+
+  cert
   sigh :adhoc
+
+  xctest(
+      destination: "name=iPhone 5s,OS=8.1",
+      report_formats: [ "html", "junit" ],
+      report_path: "./build-dir/reports", # will use XCODE_BUILD_PATH/reports, if not provided
+      report_screenshots: true
+    )
 
   ipa({
     workspace: "Wikipedia.xcworkspace",
@@ -24,6 +33,12 @@ lane :alpha do
   })
 
   # xctool
+
+#  hockey({
+#  api_token: 'c881c19fd8d0401682c4640b7948ef5e',
+#  notes: "Changelog",
+#  notify: 0
+})
   # deliver :testflight
 end
 

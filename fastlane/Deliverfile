@@ -3,6 +3,11 @@
 
 # hide_transporter_output # remove the '#' in the beginning of the line, to hide the output while uploading
 
+# Set paths to the ipa file
+
+ipa ENV["IPA_OUTPUT_PATH"]
+beta_ipa ENV["IPA_OUTPUT_PATH"]
+
 
 ########################################
 # App Metadata
@@ -27,7 +32,7 @@ config_json_folder './deliver'
 # I'm using Shenzhen by Mattt, but you can use any build tool you want
 # Remove the whole block if you do not want to upload an ipa file
 ipa do
-    # Add any code you want, like incrementing the build 
+    # Add any code you want, like incrementing the build
     # number or changing the app identifier
 
     # Attention: When you return a valid ipa file, this file will get uploaded and released
