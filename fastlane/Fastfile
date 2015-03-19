@@ -16,7 +16,6 @@ end
 
 lane :alpha do
 
-  cert
   sigh :adhoc
 
   xctest(
