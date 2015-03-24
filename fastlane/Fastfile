@@ -7,7 +7,7 @@
 
 before_all do
   cocoapods
-  increment_build_number $BUILD_NUMBER
+  increment_build_number ENV["BUILD_NUMBER"]
 end
 
 lane :test do
