@@ -1,5 +1,10 @@
 source 'https://github.com/CocoaPods/Specs.git'
+
 platform :ios, :deployment_target => '6.0'
+
+inhibit_all_warnings!
+
+xcodeproj 'Wikipedia', 'Alpha' => :release
 
 pod 'AFNetworking', '< 2.6'
 pod 'hpple', '< 0.3'
