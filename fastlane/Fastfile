@@ -6,6 +6,7 @@
 # All lines starting with a # are ignored when running `fastlane`
 
 before_all do
+  ensure_git_status_clean
   cocoapods
   increment_build_number ENV["BUILD_NUMBER"]
 end
@@ -19,17 +20,18 @@ lane :alpha do
   cert
   sigh :adhoc
 
-  xctest(
-      workspace: "Wikipedia.xcworkspace",
-      scheme: "Wikipedia",
-      destination: "platform=iOS Simulator,name=iPhone 5s,OS=8.2",
-      report_formats: [ "html", "junit" ],
-    )
+  # xctest(
+  #     workspace: "Wikipedia.xcworkspace",
+  #     scheme: "WikipediaAlpha",
+  #     configuration: "Alpha",
+  #     destination: "platform=iOS Simulator,name=iPhone 5s,OS=8.2",
+  #     report_formats: [ "html", "junit" ],
+  #   )
 
   ipa({
     workspace: "Wikipedia.xcworkspace",
-    configuration: "Debug",
-    scheme: "Wikipedia",
+    configuration: "Alpha",
+    scheme: "WikipediaAlpha",
   })
 
   hockey({
