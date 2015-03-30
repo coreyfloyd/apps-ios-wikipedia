@@ -13,7 +13,15 @@ before_all do
 end
 
 lane :test do
-  snapshot
+
+  xctest(
+    workspace: "Wikipedia.xcworkspace",
+    scheme: "WikipediaAlpha",
+    configuration: "Alpha",
+    destination: "platform=iOS Simulator,name=iPhone 5s,OS=8.2",
+    report_formats: [ "html", "junit" ],
+  )
+
 end
 
 lane :alpha do
@@ -35,13 +43,13 @@ lane :alpha do
     scheme: "WikipediaAlpha",
   })
 
-  hockey({
-    api_token: 'c881c19fd8d0401682c4640b7948ef5e',
-    notes: "Changelog",
-    notify: 0
- })
+ #  hockey({
+ #    api_token: 'c881c19fd8d0401682c4640b7948ef5e',
+ #    notes: "Changelog",
+ #    notify: 0
+ # })
 
-  # deliver :testflight
+  deliver :testflight
 end
 
 lane :beta do
