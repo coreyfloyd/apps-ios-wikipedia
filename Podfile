@@ -4,7 +4,7 @@ platform :ios, :deployment_target => '6.0'
 
 inhibit_all_warnings!
 
-xcodeproj 'Wikipedia', 'Alpha' => :release
+xcodeproj 'Wikipedia', 'Alpha' => :release, 'Beta' => :release
 
 pod 'AFNetworking', '< 2.6'
 pod 'hpple', '< 0.3'
