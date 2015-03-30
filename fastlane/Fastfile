@@ -58,7 +58,7 @@ lane :alpha do
  #    notify: 0
  # })
 
-  deliver :testflight, :force
+  deliver :testflight, :beta, :force
 end
 
 lane :beta do

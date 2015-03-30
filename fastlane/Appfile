@@ -1,7 +1,22 @@
-app_identifier "org.wikimedia.wikipedia.tfbeta" # The bundle identifier of your app
-apple_id "cfloyd@wikimedia.org" # Your Apple email address
 
-# You can uncomment the lines below and add your own
-# team selection in case you're in multiple teams
-# team_name "Felix Krause"
-# team_id "Q2CBPJ58CA"
+# Team
+team_id "AKK7J2GV64"
+team_name "Wikimedia Foundation"
+
+# Account to use to submit builds
+apple_id "cfloyd@wikimedia.org"
+
+# Set the app identifier for each build (used to look up the app in itunes connect)
+app_identifier "org.wikimedia.wikipedia.tfbeta"
+
+# for_lane :alpha do
+#   app_identifier "org.wikimedia.wikipedia.tfbeta"
+# end
+#
+# for_lane :beta do
+#   app_identifier "org.wikimedia.wikipedia.tfbeta"
+# end
+#
+# for_lane :appstore do
+#   app_identifier "org.wikimedia.wikipedia"
+# end

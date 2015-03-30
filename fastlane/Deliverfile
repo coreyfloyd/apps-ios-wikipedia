@@ -7,19 +7,21 @@
 ipa ENV["IPA_OUTPUT_PATH"]
 beta_ipa ENV["IPA_OUTPUT_PATH"]
 
-# Set apple_id for Testflight builds
-apple_id '974795031'
 
 ########################################
 # App Metadata
 ########################################
 
+# Set apple_id for Testflight builds
+apple_id '974795031'
+
+copyright "#{Time.now.year} Wikimedia Foundation"
+
 # This folder has to include one folder for each language
 # More information about automatic screenshot upload:
 # https://github.com/KrauseFx/deliver#upload-screenshots-to-itunes-connect
+
 screenshots_path "./screenshots/"
 
-
 # version '1.2' # you can pass this if you want to verify the version number with the ipa file
-
 config_json_folder './deliver'
