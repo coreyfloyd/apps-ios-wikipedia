@@ -1042,7 +1042,7 @@
 		D47FEE2619C8CB6B00B998C8 /* cs */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = cs; path = cs.lproj/Main_iPhone.strings; sourceTree = "<group>"; };
 		D47FEE2719C8CBB400B998C8 /* ta */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ta; path = ta.lproj/Main_iPhone.strings; sourceTree = "<group>"; };
 		D47FEE2819C8CC2600B998C8 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
-		D4991435181D51DE00E6073C /* Debugipedia .app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Debugipedia .app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D4991435181D51DE00E6073C /* Debugipedia.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Debugipedia.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4991438181D51DE00E6073C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D499143A181D51DE00E6073C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		D499143C181D51DE00E6073C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -2285,7 +2285,7 @@
 		D4991436181D51DE00E6073C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D4991435181D51DE00E6073C /* Debugipedia .app */,
+				D4991435181D51DE00E6073C /* Debugipedia.app */,
 				BC4273521A7C736800068882 /* WikipediaUnitTests.xctest */,
 			);
 			name = Products;
@@ -2482,7 +2482,7 @@
 			);
 			name = Wikipedia;
 			productName = "Wikipedia-iOS";
-			productReference = D4991435181D51DE00E6073C /* Debugipedia .app */;
+			productReference = D4991435181D51DE00E6073C /* Debugipedia.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -3467,7 +3467,7 @@
 		};
 		A69698A61AC9D08700208A11 /* Beta */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0E4F85DE1AC1BFD4004CA3CD /* AlphaConfig.xcconfig */;
+			baseConfigurationReference = A69698A51AC9D06B00208A11 /* BetaConfig.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER = YES;
