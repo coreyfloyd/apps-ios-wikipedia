@@ -41,10 +41,12 @@ lane :alpha do
     workspace: "Wikipedia.xcworkspace",
     configuration: "Alpha",
     scheme: "WikipediaAlpha",
+    embed: "_org.wikimedia.wikipedia.mobileprovision",
     clean: nil, # this means 'Do Clean'. Clean project before building.
     archive: nil, # this means 'Do Archive'. Archive project after building.
     verbose: nil, # this means 'Do Verbose'.
   })
+
 
  #  hockey({
  #    api_token: 'c881c19fd8d0401682c4640b7948ef5e',
