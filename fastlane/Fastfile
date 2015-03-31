@@ -109,7 +109,7 @@ lane :beta do
   })
 
 # Upload the IPA and DSYM to iTunes Connect
-  deliver :testflight, :beta, :skip_deploy, :force
+  deliver :testflight, :beta, :force
 end
 
 lane :appstore do
