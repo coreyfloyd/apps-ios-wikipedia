@@ -6,6 +6,7 @@
 # All lines starting with a # are ignored when running `fastlane`
 
 before_all do
+  puts ENV
   reset_git_repo :force
   ensure_git_status_clean
   cocoapods
