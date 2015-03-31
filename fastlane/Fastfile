@@ -10,7 +10,7 @@ before_all do
   reset_git_repo :force
   ensure_git_status_clean
   cocoapods
-  build_number = ENV["BUILD_ID"].to_i
+  build_number = ENV["BUILD_NUMBER"].to_i
   p build_number
   increment_build_number build_number
 end
