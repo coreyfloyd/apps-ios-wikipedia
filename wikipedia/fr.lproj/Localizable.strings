@@ -1,7 +1,9 @@
 // Messages for French (français)
 // Exported from translatewiki.net
 // Author: Brion Vibber
+// Author: Caliburn
 // Author: Gomoko
+// Author: Hydros
 // Author: John Trololo
 // Author: Macofe
 // Author: Orikrin1998
@@ -12,12 +14,15 @@
 "article-languages-cancel" = "Annuler";
 "article-languages-downloading" = "Chargement des langues de l’article en cours…";
 "article-languages-filter-placeholder" = "Filtre de langue";
+"article-read-more-title" = "En savoir plus";
+"info-box-title" = "Faits en bref";
+"info-box-close-text" = "Fermer";
 "language-button-text" = "Vous pouvez lire cet article en %d autres langues";
 "history-label" = "Récent";
 "history-section-today" = "Aujourd'hui";
 "history-section-yesterday" = "Hier";
 "history-section-lastweek" = "La semaine dernière";
-"history-section-lastmonth" = "Mois dernier";
+"history-section-lastmonth" = "Le mois dernier";
 "history-clear-confirmation-heading" = "Supprimer tous les éléments récents ?";
 "history-clear-confirmation-sub-heading" = "Cette action ne peut pas être annulée !";
 "history-clear-cancel" = "Annuler";
@@ -46,6 +51,7 @@
 "account-creation-password-placeholder-text" = "Mot de passe";
 "account-creation-password-confirm-placeholder-text" = "Confirmer le mot de passe";
 "account-creation-email-placeholder-text" = "Courriel (facultatif)";
+"account-creation-missing-fields" = "Vous devez saisir un nom d’utilisateur, un mot de passe et une confirmation de mot de passe, pour créer un compte.";
 "login-name-not-found" = "Le nom d’utilisateur est obligatoire pour se connecter.";
 "login-name-illegal" = "Vous avez fourni un nom d’utilisateur non légal.";
 "login-name-does-not-exist" = "Le nom d’utilisateur que vous avez fourni n’existe pas.";
@@ -84,7 +90,7 @@
 "search-cancel" = "Annuler";
 "search-titles" = "Titres";
 "search-within-articles" = "Dans les articles";
-"search-did-you-mean" = "Vouliez-vous dire $1 ?";
+"search-did-you-mean" = "Voulez-vous dire $1 ?";
 "search-recent-title" = "Recherches récentes";
 "search-recent-clear-confirmation-heading" = "Supprimer toutes les recherches récentes ?";
 "search-recent-clear-confirmation-sub-heading" = "Cette action ne peut pas être annulée !";
@@ -114,15 +120,20 @@
 "main-menu-terms-of-use" = "Conditions d’utilisation";
 "main-menu-rate-app" = "Noter l’application";
 "main-menu-heading-zero" = "Wikipédia Zéro";
+// Fuzzy
 "main-menu-heading-legal" = "Informations légales";
 "main-menu-show-today" = "Aujourd’hui";
 "main-menu-nearby" = "À proximité";
 "main-menu-more" = "Plus…";
+"main-menu-heading-debug" = "Déboguage";
+"main-menu-debug-crash" = "Planter";
 "saved-pages-title" = "Pages enregistrées";
 "saved-pages-clear-confirmation-heading" = "Supprimer tous les éléments enregistrés ?";
 "saved-pages-clear-confirmation-sub-heading" = "Cette action ne peut pas être annulée !";
 "saved-pages-clear-cancel" = "Annuler";
-"saved-pages-clear-delete-all" = "Supprimer tout";
+"saved-pages-refresh-cancel-alert-title" = "Mise à jour annulée";
+"saved-pages-refresh-cancel-alert-message" = "Les articles de Wikipédia sont mis à jour continuellement. Appuyez sur rafraîchir pour obtenir la dernière version de tous les articles.";
+"saved-pages-refresh-cancel-alert-button" = "L’obtenir";
 "page-history-title" = "Historique de la page";
 "page-history-downloading" = "Chargement de l’historique de la page…";
 "navbar-title-mode-edit-wikitext" = "Modifier";
@@ -149,8 +160,8 @@
 "edit-summary-field-placeholder-text" = "Comment avez-vous amélioré la page ?";
 "edit-summary-title" = "Comment avez-vous amélioré cet article ?";
 "fetching-random-article" = "Récupération d’un article au hasard";
-"article-pull-to-refresh-prompt" = "Tirer pour rafraîchir l’article";
-"article-pull-to-refresh-is-refreshing" = "Article rafraîchi";
+"article-pull-to-refresh-prompt" = "Tirer pour actualisé l’article";
+"article-pull-to-refresh-is-refreshing" = "Article actualisé";
 "credits-title" = "Lieux de mise à disposition des Open sources";
 "credits-wikimedia-repos" = "Wikimedia";
 "credits-gerrit-repo" = "Application principale (Gerrit)";
@@ -164,6 +175,7 @@
 "about-translators" = "traducteurs";
 "about-translators-details" = "Cette application a été traduite par des traducteurs bénévoles sur $1";
 "about-libraries" = "bibliothèques utilisées";
+"about-libraries-license" = "Licence";
 "about-repositories" = "référentiels";
 "about-send-feedback" = "Envoyer un avis sur l’application";
 "about-product-of" = "Un produit de la $1";
@@ -171,6 +183,11 @@
 "share-menu-save-page" = "Enregistrer la page";
 "share-menu-page-saved" = "Page enregistrée";
 "share-menu-page-saved-access" = "Conseil : pour accéder à vos pages enregistrées, tapez $1 ci-dessus ou appuyez longuement sur $2 ci-dessous.";
+"share-custom-menu-item" = "Partager";
+"share-article-name-on-wikipedia" = "« $1 » sur @Wikipedia:";
+"share-article-name-on-wikipedia-with-selected-text" = "« $1 » sur @Wikipedia : « $2 »";
+"share-as-image" = "Partager comme image";
+"share-as-text" = "Partager comme texte";
 "timestamp-just-now" = "à l’instant";
 "timestamp-minutes" = "il y a %d minutes";
 "timestamp-hours" = "il y a %d heures";
@@ -185,11 +202,11 @@
 "onboarding-create-account" = "Créer un compte";
 "onboarding-login" = "Se connecter";
 "onboarding-already-have-account" = "Vous avez déjà un compte ? $1";
-"onboarding-skip" = "Sauter";
+"onboarding-skip" = "Passer";
 "onboarding-wikipedia" = "Wikipédia";
 "onboarding-free-encyclopedia" = "L’Encyclopédie libre";
 "preference_title_eventlogging_opt_in" = "Envoyer les rapports d’utilisation";
-"preference_summary_eventlogging_opt_in" = "Permettre à Wikimédia de collecter des informations sur la manière dont vous utilisez l’application, afin de la rendre meilleure";
+"preference_summary_eventlogging_opt_in" = "Permettre à Wikimédia de collecter des informations sur la manière dont vous utilisez l’application, afin de l'améliorer";
 "page_protected_autoconfirmed" = "Cette page a été semi-protégée.";
 "page_protected_sysop" = "Cette page a été complètement protégée.";
 "page_protected_other" = "Cette page a été protégée pour les niveaux suivants : $1";
@@ -215,6 +232,7 @@
 "menu-w-accessibility-label" = "Menu";
 "menu-toc-accessibility-label" = "Contenu";
 "menu-search-accessibility-label" = "Rechercher";
+"menu-reload-accessibility-label" = "Recharger";
 "menu-cancel-accessibility-label" = "Annuler";
 "menu-share-accessibility-label" = "Partager";
 "menu-more-accessibility-label" = "Plus de paramètres";
@@ -236,3 +254,12 @@
 "nearby-location-updates-settings-menu" = "Confidentialité > Services d’emplacement > Wikipédia";
 "nearby-location-general-error" = "Impossible de déterminer l’emplacement. Tirer pour rafraîchir ou réessayer ultérieurement.";
 "nearby-wifi" = "L’activation du wifi peut aider votre appareil à mieux déterminer votre emplacement.";
+"migration-update-progress-label" = "Mise à jour des données locales";
+"image-gallery-unknown-owner" = "Téléchargeur inconnu.";
+"hockeyapp-alert-question" = "Voulez-vous envoyer un rapport de plantage à $1 pour que Wikipédia puisse l’étudier ?";
+"hockeyapp-alert-question-with-response-field" = "Voulez-vous envoyer un rapport de plantage à $1 pour que Wikipédia puisse l’étudier ? Veuillez décrire ce qui s’est produit lorsque le plantage s’est produit :";
+"hockeyapp-alert-title" = "Désolé, l’application s’est plantée la dernière fois";
+"hockeyapp-alert-send-report" = "Envoyer un rapport";
+"hockeyapp-alert-always-send" = "Toujours envoyer";
+"hockeyapp-alert-do-not-send" = "Ne pas envoyer";
+"hockeyapp-alert-privacy" = "Confidentialité de $1";

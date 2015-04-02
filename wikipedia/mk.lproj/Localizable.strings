@@ -8,6 +8,9 @@
 "article-languages-cancel" = "Откажи";
 "article-languages-downloading" = "Ги вчитувам јазиците на статијата...";
 "article-languages-filter-placeholder" = "Јазичен филтер";
+"article-read-more-title" = "Прочитајте повеќе";
+"info-box-title" = "Накратко";
+"info-box-close-text" = "Затвори";
 "language-button-text" = "Статијава можете да ја прочитате и на %d други јазици";
 "history-label" = "Скорешни";
 "history-section-today" = "Денес";
@@ -42,6 +45,7 @@
 "account-creation-password-placeholder-text" = "Лозинка";
 "account-creation-password-confirm-placeholder-text" = "Потврда на лозинката";
 "account-creation-email-placeholder-text" = "Е-пошта (незадолжително)";
+"account-creation-missing-fields" = "Ќе мора да внесете корисничко име, лозинка и нејзина потврда за да направите сметка.";
 "login-name-not-found" = "Се бара корисничко име.";
 "login-name-illegal" = "Внесовте неправилно корисничко име.";
 "login-name-does-not-exist" = "Внесеното корисничко име не постои.";
@@ -110,15 +114,20 @@
 "main-menu-terms-of-use" = "Услови на употреба";
 "main-menu-rate-app" = "Оценете го извршникот";
 "main-menu-heading-zero" = "Википедија Нулта";
+// Fuzzy
 "main-menu-heading-legal" = "Правни работи";
 "main-menu-show-today" = "Денес";
 "main-menu-nearby" = "Во близина";
 "main-menu-more" = "Повеќе...";
+"main-menu-heading-debug" = "Исправки";
+"main-menu-debug-crash" = "Уривање";
 "saved-pages-title" = "Зачувани страници";
 "saved-pages-clear-confirmation-heading" = "Да ги избришам сите зачувани ставки?";
 "saved-pages-clear-confirmation-sub-heading" = "Ова дејство е неповратно!";
 "saved-pages-clear-cancel" = "Откажи";
-"saved-pages-clear-delete-all" = "Избриши ги сите";
+"saved-pages-refresh-cancel-alert-title" = "Подновата е откажана";
+"saved-pages-refresh-cancel-alert-message" = "Статиите на Википедија сето време се менуваат, односно подновуваат. Допрете на „Превчитај“ за да ги добиете најновите верзии на сите статии.";
+"saved-pages-refresh-cancel-alert-button" = "Јасно";
 "page-history-title" = "Историја на страницата";
 "page-history-downloading" = "Ја вчитувам историјата...";
 "navbar-title-mode-edit-wikitext" = "Уреди";
@@ -160,6 +169,7 @@
 "about-translators" = "преведувачи";
 "about-translators-details" = "Извршников го преведоа доброволни преведувачи на $1";
 "about-libraries" = "користени библиотеки";
+"about-libraries-license" = "Лиценца";
 "about-repositories" = "складишта";
 "about-send-feedback" = "Испрати мислење за извршникот";
 "about-product-of" = "Производ на $1";
@@ -167,6 +177,11 @@
 "share-menu-save-page" = "Зачувај страница";
 "share-menu-page-saved" = "Страницата е зачувана";
 "share-menu-page-saved-access" = "Совет: за да дојдете до вашите зачувани страници, допрете го $1 погоре или подржете на $2 подолу.";
+"share-custom-menu-item" = "Сподели";
+"share-article-name-on-wikipedia" = "„$1“ на @Wikipedia:";
+"share-article-name-on-wikipedia-with-selected-text" = "„$1“ на @Википедија: „$2“";
+"share-as-image" = "Сподели ја сликава";
+"share-as-text" = "Сподели како текст";
 "timestamp-just-now" = "штотуку";
 "timestamp-minutes" = "пред %d минути";
 "timestamp-hours" = "пред %d часа";
@@ -211,6 +226,7 @@
 "menu-w-accessibility-label" = "Мени";
 "menu-toc-accessibility-label" = "Содржина";
 "menu-search-accessibility-label" = "Пребарај";
+"menu-reload-accessibility-label" = "Превчитај";
 "menu-cancel-accessibility-label" = "Откажи";
 "menu-share-accessibility-label" = "Сподели";
 "menu-more-accessibility-label" = "Повеќе поставки";
@@ -232,3 +248,12 @@
 "nearby-location-updates-settings-menu" = "Приватност > Местоположбени услуги > Википедија";
 "nearby-location-general-error" = "Не можам да ја утврдам местоположбата. Повлечете за да превчитате или обидете се повторно.";
 "nearby-wifi" = "Ако ја вклучите безжичната линија (Wi-Fi), уредот ќе може подобро да ја утврди вашата местоположба.";
+"migration-update-progress-label" = "Надградба на месните податоци";
+"image-gallery-unknown-owner" = "Подигачот е непознат";
+"hockeyapp-alert-question" = "Дали би сакале да испратите пријава за уривање на $1 за Викимедија да ви го разгледа проблемот?";
+"hockeyapp-alert-question-with-response-field" = "Дали би сакале да испратите пријава за уривање на $1 за Викимедија да ви го арзгледа проблемот? Опишете што се случи кога настана уривањето:";
+"hockeyapp-alert-title" = "За жал, извршникот се урна минатиот пат";
+"hockeyapp-alert-send-report" = "Испрати пријава";
+"hockeyapp-alert-always-send" = "Секогаш испраќај";
+"hockeyapp-alert-do-not-send" = "Не праќај";
+"hockeyapp-alert-privacy" = "Приватност на $1";

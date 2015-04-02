@@ -9,4 +9,10 @@
 
 @property (nonatomic, retain) NSManagedObjectContext *mainContext;
 
+- (NSManagedObjectContext*)backgroundContext;
+
+- (void)saveContextAndPropagateChangesToStore:(NSManagedObjectContext*)context completionBlock:(void(^)(NSError* error))completionBlock;
+
+- (id)createArticleDataModel:(Class)modelClass;
+
 @end

@@ -6,6 +6,7 @@
 "article-languages-label" = "Харжа мотт";
 // Fuzzy
 "article-languages-filter-placeholder" = "Литтар";
+"info-box-close-text" = "ДӀачӀагӀа";
 // Fuzzy
 "history-label" = "Хийцамашка хьажар";
 "history-section-today" = "Тахана";
@@ -27,7 +28,7 @@
 "login-password-placeholder-text" = "Пароль";
 "wikitext-downloading" = "Чулацам чубаккхар...";
 "wikitext-download-success" = "Чулацам чубаьккхина.";
-"wikitext-upload-save" = "Ӏалаш еш ю...";
+"wikitext-upload-save" = "Ӏалашъеш ю...";
 "wikitext-upload-save-sign-in" = "ЧугӀо";
 "wikitext-upload-save-terms-name" = "Лелоран хьал";
 "wikitext-upload-save-license-name" = "CC BY-SA 3.0";
@@ -49,6 +50,7 @@
 "main-menu-terms-of-use" = "Лелоран хьал";
 "main-menu-rate-app" = "ТӀетохаран мах хадор";
 "main-menu-heading-zero" = "Wikipedia Zero";
+// Fuzzy
 "main-menu-heading-legal" = "Цхьа гӀучӀа бу";
 "main-menu-show-today" = "Тахана";
 "main-menu-nearby" = "Уллехь";
@@ -66,8 +68,11 @@
 "about-testers" = "тестераш";
 "share-menu-save-page" = "Ӏалашъе агӀо";
 "share-menu-page-saved" = "АгӀо Ӏалашйина";
+"share-custom-menu-item" = "Екха";
 "timestamp-days" = "%d де хьалха";
+// Fuzzy
 "lastmodified-by-user" = "Хийцина $1 декъашхочо $2";
+// Fuzzy
 "lastmodified-by-anon" = "$1 хийцина цӀе хьулйина декъашхочо";
 "button-next" = "Кхин дӀа";
 "button-done" = "Кийчча ю";

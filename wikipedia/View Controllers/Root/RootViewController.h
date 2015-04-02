@@ -7,22 +7,22 @@
 
 @interface RootViewController : UIViewController
 
-@property (weak, nonatomic) TopMenuViewController *topMenuViewController;
-@property (weak, nonatomic) CenterNavController *centerNavController;
+@property (weak, nonatomic) TopMenuViewController* topMenuViewController;
+@property (weak, nonatomic) CenterNavController* centerNavController;
 
 @property (nonatomic) BOOL topMenuHidden;
-
+@property (nonatomic) BOOL shouldShowSplashOnAppear;
 @property (nonatomic) BOOL isAnimatingTopAndBottomMenuHidden;
 
 - (void)animateTopAndBottomMenuHidden:(BOOL)hidden;
 
 - (void)togglePrimaryMenu;
 
-- (void)pushViewController:(UIViewController *)viewController animated:(BOOL)animated;
-- (UIViewController *)popViewControllerAnimated:(BOOL)animated;
-- (void)popToViewController:(UIViewController *)viewController animated:(BOOL)animated;
+- (void)pushViewController:(UIViewController*)viewController animated:(BOOL)animated;
+- (UIViewController*)popViewControllerAnimated:(BOOL)animated;
+- (void)popToViewController:(UIViewController*)viewController animated:(BOOL)animated;
 - (void)popToRootViewControllerAnimated:(BOOL)animated;
 
--(BOOL)shouldHideTopNavIfNecessaryForViewController:(UIViewController *)vc;
+- (BOOL)shouldHideTopNavIfNecessaryForViewController:(UIViewController*)vc;
 
 @end

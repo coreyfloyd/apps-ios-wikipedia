@@ -2,6 +2,10 @@
 "article-languages-cancel" = "Cancel";
 "article-languages-downloading" = "Loading article languages...";
 "article-languages-filter-placeholder" = "Language Filter";
+"article-read-more-title" = "Read more";
+
+"info-box-title" = "Quick facts";
+"info-box-close-text" = "Close";
 
 "language-button-text" = "You can read this article in %d other languages";
 
@@ -118,16 +122,21 @@
 "main-menu-terms-of-use" = "Terms of use";
 "main-menu-rate-app" = "Rate app";
 "main-menu-heading-zero" = "Wikipedia Zero";
-"main-menu-heading-legal" = "Mumbo jumbo";
+"main-menu-heading-legal" = "Privacy and Terms";
 "main-menu-show-today" = "Today";
 "main-menu-nearby" = "Nearby";
 "main-menu-more" = "More...";
+"main-menu-heading-debug" = "Debug";
+"main-menu-debug-crash"= "Crash";
 
 "saved-pages-title" = "Saved pages";
 "saved-pages-clear-confirmation-heading" = "Delete all saved items?";
 "saved-pages-clear-confirmation-sub-heading" = "This action cannot be undone!";
 "saved-pages-clear-cancel" = "Cancel";
-"saved-pages-clear-delete-all" = "Delete All";
+"saved-pages-refresh-cancel-alert-title" = "Update cancelled";
+"saved-pages-refresh-cancel-alert-message" = "Wikipedia articles are updated all the time. Tap refresh to get the latest versions of all the articles.";
+"saved-pages-refresh-cancel-alert-button" = "Got it";
+
 
 "page-history-title" = "Article history";
 "page-history-downloading" = "Loading article history...";
@@ -177,6 +186,7 @@
 "about-translators" = "translators";
 "about-translators-details" = "Translated by volunteers at $1";
 "about-libraries" = "libraries used";
+"about-libraries-license" = "License";
 "about-repositories" = "repositories";
 "about-send-feedback" = "Send app feedback";
 "about-product-of" = "A product of the $1";
@@ -186,6 +196,12 @@
 "share-menu-page-saved" = "Saved for offline reading.";
 "share-menu-page-saved-access" = "Tip: to access your saved pages, tap $1 above or long-press $2 below.";
 
+"share-custom-menu-item" = "Share";
+"share-article-name-on-wikipedia" = "\"$1\" on @Wikipedia:";
+"share-article-name-on-wikipedia-with-selected-text" = "\"$1\" on @Wikipedia: \"$2\"";
+"share-as-image" = "Share as image";
+"share-as-text" = "Share as text";
+
 "timestamp-just-now" = "just now";
 "timestamp-minutes" = "%d minutes ago";
 "timestamp-hours" = "%d hours ago";
@@ -193,8 +209,8 @@
 "timestamp-months" = "%d months ago";
 "timestamp-years" = "%d years ago";
 
-"lastmodified-by-user" = "Modified $1 by $2";
-"lastmodified-by-anon" = "Modified $1 by an anonymous user";
+"lastmodified-by-user" = "Edited $1 by $2";
+"lastmodified-by-anon" = "Edited $1 by an anonymous user";
 
 "button-next" = "Next";
 "button-done" = "Done";
@@ -240,6 +256,7 @@
 "menu-w-accessibility-label" = "Menu";
 "menu-toc-accessibility-label" = "Contents";
 "menu-search-accessibility-label" = "Search";
+"menu-reload-accessibility-label" = "Reload";
 "menu-cancel-accessibility-label" = "Cancel";
 "menu-share-accessibility-label" = "Share";
 "menu-more-accessibility-label" = "More settings";
@@ -263,3 +280,16 @@
 "nearby-location-general-error" = "Unable to determine location. Pull to refresh or try again later.";
 "nearby-wifi" = "Enabling Wi-Fi can help your device better determine your location.";
 
+"migration-update-progress-label" = "Upgrading local data";
+"migration-update-progress-count-label" = "Migrating Article $1 of $2";
+
+
+"image-gallery-unknown-owner" = "Uploader unknown.";
+
+"hockeyapp-alert-question" = "Would you like to send a crash report to $1 so Wikimedia can review your crash?";
+"hockeyapp-alert-question-with-response-field" = "Would you like to send a crash report to $1 so Wikimedia can review your crash? Please describe what happened when the crash occurred:";
+"hockeyapp-alert-title" = "Sorry, app crashed last time";
+"hockeyapp-alert-send-report" = "Send report";
+"hockeyapp-alert-always-send" = "Always send";
+"hockeyapp-alert-do-not-send" = "Do not send";
+"hockeyapp-alert-privacy" = "$1 privacy";

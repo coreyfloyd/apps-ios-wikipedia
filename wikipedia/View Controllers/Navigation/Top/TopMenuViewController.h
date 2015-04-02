@@ -10,9 +10,9 @@ typedef enum {
     NAVBAR_BUTTON_ARROW_LEFT,
     NAVBAR_BUTTON_ARROW_RIGHT,
     NAVBAR_BUTTON_LOGO_W,
-    NAVBAR_BUTTON_EYE,
     NAVBAR_BUTTON_TOC,
     NAVBAR_BUTTON_MAGNIFY,
+    NAVBAR_BUTTON_RELOAD,
     NAVBAR_BUTTON_BLANK,
     NAVBAR_BUTTON_CANCEL,
     NAVBAR_BUTTON_NEXT,
@@ -39,6 +39,7 @@ typedef enum {
     NAVBAR_MODE_SEARCH,
     NAVBAR_MODE_X_WITH_LABEL,
     NAVBAR_MODE_X_WITH_TEXT_FIELD,
+    NAVBAR_MODE_BACK_WITH_LABEL,
     NAVBAR_MODE_PAGES_HISTORY,
     NAVBAR_MODE_PAGES_SAVED
 } NavBarMode;
@@ -53,15 +54,15 @@ typedef enum {
 
 @interface TopMenuViewController : UIViewController <UITextFieldDelegate, UISearchBarDelegate>
 
-@property (strong, nonatomic) SearchResultsController *searchResultsController;
+@property (strong, nonatomic) SearchResultsController* searchResultsController;
 
 @property (nonatomic) NavBarStyle navBarStyle;
 @property (nonatomic) NavBarMode navBarMode;
 
--(id)getNavBarItem:(NavBarItemTag)tag;
--(void)updateTOCButtonVisibility;
+- (id)getNavBarItem:(NavBarItemTag)tag;
+- (void)updateTOCButtonVisibility;
 
-@property (strong, nonatomic) IBOutlet TopMenuContainerView *navBarContainer;
+@property (strong, nonatomic) IBOutlet TopMenuContainerView* navBarContainer;
 
 @property (nonatomic) BOOL statusBarHidden;
 

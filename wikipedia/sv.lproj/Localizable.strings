@@ -1,10 +1,13 @@
 // Messages for Swedish (svenska)
 // Exported from translatewiki.net
+// Author: Aaoo
 // Author: Abbedabb
 // Author: Ainali
 // Author: Freked
+// Author: Jenniesarina
 // Author: Jopparn
 // Author: Lokal Profil
+// Author: Macofe
 // Author: Platinawolf
 // Author: WikiPhoenix
 
@@ -12,6 +15,9 @@
 "article-languages-cancel" = "Avbryt";
 "article-languages-downloading" = "Läser in artikelspråk...";
 "article-languages-filter-placeholder" = "Språkfilter";
+"article-read-more-title" = "Läs mer";
+"info-box-title" = "Snabbfakta";
+"info-box-close-text" = "Stäng";
 "language-button-text" = "Du kan läsa denna artikel på %d andra språk";
 "history-label" = "Webbhistorik";
 "history-section-today" = "Idag";
@@ -46,6 +52,7 @@
 "account-creation-password-placeholder-text" = "Lösenord";
 "account-creation-password-confirm-placeholder-text" = "Bekräfta lösenord";
 "account-creation-email-placeholder-text" = "E-post (valfritt)";
+"account-creation-missing-fields" = "Du måste ange ett användarnamn, lösenord och en lösenordsbekräftelse för att skapa ett konto.";
 "login-name-not-found" = "Användarnamn krävs för att logga in.";
 "login-name-illegal" = "Du angav ett ogiltigt användarnamn.";
 "login-name-does-not-exist" = "Det användarnamn du angav finns inte.";
@@ -104,8 +111,8 @@
 "main-menu-show-saved" = "Sparade artiklar";
 "main-menu-current-article-save" = "Spara $1 för läsning offline";
 "main-menu-random" = "Slumpartikel";
-"main-menu-feedback-heading" = "Feedback";
-"main-menu-send-feedback" = "Skicka feedback om appen";
+"main-menu-feedback-heading" = "Återkoppling";
+"main-menu-send-feedback" = "Skicka återkoppling om appen";
 "main-menu-show-page-history" = "Historik över redigeringar av $1";
 "main-menu-credits" = "Erkännanden";
 "main-menu-about" = "Om Wikipedia-appen";
@@ -114,15 +121,20 @@
 "main-menu-terms-of-use" = "Användarvillkor";
 "main-menu-rate-app" = "Betygsätt app";
 "main-menu-heading-zero" = "Wikipedia Zero";
+// Fuzzy
 "main-menu-heading-legal" = "Rättslig information";
 "main-menu-show-today" = "Idag";
 "main-menu-nearby" = "I närheten";
 "main-menu-more" = "Mer...";
+"main-menu-heading-debug" = "Felsökning";
+"main-menu-debug-crash" = "Krasch";
 "saved-pages-title" = "Sparade artiklar";
 "saved-pages-clear-confirmation-heading" = "Radera alla sparade objekt?";
 "saved-pages-clear-confirmation-sub-heading" = "Denna åtgärd kan inte ångras!";
 "saved-pages-clear-cancel" = "Avbryt";
-"saved-pages-clear-delete-all" = "Radera alla";
+"saved-pages-refresh-cancel-alert-title" = "Uppdatering avbruten";
+"saved-pages-refresh-cancel-alert-message" = "Wikipedia-artiklar uppdateras hela tiden. Tryck på uppdatera för att få den senaste versionen av alla artiklar.";
+"saved-pages-refresh-cancel-alert-button" = "Jag förstår";
 "page-history-title" = "Artikelhistorik";
 "page-history-downloading" = "Laddar artikelhistorik...";
 "navbar-title-mode-edit-wikitext" = "Redigera";
@@ -164,6 +176,7 @@
 "about-translators" = "Översättare";
 "about-translators-details" = "Denna app översattes av frivilliga översättare på $1";
 "about-libraries" = "Bibliotek som använts";
+"about-libraries-license" = "Licens";
 "about-repositories" = "Förvar";
 "about-send-feedback" = "Skicka återkoppling om appen";
 "about-product-of" = "En produkt av $1";
@@ -171,14 +184,19 @@
 "share-menu-save-page" = "Spara artikeln";
 "share-menu-page-saved" = "Sparade för offline-läsning.";
 "share-menu-page-saved-access" = "Tips: för att komma åt dina sparade sidor, klicka på $1 ovan eller tryck länge på $2 nedan.";
+"share-custom-menu-item" = "Dela";
+"share-article-name-on-wikipedia" = "\"$1\" på @Wikipedia:";
+"share-article-name-on-wikipedia-with-selected-text" = "\"$1\" på @Wikipedia: \"$2\"";
+"share-as-image" = "Dela som bild";
+"share-as-text" = "Dela som text";
 "timestamp-just-now" = "just nu";
 "timestamp-minutes" = "%d minuter sedan";
 "timestamp-hours" = "%d timmar sedan";
 "timestamp-days" = "%d dagar sedan";
 "timestamp-months" = "%d månader sedan";
 "timestamp-years" = "%d år sedan";
-"lastmodified-by-user" = "Ändrades $1 av $2";
-"lastmodified-by-anon" = "Ändrades $1 av en anonym användare";
+"lastmodified-by-user" = "Redigerades $1 av $2";
+"lastmodified-by-anon" = "Redigerades $1 av en anonym användare";
 "button-next" = "Nästa";
 "button-done" = "Färdig";
 "button-save" = "Spara";
@@ -215,6 +233,7 @@
 "menu-w-accessibility-label" = "Meny";
 "menu-toc-accessibility-label" = "Innehåll";
 "menu-search-accessibility-label" = "Sök";
+"menu-reload-accessibility-label" = "Uppdatera";
 "menu-cancel-accessibility-label" = "Avbryt";
 "menu-share-accessibility-label" = "Dela";
 "menu-more-accessibility-label" = "Fler inställningar";
@@ -236,3 +255,12 @@
 "nearby-location-updates-settings-menu" = "Sekretess > Platstjänster > Wikipedia";
 "nearby-location-general-error" = "Det gick inte att bestämma plats. Dra för att uppdatera eller försök igen senare.";
 "nearby-wifi" = "Att aktivera wifi kan hjälpa din enhet att bättre avgöra din position.";
+"migration-update-progress-label" = "Uppgraderar lokal data";
+"image-gallery-unknown-owner" = "Okänd uppladdare.";
+"hockeyapp-alert-question" = "Vill du skicka en kraschrapport till $1 så kan Wikimedia kan undersöka din krasch?";
+"hockeyapp-alert-question-with-response-field" = "Vill du skicka en kraschrapport till $1 så att Wikimedia  undersöka din krasch? Beskriv vad som hände när kraschen inträffade:";
+"hockeyapp-alert-title" = "Ledsen, appen kraschade förra gången";
+"hockeyapp-alert-send-report" = "Skicka rapporten";
+"hockeyapp-alert-always-send" = "Skicka alltid";
+"hockeyapp-alert-do-not-send" = "Skicka inte";
+"hockeyapp-alert-privacy" = "$1s sekretess";

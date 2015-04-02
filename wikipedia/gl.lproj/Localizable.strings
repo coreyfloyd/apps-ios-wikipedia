@@ -2,12 +2,16 @@
 // Exported from translatewiki.net
 // Author: Elisardojm
 // Author: Estevoaei
+// Author: Fisterraeomar
 // Author: Toliño
 
 "article-languages-label" = "Escolla unha lingua";
 "article-languages-cancel" = "Cancelar";
 "article-languages-downloading" = "Cargando as linguas do artigo...";
 "article-languages-filter-placeholder" = "Filtro de linguas";
+"article-read-more-title" = "Ler máis";
+"info-box-title" = "Datos rápidos";
+"info-box-close-text" = "Pechar";
 "language-button-text" = "Pode ler este artigo noutras %d linguas";
 "history-label" = "Recentes";
 "history-section-today" = "Hoxe";
@@ -42,6 +46,7 @@
 "account-creation-password-placeholder-text" = "Contrasinal";
 "account-creation-password-confirm-placeholder-text" = "Confirme contrasinal";
 "account-creation-email-placeholder-text" = "Correo electrónico (opcional)";
+"account-creation-missing-fields" = "Debe introducir un nome de usuario, un contrasinal e unha confirmación do contrasinal para crear unha conta.";
 "login-name-not-found" = "O nome de usuario é necesario para iniciar sesión.";
 "login-name-illegal" = "Escribiu un nome de usuario non válido.";
 "login-name-does-not-exist" = "O nome de usuario proporcionado non existe.";
@@ -110,15 +115,20 @@
 "main-menu-terms-of-use" = "Termos de uso";
 "main-menu-rate-app" = "Avaliar aplicación";
 "main-menu-heading-zero" = "Wikipedia Zero";
+// Fuzzy
 "main-menu-heading-legal" = "Información legal";
 "main-menu-show-today" = "Hoxe";
 "main-menu-nearby" = "Preto";
 "main-menu-more" = "Máis...";
+"main-menu-heading-debug" = "Depurar";
+"main-menu-debug-crash" = "Lixo";
 "saved-pages-title" = "Páxinas gardadas";
 "saved-pages-clear-confirmation-heading" = "Borrar tódolos elementos gardados?";
 "saved-pages-clear-confirmation-sub-heading" = "Esta acción non se pode desfacer!";
 "saved-pages-clear-cancel" = "Cancelar";
-"saved-pages-clear-delete-all" = "Borrar todo";
+"saved-pages-refresh-cancel-alert-title" = "Actualización cancelada";
+"saved-pages-refresh-cancel-alert-message" = "Os artigos de Wikipedia actualízanse todo o tempo. Prema actualizar para obter as últimas versións de tódolos artigos.";
+"saved-pages-refresh-cancel-alert-button" = "Entendido";
 "page-history-title" = "Historial da páxina";
 "page-history-downloading" = "Cargando o historial da páxina...";
 "navbar-title-mode-edit-wikitext" = "Editar";
@@ -160,6 +170,7 @@
 "about-translators" = "tradutores";
 "about-translators-details" = "Esta aplicación foi traducida polos tradutores voluntarios en $1";
 "about-libraries" = "bibliotecas empregadas";
+"about-libraries-license" = "Licenza";
 "about-repositories" = "repositorios";
 "about-send-feedback" = "Enviar comentarios sobre a aplicación";
 "about-product-of" = "Un produto da $1";
@@ -167,14 +178,19 @@
 "share-menu-save-page" = "Gardar a páxina";
 "share-menu-page-saved" = "Gardado para ler sen conexión.";
 "share-menu-page-saved-access" = "Consello: para acceder ás súas páxinas gardadas, prema $1 arriba ou manteña apretado $2 abaixo.";
+"share-custom-menu-item" = "Compartir";
+"share-article-name-on-wikipedia" = "\"$1\" en @Wikipedia:";
+"share-article-name-on-wikipedia-with-selected-text" = "\"$1\" en @Wikipedia: \"$2\"";
+"share-as-image" = "Compartir coma imaxe";
+"share-as-text" = "Compartir coma texto";
 "timestamp-just-now" = "agora mesmo";
 "timestamp-minutes" = "hai %d minutos";
 "timestamp-hours" = "hai %d horas";
 "timestamp-days" = "hai %d días";
 "timestamp-months" = "hai %d meses";
 "timestamp-years" = "hai %d anos";
-"lastmodified-by-user" = "Modificada $1 por $2";
-"lastmodified-by-anon" = "Modificada $1 por un usuario anónimo";
+"lastmodified-by-user" = "Editada $1 por $2";
+"lastmodified-by-anon" = "Editada $1 por un usuario anónimo";
 "button-next" = "Seguinte";
 "button-done" = "Feito";
 "button-save" = "Gardar";
@@ -211,6 +227,7 @@
 "menu-w-accessibility-label" = "Menú";
 "menu-toc-accessibility-label" = "Contidos";
 "menu-search-accessibility-label" = "Procurar";
+"menu-reload-accessibility-label" = "Recargar";
 "menu-cancel-accessibility-label" = "Cancelar";
 "menu-share-accessibility-label" = "Compartir";
 "menu-more-accessibility-label" = "Máis opcións";
@@ -232,3 +249,11 @@
 "nearby-location-updates-settings-menu" = "Privacidade > Servizos de localización > Wikipedia";
 "nearby-location-general-error" = "Non se pode determinar a localización. Tire para actualizar ou ténteo máis tarde.";
 "nearby-wifi" = "Activar wifi pode axudar a que o seu dispositivo determine mellor a súa localización.";
+"image-gallery-unknown-owner" = "Autor descoñecido.";
+"hockeyapp-alert-question" = "Quere enviar un informe de erro a $1 para que así Wikimedia poida revisar o seu erro?";
+"hockeyapp-alert-question-with-response-field" = "Quere enviar un informe de erro a $1 para que así Wikimedia poida revisar o seu erro? Por favor descreba que ocorreu cando sucedeu o erro:";
+"hockeyapp-alert-title" = "Sentímolo, a aplicación tivo un erro a última vez";
+"hockeyapp-alert-send-report" = "Enviar informe";
+"hockeyapp-alert-always-send" = "Enviar sempre";
+"hockeyapp-alert-do-not-send" = "Non enviar";
+"hockeyapp-alert-privacy" = "Confidencialidade de $1";

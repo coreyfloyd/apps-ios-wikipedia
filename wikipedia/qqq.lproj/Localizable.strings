@@ -1,10 +1,12 @@
 // Messages for Message documentation (Message documentation)
 // Exported from translatewiki.net
 // Author: Amire80
+// Author: Beta16
 // Author: Brion
 // Author: Csega
 // Author: Jack Phoenix
 // Author: Liuxinyu970226
+// Author: Purodha
 // Author: Robby
 // Author: Shirayuki
 // Author: Siebrand
@@ -13,6 +15,9 @@
 "article-languages-cancel" = "Button text for dismissing the language selector screen.\n{{Identical|Cancel}}";
 "article-languages-downloading" = "Alert text shown when obtaining list of languages in which an article is available";
 "article-languages-filter-placeholder" = "Filter languages text box placeholder text.";
+"article-read-more-title" = "The text that is displayed before the read more section at the bottom of an article\n{{Identical|Read more}}";
+"info-box-title" = "The title of info boxes - in collapsed and expanded form";
+"info-box-close-text" = "The text for telling users thyey can tap the bottom of the info box to close it\n{{Identical|Close}}";
 "language-button-text" = "Label for 'other languages' button in content area footer. %d is placeholder for the number of available languages; note that support for PLURAL string marking is not yet available, so make your message generic if possible for now.";
 "history-label" = "Header label for screen showing the users' in-app browsing history.\n{{Identical|Recent}}";
 "history-section-today" = "Subsection label for list of articles browsed today.\n{{Identical|Today}}";
@@ -115,16 +120,20 @@
 "main-menu-privacy-policy" = "Button text for showing privacy policy\n{{Identical|Privacy policy}}";
 "main-menu-terms-of-use" = "Button text for showing site terms of use";
 "main-menu-rate-app" = "Button text for showing the app in the app store so user can rate the app";
-"main-menu-heading-zero" = "Header text for the Wikipedia Zero section of the menu. ([http://wikimediafoundation.org/wiki/Wikipedia_Zero More information]).";
+"main-menu-heading-zero" = "Header text for the Wikipedia Zero section of the menu. ([http://wikimediafoundation.org/wiki/Wikipedia_Zero More information]).\n{{Identical|Wikipedia Zero}}";
 "main-menu-heading-legal" = "Header text for the legal section of the menu. Consider using something informal, but feel free to use a more literal translation of \"Legal info\" if it seems more appropriate.";
 "main-menu-show-today" = "Button text for showing mobile version of main page\n{{Identical|Today}}";
 "main-menu-nearby" = "Button for showing nearby articles.\n{{Identical|Nearby}}";
 "main-menu-more" = "Button for showing additional settings and menu items.\n{{Identical|More}}";
+"main-menu-heading-debug" = "Header text for the debug section of the menu. The debug menu is conditionall shown if in Xcode debug mode.\n{{Identical|Debug}}";
+"main-menu-debug-crash" = "Title for button that forces the application to crash.\n{{Identical|Crash}}";
 "saved-pages-title" = "Header text for Saved Pages interface.\n{{Identical|Saved page}}";
 "saved-pages-clear-confirmation-heading" = "Heading text of delete all confirmation dialog";
 "saved-pages-clear-confirmation-sub-heading" = "Sub-heading text of delete all confirmation dialog";
 "saved-pages-clear-cancel" = "Button text for cancelling delete all action\n{{Identical|Cancel}}";
-"saved-pages-clear-delete-all" = "Button text for confirming delete all action\n{{Identical|Delete all}}";
+"saved-pages-refresh-cancel-alert-title" = "Title of alert shown when a user first cancels a refresh of saved pages";
+"saved-pages-refresh-cancel-alert-message" = "Message of alert shown when a user first cancels a refresh of saved pages";
+"saved-pages-refresh-cancel-alert-button" = "Button confirmation text of alert shown when a user first cancels a refresh of saved pages";
 "page-history-title" = "Header text for Page History interface.\n{{Identical|Page history}}";
 "page-history-downloading" = "Alert text shown when obtaining revision history of an article";
 "navbar-title-mode-edit-wikitext" = "Header text shown when wikitext is being edited.\n{{Identical|Edit}}";
@@ -166,6 +175,7 @@
 "about-translators" = "Header text for translators section of the about page. Is not capitalised for aesthetic reasons, but could be capitalised in translations.\n{{Identical|Translator}}";
 "about-translators-details" = "Description of volunteer translation. $1 is translatewiki url.";
 "about-libraries" = "Header text for libraries section (as in a collection of subprograms used to develop software) of the about page. Is not capitalised for aesthetic reasons, but could be capitalised in translations.";
+"about-libraries-license" = "About page link title that will display a license for a library used in the app\n{{Identical|License}}";
 "about-repositories" = "Header text for repositories section of the about page. Is not capitalised for aesthetic reasons, but could be capitalised in translations. \n{{Identical|Repository}}";
 "about-send-feedback" = "Link text for sending app feedback";
 "about-product-of" = "Description of who produced the app. $1 is the message {{msg-wikimedia|wikipedia-ios-about-wikimedia-foundation}}.";
@@ -173,6 +183,11 @@
 "share-menu-save-page" = "Button text for saving current page from the share menu";
 "share-menu-page-saved" = "Alert text shown when page saved for offline reading.\n\nSee also:\n* {{msg-wm|Wikipedia-ios-share-menu-page-saved-access}}";
 "share-menu-page-saved-access" = "Reminder to user of ways to access saved pages. Parameters:\n* $1 - the main menu W icon\n* $2 - the save page heart icon\nSee also:\n* {{msg-wm|Wikipedia-ios-share-menu-page-saved}}";
+"share-custom-menu-item" = "Button label for text selection Share\n{{Identical|Share}}";
+"share-article-name-on-wikipedia" = "Formatted string expressing article being on Wikipedia with at symbol handle. Please do not translate the \"@Wikipedia\" in the message, and preserve the spaces around it, as it refers specifically to the Wikipedia Twitter account. $1 will be an article title, which should be wrapped in the localized double quote marks.";
+"share-article-name-on-wikipedia-with-selected-text" = "Formatted string expressing article being on Wikipedia with at symbol handle, with a user-selected snippet. Please do not translate the \"@Wikipedia\" in the message, and preserve the spaces around it, as it refers specifically to the Wikipedia Twitter account. $1 will be an article title, which should be wrapped in the localized double quote marks. $2 will be a user-selected text snippet, which should be wrapped in the localized double quote marks.";
+"share-as-image" = "Button label for sharing as an image card";
+"share-as-text" = "Button label for sharing as a text snippet (instead of as an image card)";
 "timestamp-just-now" = "Human-readable approximate timestamp for events in the last couple of minutes.\n{{Identical|Just now}}";
 "timestamp-minutes" = "Human-readable approximate timestamp for events in the last couple hours, expressed as minutes";
 "timestamp-hours" = "Human-readable approximate timestamp for events in the last couple days, expressed as hours";
@@ -217,6 +232,7 @@
 "menu-w-accessibility-label" = "Accessible label text for toolbar 'W' menu icon button\n{{Identical|Menu}}";
 "menu-toc-accessibility-label" = "Accessible label text for toolbar table of contents icon button\n{{Identical|Content}}";
 "menu-search-accessibility-label" = "Accessible label text for toolbar search icon button\n{{Identical|Search}}";
+"menu-reload-accessibility-label" = "Accessible label text for toolbar reload icon button\n{{Identical|Reload}}";
 "menu-cancel-accessibility-label" = "Accessible label text for toolbar cancel button\n{{Identical|Cancel}}";
 "menu-share-accessibility-label" = "Accessible label text for toolbar share button\n{{Identical|Share}}";
 "menu-more-accessibility-label" = "Accessible label for more/... button in 'W' menu";
@@ -230,7 +246,7 @@
 "nearby-pull-to-refresh-is-refreshing" = "Shown when refreshing list of nearby articles.";
 "nearby-loading" = "Show when downloading list of nearby articles";
 "nearby-loaded" = "Shown when nearby articles list has loaded successfully";
-"nearby-none" = "Shown when no nearby pages (in a geographical way) were found.";
+"nearby-none" = "Shown when no nearby pages (in a geographical sense) were found.";
 "nearby-open-in-maps" = "Title for button for opening nearby article's coordinates in maps app";
 "nearby-cancel" = "Cancel button for menu presented when user long-presses on nearby article item\n{{Identical|Cancel}}";
 "nearby-location-updates-denied" = "Alert text explaining that the app does not have permission to receive location updates";
@@ -238,3 +254,13 @@
 "nearby-location-updates-settings-menu" = "Menu items to tap in the iOS Settings App to enable the Wikipedia App to get location updates. Please check on an iOS device to ensure correct menu text.";
 "nearby-location-general-error" = "General location determination error message";
 "nearby-wifi" = "Alert text telling user how to improve location accuracy";
+"migration-update-progress-label" = "Label shown during automatic upgrade of local data to new internal format. May be on screen very briefly or for a few seconds.";
+"migration-update-progress-count-label" = "Shows the progress of article migration in text: 4 / 15, 5 / 15, etc…";
+"image-gallery-unknown-owner" = "Fallback text for when an item in the image gallery doesn't have a specified owner.";
+"hockeyapp-alert-question" = "Alert dialog question asking user whether to send a crash report to HockeyApp crash reporting server. $1 will be replaced programmatically with the constant string 'HockeyApp'";
+"hockeyapp-alert-question-with-response-field" = "Alert dialog question asking user whether to send a crash report to HockeyApp crash reporting server, and asking the user to describe what happened when the crash occurred. $1 will be replaced programmatically with the constant string 'HockeyApp'";
+"hockeyapp-alert-title" = "Concise and conciliatory alert dialog title for crash reporting";
+"hockeyapp-alert-send-report" = "Alert dialog button text for crash reporting to be sent";
+"hockeyapp-alert-always-send" = "Alert dialog button text for crash reporting to always be sent";
+"hockeyapp-alert-do-not-send" = "Alert dialog button text for crash reporting to not send the crash report";
+"hockeyapp-alert-privacy" = "Alert dialog button text for HockeyApp privacy policy. $1 will be replaced programmatically with the constant string 'HockeyApp'";

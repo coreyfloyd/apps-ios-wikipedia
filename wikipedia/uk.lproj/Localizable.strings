@@ -102,6 +102,7 @@
 "main-menu-terms-of-use" = "Умови використання";
 "main-menu-rate-app" = "Оцінити програму";
 "main-menu-heading-zero" = "Вікіпедія Zero";
+// Fuzzy
 "main-menu-heading-legal" = "Каламуть";
 "main-menu-show-today" = "Сьогодні";
 "main-menu-nearby" = "Неподалік";
@@ -109,7 +110,6 @@
 "saved-pages-clear-confirmation-heading" = "Видалити всі збережені елементи?";
 "saved-pages-clear-confirmation-sub-heading" = "Цю дію скасувати не можна!";
 "saved-pages-clear-cancel" = "Скасувати";
-"saved-pages-clear-delete-all" = "Видалити усі";
 "page-history-title" = "Історія статті";
 "page-history-downloading" = "Завантаження історії статті...";
 "navbar-title-mode-edit-wikitext" = "Змінити";
@@ -152,7 +152,9 @@
 "timestamp-days" = "%d дн. тому";
 "timestamp-months" = "%d міс. тому";
 "timestamp-years" = "%d р. тому";
+// Fuzzy
 "lastmodified-by-user" = "Змінено $1 учасником $2";
+// Fuzzy
 "lastmodified-by-anon" = "Змінено $1 анонімним користувачем";
 "button-next" = "Далі";
 "button-done" = "Готово";

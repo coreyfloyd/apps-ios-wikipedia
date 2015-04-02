@@ -8,15 +8,18 @@
 
 @interface TOCViewController : UIViewController <UITextFieldDelegate, UIScrollViewDelegate>
 
-@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (strong, nonatomic) IBOutlet UIScrollView* scrollView;
 
--(void)centerCellForWebViewTopMostSectionAnimated:(BOOL)animated;
+- (void)updateTOCForWebviewScrollPositionAnimated:(BOOL)animated;
 
-@property (weak, nonatomic) WebViewController *webVC;
+- (void)updateTocForArticle:(MWKArticle*)article;
 
--(void)setTocSectionDataForSections:(MWKSectionList *)sections;
+@property (strong, nonatomic, readonly) MWKArticle* article;
 
--(void)willShow;
--(void)didHide;
+@property (weak, nonatomic) WebViewController* webVC;
+
+
+- (void)willShow;
+- (void)didHide;
 
 @end

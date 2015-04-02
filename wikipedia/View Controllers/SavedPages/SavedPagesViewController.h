@@ -3,14 +3,13 @@
 
 #import <UIKit/UIKit.h>
 #import "TopMenuViewController.h"
-#import "PullToRefreshViewController.h"
 
-@interface SavedPagesViewController : PullToRefreshViewController <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
+@interface SavedPagesViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
 
 @property (nonatomic) NavBarMode navBarMode;
-@property (weak, nonatomic) IBOutlet UIView *emptyOverlay;
+@property (weak, nonatomic) IBOutlet UIView* emptyOverlay;
 
 @property (weak, nonatomic) id truePresentingVC;
-@property (weak, nonatomic) TopMenuViewController *topMenuViewController;
+@property (weak, nonatomic) TopMenuViewController* topMenuViewController;
 
 @end

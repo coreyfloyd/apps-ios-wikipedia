@@ -5,20 +5,33 @@
 
 @implementation MWKArticle (Convenience)
 
--(MWKImage *)getFirstSectionImageLargerThanSize:(CGSize)size
-{
-    MWKImage *soughtImage = nil;
-    for (MWKImage *image in self.images) {
+- (MWKImage*)getFirstSectionImageLargerThanSize:(CGSize)size {
+    MWKImage* soughtImage = nil;
+    for (MWKImage* image in self.images) {
         if (
             (image.width.floatValue >= size.width)
             &&
             (image.height.floatValue >= size.height)
-        ) {
+            ) {
             soughtImage = image;
             break;
         }
     }
     return soughtImage;
+}
+
+- (MWKImage*)importImageURL:(NSString*)url
+                  imageData:(NSData*)imageData {
+    MWKImage* image = [self importImageURL:url
+                                 sectionId:kMWKArticleSectionNone];
+
+    [image importImageData:imageData];
+    [image save];
+
+    // MWKArticle's "save" causes its "images" list to be saved.
+    [self save];
+
+    return image;
 }
 
 @end

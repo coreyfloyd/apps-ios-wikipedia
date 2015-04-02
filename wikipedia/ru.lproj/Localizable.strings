@@ -1,8 +1,11 @@
 // Messages for Russian (русский)
 // Exported from translatewiki.net
 // Author: Alexandr Efremov
+// Author: Batumski brodyaga
 // Author: Bsitzmann
+// Author: Dicto23456
 // Author: Kopcap94
+// Author: Macofe
 // Author: Oashnic
 // Author: Okras
 
@@ -10,6 +13,9 @@
 "article-languages-cancel" = "Отмена";
 "article-languages-downloading" = "Загрузка языков статьи…";
 "article-languages-filter-placeholder" = "Языковой фильтр";
+"article-read-more-title" = "Читать подробнее";
+"info-box-title" = "Короткие факты";
+"info-box-close-text" = "Закрыть";
 "language-button-text" = "Вы можете прочитать эту статью ещё на %d других языках";
 "history-label" = "Недавние";
 "history-section-today" = "Сегодня";
@@ -44,6 +50,7 @@
 "account-creation-password-placeholder-text" = "Пароль";
 "account-creation-password-confirm-placeholder-text" = "Подтвердите пароль";
 "account-creation-email-placeholder-text" = "Адрес электронной почты (необязательно)";
+"account-creation-missing-fields" = "Для создания учётной записи вы должны ввести имя пользователя, пароль и подтверждение пароля.";
 "login-name-not-found" = "Для входа требуется имя участника.";
 "login-name-illegal" = "Вы указали некорректное имя участника.";
 "login-name-does-not-exist" = "Имя участника, которое вы указали, не существует.";
@@ -112,15 +119,20 @@
 "main-menu-terms-of-use" = "Условия использования";
 "main-menu-rate-app" = "Оценить приложение";
 "main-menu-heading-zero" = "Wikipedia Zero";
+// Fuzzy
 "main-menu-heading-legal" = "Муть какая-то";
 "main-menu-show-today" = "Сегодня";
 "main-menu-nearby" = "Поблизости";
 "main-menu-more" = "Ещё…";
+"main-menu-heading-debug" = "Отладка";
+"main-menu-debug-crash" = "Падение";
 "saved-pages-title" = "Сохранённые страницы";
 "saved-pages-clear-confirmation-heading" = "Удалить все сохранённые элементы?";
 "saved-pages-clear-confirmation-sub-heading" = "Это действие нельзя отменить!";
 "saved-pages-clear-cancel" = "Отмена";
-"saved-pages-clear-delete-all" = "Удалить всё";
+"saved-pages-refresh-cancel-alert-title" = "Обновление отменено";
+"saved-pages-refresh-cancel-alert-message" = "Статьи Википедии всё время обновляются. Нажмите «обновить», чтобы получить последние версии всех статей.";
+"saved-pages-refresh-cancel-alert-button" = "Понятно";
 "page-history-title" = "История страницы";
 "page-history-downloading" = "Загрузка истории страницы…";
 "navbar-title-mode-edit-wikitext" = "Править";
@@ -162,6 +174,7 @@
 "about-translators" = "переводчики";
 "about-translators-details" = "Это приложение было переведено добровольцами на $1";
 "about-libraries" = "использованые библиотеки";
+"about-libraries-license" = "Лицензия";
 "about-repositories" = "репозитории";
 "about-send-feedback" = "Отправить отзыв о приложении";
 "about-product-of" = "Продукт $1";
@@ -169,14 +182,19 @@
 "share-menu-save-page" = "Сохранить статью";
 "share-menu-page-saved" = "Статья сохранена";
 "share-menu-page-saved-access" = "Совет: чтобы получить доступ к вашим сохраненным страницам, нажмите на $1 выше или зажмите $2 ниже.";
+"share-custom-menu-item" = "Поделиться";
+"share-article-name-on-wikipedia" = "«$1» в @Wikipedia:";
+"share-article-name-on-wikipedia-with-selected-text" = "«$1» в @Wikipedia: «$2»";
+"share-as-image" = "Поделиться как изображением";
+"share-as-text" = "Поделиться как текстом";
 "timestamp-just-now" = "только что";
 "timestamp-minutes" = "%d мин. назад";
 "timestamp-hours" = "%d ч. назад";
 "timestamp-days" = "%d дн. назад";
 "timestamp-months" = "%d мес. назад";
 "timestamp-years" = "%d г. назад";
-"lastmodified-by-user" = "Изменено $1 участником $2";
-"lastmodified-by-anon" = "Изменено $1 анонимным пользователем";
+"lastmodified-by-user" = "Отредактировано $1 участником $2";
+"lastmodified-by-anon" = "Отредактировано $1 анонимным пользователем";
 "button-next" = "Далее";
 "button-done" = "Готово";
 "button-save" = "Сохранить";
@@ -213,6 +231,7 @@
 "menu-w-accessibility-label" = "Меню";
 "menu-toc-accessibility-label" = "Содержание";
 "menu-search-accessibility-label" = "Поиск";
+"menu-reload-accessibility-label" = "Перезагрузить";
 "menu-cancel-accessibility-label" = "Отмена";
 "menu-share-accessibility-label" = "Поделиться";
 "menu-more-accessibility-label" = "Дополнительные параметры";
@@ -234,3 +253,12 @@
 "nearby-location-updates-settings-menu" = "Приватность > Службы геолокации > Википедия";
 "nearby-location-general-error" = "Не удаётся определить местоположение. Потяните, чтобы обновить или повторите попытку позже.";
 "nearby-wifi" = "Включение Wi-Fi может помочь устройству лучше определить ваше местоположение.";
+"migration-update-progress-label" = "Обновление локальных данных";
+"image-gallery-unknown-owner" = "Загрузивший файл неизвестен.";
+"hockeyapp-alert-question" = "Не хотели бы вы отправить отчет в $1, чтобы Фонд Викимедиа смог изучить ваш случай «падения»?";
+"hockeyapp-alert-question-with-response-field" = "Не хотели бы вы отправить отчет в $1, чтобы Фонд Викимедиа смог изучить ваш случай «падения»? Пожалуйста, опишите, что могло привести к этому:";
+"hockeyapp-alert-title" = "К сожалению, в прошлый раз приложение «упало»";
+"hockeyapp-alert-send-report" = "Отправить отчёт";
+"hockeyapp-alert-always-send" = "Всегда отправлять";
+"hockeyapp-alert-do-not-send" = "Не отправлять";
+"hockeyapp-alert-privacy" = "Политика конфиденциальности $1";

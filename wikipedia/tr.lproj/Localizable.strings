@@ -1,6 +1,8 @@
 // Messages for Turkish (Türkçe)
 // Exported from translatewiki.net
+// Author: Ayrıntılı Bilgi
 // Author: Incelemeelemani
+// Author: Mavrikant
 // Author: Meelo
 // Author: Sayginer
 // Author: Sucsuzz
@@ -10,6 +12,9 @@
 "article-languages-cancel" = "İptal";
 "article-languages-downloading" = "Madde dilleri yükleniyor...";
 "article-languages-filter-placeholder" = "Dil Süzgeci";
+"article-read-more-title" = "Devamı";
+"info-box-title" = "Pratik bilgiler";
+"info-box-close-text" = "Kapat";
 "language-button-text" = "Bu makaleyi %d diğer dilde okuyabilirsiniz";
 "history-label" = "Geçmiş";
 "history-section-today" = "Bugün";
@@ -44,6 +49,7 @@
 "account-creation-password-placeholder-text" = "Parola";
 "account-creation-password-confirm-placeholder-text" = "Parolayı onayla";
 "account-creation-email-placeholder-text" = "E-posta (isteğe bağlı)";
+"account-creation-missing-fields" = "Bir hesap oluşturmak için kullanıcı adı, parola ve parola onayı girmeniz gerekir.";
 "login-name-not-found" = "Kullanıcı adı, oturum açmak için gereklidir.";
 "login-name-illegal" = "Geçersiz bir kullanıcı adı girdiniz.";
 "login-name-does-not-exist" = "Kayıtlı böyle bir kullanıcı adı yok.";
@@ -112,15 +118,20 @@
 "main-menu-terms-of-use" = "Kullanım koşulları";
 "main-menu-rate-app" = "Uygulamayı puanla";
 "main-menu-heading-zero" = "Wikipedia Zero";
+// Fuzzy
 "main-menu-heading-legal" = "Yasal bilgi";
 "main-menu-show-today" = "Bugün";
 "main-menu-nearby" = "Yakınındakiler";
 "main-menu-more" = "Daha fazla...";
+"main-menu-heading-debug" = "Hata ayıklama";
+"main-menu-debug-crash" = "Çökme";
 "saved-pages-title" = "Kaydedilen sayfalar";
 "saved-pages-clear-confirmation-heading" = "Tüm kayıtlı ögeler silinsin mi?";
 "saved-pages-clear-confirmation-sub-heading" = "Bu eylem geri alınamaz!";
 "saved-pages-clear-cancel" = "İptal";
-"saved-pages-clear-delete-all" = "Tümünü Sil";
+"saved-pages-refresh-cancel-alert-title" = "Güncelleme iptal edildi";
+"saved-pages-refresh-cancel-alert-message" = "Vikipedi maddeleri her zaman güncellenir. Maddelerin en son sürümlerini almak için dokunarak sayfayı yenileyin.";
+"saved-pages-refresh-cancel-alert-button" = "Anladım";
 "page-history-title" = "Sayfa geçmişi";
 "page-history-downloading" = "Sayfa geçmişi yükleniyor...";
 "navbar-title-mode-edit-wikitext" = "Düzenle";
@@ -158,9 +169,11 @@
 "about-wikipedia" = "Vikipedi";
 "about-contributors" = "katkıda bulunanlar";
 "about-testers" = "test";
+"about-testers-details" = "QA $1 tarafından test edildi";
 "about-translators" = "çevirmenler";
 "about-translators-details" = "$1'deki gönüllülerce tercüme edilmiştir";
 "about-libraries" = "kullanılan kütüphaneler";
+"about-libraries-license" = "Lisans";
 "about-repositories" = "veri havuzları";
 "about-send-feedback" = "Uygulama geri bildirimi gönder";
 "about-product-of" = "Bir $1 ürünü";
@@ -168,6 +181,11 @@
 "share-menu-save-page" = "Makaleyi Kaydet";
 "share-menu-page-saved" = "Makale Kaydedildi";
 "share-menu-page-saved-access" = "İpucu: Kaydedilen sayfalarınıza erişmek için, üstteki $1 tuşuna dokunun veya aşağıdaki $2 tuşuna uzun basın.";
+"share-custom-menu-item" = "Paylaş";
+"share-article-name-on-wikipedia" = "@Wikipedia üzerinde \"$1\":";
+"share-article-name-on-wikipedia-with-selected-text" = "\"$1\" @Wikipedia üzerinde: \"$2\"";
+"share-as-image" = "Resim olarak paylaş";
+"share-as-text" = "Metin olarak paylaş";
 "timestamp-just-now" = "hemen şimdi";
 "timestamp-minutes" = "%d dakika önce";
 "timestamp-hours" = "%d saat önce";
@@ -212,6 +230,7 @@
 "menu-w-accessibility-label" = "Menü";
 "menu-toc-accessibility-label" = "Konu başlıkları";
 "menu-search-accessibility-label" = "Ara";
+"menu-reload-accessibility-label" = "Yeniden yükle";
 "menu-cancel-accessibility-label" = "İptal";
 "menu-share-accessibility-label" = "Paylaş";
 "menu-more-accessibility-label" = "Diğer ayarlar";
@@ -233,3 +252,12 @@
 "nearby-location-updates-settings-menu" = "Gizlilik > Konum Servisleri > Wikipedia";
 "nearby-location-general-error" = "Konum belirlenemiyor. Yenilemek için aşağı çekin veya daha sonra tekrar deneyin.";
 "nearby-wifi" = "Kablosuz bağlantıyı etkinleştirmek, cihazınızın konumunuzu daha iyi belirlemesine yardımcı olabilir.";
+"migration-update-progress-label" = "Yerel veri güncelleniyor";
+"image-gallery-unknown-owner" = "Yükleyen bilinmiyor.";
+"hockeyapp-alert-question" = "Oluşan hatayı Wikimedia'nın inceleyebilmesi için $1'e çökme raporu göndermek ister misiniz?";
+"hockeyapp-alert-question-with-response-field" = "Oluşan hatayı Wikimedia'nın inceleyebilmesi için $1'e çökme raporu göndermek ister misiniz? Lütfen çökme gerçekleştiği sırada ne olduğunu tanımlayabilir misiniz:";
+"hockeyapp-alert-title" = "Üzgünüm, geçen sefer uygulama çöktü";
+"hockeyapp-alert-send-report" = "Rapor gönder";
+"hockeyapp-alert-always-send" = "Her zaman gönder";
+"hockeyapp-alert-do-not-send" = "Gönderme";
+"hockeyapp-alert-privacy" = "$1 gizliliği";

@@ -3,8 +3,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+@interface AppDelegate : UIResponder <UIApplicationDelegate, UIAlertViewDelegate>
 
-@property (strong, nonatomic) UIWindow *window;
+- (void)transitionToRootViewController:(UIViewController*)viewController animated:(BOOL)animated;
+
+- (void)presentRootViewController:(BOOL)animated withSplash:(BOOL)withSplash;
 
 @end

@@ -1,17 +1,38 @@
-//  Created by Monte Hurd on 12/16/13.
-//  Copyright (c) 2013 Wikimedia Foundation. Provided under MIT-style license; please copy and modify!
 
 #import <UIKit/UIKit.h>
-#import "FetcherBase.h"
 
-@interface SearchResultsController : UIViewController <UITableViewDelegate, FetchFinishedDelegate>
+@class WMFIntrinsicContentSizeAwareTableView;
 
-@property (strong, nonatomic) NSArray *searchResults;
-@property (strong, nonatomic) NSString *searchString;
+@interface SearchResultsController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
--(void)search;
--(void)clearSearchResults;
--(void)saveSearchTermToRecentList;
--(void)doneTapped;
+@property (nonatomic, strong, readonly) IBOutlet WMFIntrinsicContentSizeAwareTableView* searchResultsTable;
+
+@property (strong, nonatomic) NSArray* searchResults;
+@property (strong, nonatomic) NSString* searchString;
+
+/**
+ *  Specify articles that should not be displayed in the search results
+ */
+@property (strong, nonatomic) NSArray* articlesToExcludeFromResults;
+
+/**
+ *  Search Results VC configured for normal full display
+ *
+ *  @return The VC
+ */
++ (SearchResultsController*)standardSearchResultsController;
+
+/**
+ *  The Search Results VC configured for display at the bottom of the webview
+ *
+ *  @return The VC
+ */
++ (SearchResultsController*)readMoreSearchResultsController;
+
+
+- (void)search;
+- (void)clearSearchResults;
+- (void)saveSearchTermToRecentList;
+- (void)doneTapped;
 
 @end

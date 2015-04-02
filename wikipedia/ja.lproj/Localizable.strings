@@ -6,11 +6,15 @@
 // Author: Shirayuki
 // Author: SkyDaisy9
 // Author: Takot
+// Author: 아라
 
 "article-languages-label" = "言語を選択";
 "article-languages-cancel" = "キャンセル";
 "article-languages-downloading" = "言語リストを取得中...";
 "article-languages-filter-placeholder" = "言語の絞り込み";
+"article-read-more-title" = "さらに読む";
+"info-box-title" = "基本データ";
+"info-box-close-text" = "閉じる";
 "language-button-text" = "この記事は他に %d 個の言語で読むことができます";
 "history-label" = "最近のもの";
 "history-section-today" = "今日";
@@ -45,6 +49,7 @@
 "account-creation-password-placeholder-text" = "パスワード";
 "account-creation-password-confirm-placeholder-text" = "パスワード再入力";
 "account-creation-email-placeholder-text" = "メール (省略可能)";
+"account-creation-missing-fields" = "アカウントの作成には利用者名とパスワード、さらに確認のためもう一度パスワードを入力する必要があります。";
 "login-name-not-found" = "ログインするには利用者名が必要です。";
 "login-name-illegal" = "あなたが入力した利用者名は無効です。";
 "login-name-does-not-exist" = "指定した利用者名は存在しません。";
@@ -113,15 +118,19 @@
 "main-menu-terms-of-use" = "利用規約";
 "main-menu-rate-app" = "アプリを評価";
 "main-menu-heading-zero" = "ウィキペディア ゼロ";
-"main-menu-heading-legal" = "法的な事柄";
+"main-menu-heading-legal" = "プライバシーと利用規約";
 "main-menu-show-today" = "今日";
 "main-menu-nearby" = "付近";
 "main-menu-more" = "その他...";
+"main-menu-heading-debug" = "デバッグ";
+"main-menu-debug-crash" = "強制終了";
 "saved-pages-title" = "保存したページ";
 "saved-pages-clear-confirmation-heading" = "保存した項目をすべて削除しますか？";
 "saved-pages-clear-confirmation-sub-heading" = "この操作は取り消せません!";
 "saved-pages-clear-cancel" = "キャンセル";
-"saved-pages-clear-delete-all" = "すべて削除";
+"saved-pages-refresh-cancel-alert-title" = "更新がキャンセルされました";
+"saved-pages-refresh-cancel-alert-message" = "ウィキペディアの記事は常に更新されています。「更新」をタップすると全ての記事が最新版に同期されます。";
+"saved-pages-refresh-cancel-alert-button" = "了解";
 "page-history-title" = "ページの履歴";
 "page-history-downloading" = "ページの履歴を読み込み中...";
 "navbar-title-mode-edit-wikitext" = "編集";
@@ -151,7 +160,7 @@
 "article-pull-to-refresh-prompt" = "引っ張ると記事を再読み込みします";
 "article-pull-to-refresh-is-refreshing" = "記事の再読み込み中";
 "credits-title" = "オープンソースのリポジトリ";
-"credits-wikimedia-repos" = "ウィキメディア";
+"credits-wikimedia-repos" = "ウィキメディア・リポジトリ";
 "credits-gerrit-repo" = "アプリ・メイン (Gerrit)";
 "credits-github-mirror" = "アプリ・ミラー (GitHub)";
 "credits-external-libraries" = "外部リポジトリ";
@@ -163,6 +172,7 @@
 "about-translators" = "翻訳者";
 "about-translators-details" = "このアプリは$1においてボランティア翻訳者により翻訳されました。";
 "about-libraries" = "使用ライブラリについて";
+"about-libraries-license" = "ライセンス";
 "about-repositories" = "リポジトリについて";
 "about-send-feedback" = "フィードバックを送信";
 "about-product-of" = "$1の製品について";
@@ -170,14 +180,19 @@
 "share-menu-save-page" = "ページを保存";
 "share-menu-page-saved" = "記事を保存しました";
 "share-menu-page-saved-access" = "ヒント: 保存したページにアクセスするには、上部の$1をタップするか、下部の$2を長押しします。";
+"share-custom-menu-item" = "シェア";
+"share-article-name-on-wikipedia" = "「$1」の記事を @Wikipedia で読む";
+"share-article-name-on-wikipedia-with-selected-text" = "「$2」(@Wikipedia の記事「$1」より)";
+"share-as-image" = "画像をシェア";
+"share-as-text" = "テキストとしてシェア";
 "timestamp-just-now" = "ちょうど今";
 "timestamp-minutes" = "%d分前";
 "timestamp-hours" = "%d時間前";
 "timestamp-days" = "%d日前";
 "timestamp-months" = "%dか月前";
 "timestamp-years" = "%d年前";
-"lastmodified-by-user" = "$1に $2 により変更";
-"lastmodified-by-anon" = "$1に匿名利用者により変更";
+"lastmodified-by-user" = "$1に $2 が編集";
+"lastmodified-by-anon" = "$1に匿名利用者が編集";
 "button-next" = "次へ";
 "button-done" = "完了";
 "button-save" = "保存";
@@ -194,7 +209,7 @@
 "page_protected_other" = "このページは、次のレベルに保護されています:$1";
 "page_protected_can_not_edit" = "このページを編集する権限がありません";
 "page_protected_can_not_edit_title" = "このページは保護されています";
-"license-footer-text" = "コンテンツは$1のもとで利用できます";
+"license-footer-text" = "コンテンツは$1の利用条件のもとで利用できます";
 "license-footer-name" = "クリエイティブ・コモンズ 表示-継承 3.0";
 "table-of-contents-heading" = "コンテンツ";
 "abuse-filter-warning-heading" = "これは建設的な編集ではないかもしれません。それでも保存しますか？";
@@ -214,6 +229,7 @@
 "menu-w-accessibility-label" = "メニュー";
 "menu-toc-accessibility-label" = "目次";
 "menu-search-accessibility-label" = "検索";
+"menu-reload-accessibility-label" = "再読み込み";
 "menu-cancel-accessibility-label" = "キャンセル";
 "menu-share-accessibility-label" = "共有";
 "menu-more-accessibility-label" = "その他の設定";
@@ -233,5 +249,14 @@
 "nearby-location-updates-denied" = "このアプリには位置情報の更新を受け取る許可がありません。";
 "nearby-location-updates-enable" = "位置情報の更新を有効にするには、設定アプリを開いて以下のように選択してください:";
 "nearby-location-updates-settings-menu" = "プライバシー > 位置情報サービス > ウィキペディア";
-"nearby-location-general-error" = "位置を確定できません。引っ張って更新するか、後ほどもう一度試してみてください。";
+"nearby-location-general-error" = "位置を特定できません。引っ張って更新するか、後ほどもう一度試してみてください。";
 "nearby-wifi" = "Wi-Fi を有効にすると、位置情報の精度をより高めることができます。";
+"migration-update-progress-label" = "ローカルデータをアップグレード中";
+"image-gallery-unknown-owner" = "アップロード者不明。";
+"hockeyapp-alert-question" = "クラッシュレポートを $1 に送信しますか? そうすることであなたの前回のクラッシュをWikimediaがレビューできるようになります。";
+"hockeyapp-alert-question-with-response-field" = "クラッシュレポートを $1 に送信しますか? そうすることであなたの前回のクラッシュをWikimediaがレビューできるようになります。クラッシュが発生した際に何が起こったか記述してください。";
+"hockeyapp-alert-title" = "申し訳ありません、前回アプリがクラッシュしました";
+"hockeyapp-alert-send-report" = "レポートを送信";
+"hockeyapp-alert-always-send" = "常に送信";
+"hockeyapp-alert-do-not-send" = "送信しない";
+"hockeyapp-alert-privacy" = "$1 のプライバシーについて";

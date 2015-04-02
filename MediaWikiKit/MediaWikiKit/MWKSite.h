@@ -11,14 +11,16 @@
 
 @interface MWKSite : NSObject
 
-@property (readonly) NSString *domain;
-@property (readonly) NSString *language;
+@property (readonly) NSString* domain;
+@property (readonly) NSString* language;
 
-- (instancetype)initWithDomain:(NSString *)domain language:(NSString *)language;
+- (instancetype)initWithDomain:(NSString*)domain language:(NSString*)language;
 
-- (MWKTitle *)titleWithString:(NSString *)string;
-- (MWKTitle *)titleWithInternalLink:(NSString *)path;
+- (MWKTitle*)titleWithString:(NSString*)string;
+- (MWKTitle*)titleWithInternalLink:(NSString*)path;
 
-+ (MWKSite *)siteWithDomain:(NSString *)domain language:(NSString *)language;
++ (MWKSite*)siteWithDomain:(NSString*)domain language:(NSString*)language;
+
+- (BOOL)isEqualToSite:(MWKSite*)other;
 
 @end

@@ -8,6 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
+
+typedef NS_ENUM (NSUInteger, WMFEventLoggingMaxStringLength) {
+    WMFEventLoggingMaxStringLength_General = 99, ///< Recommended by analytics
+    WMFEventLoggingMaxStringLength_Snippet = 191 ///< MySQL length in practice
+};
+
 /**
  * Base class for EventLogging multi-stage funnels.
  *
@@ -22,14 +28,14 @@
  */
 @interface EventLoggingFunnel : NSObject
 
-@property NSString *schema;
+@property NSString* schema;
 @property int revision;
 
 /**
  * This constructor should be called internally by derived classes
  * to encapsulate the schema name and version.
  */
--(id)initWithSchema:(NSString *)schema version:(int)revision;
+- (id)initWithSchema:(NSString*)schema version:(int)revision;
 
 /**
  * An optional preprocessing step before recording data passed
@@ -40,7 +46,7 @@
  *
  * Leave un-overridden if no preprocessing is needed.
  */
--(NSDictionary *)preprocessData:(NSDictionary *)eventData;
+- (NSDictionary*)preprocessData:(NSDictionary*)eventData;
 
 /**
  * The basic log: method takes a bare dictionary, which will
@@ -54,7 +60,7 @@
  * log* methods for each potential logging action variant for
  * readibility in calling code (and type safety on params!)
  */
--(void)log:(NSDictionary *)eventData;
+- (void)log:(NSDictionary*)eventData;
 
 /**
  * In some cases logging should go to a specific wiki
@@ -62,17 +68,17 @@
  *
  * Wiki parameter is a dbname, not a domain or hostname!
  */
--(void)log:(NSDictionary *)eventData wiki:(NSString *)wiki;
+- (void)log:(NSDictionary*)eventData wiki:(NSString*)wiki;
 
 
 /**
  * Helper function to generate a per-use UUID
  */
--(NSString *)singleUseUUID;
+- (NSString*)singleUseUUID;
 
 /**
  * Helper function to generate a persistent per-app-install UUID
  */
--(NSString *)persistentUUID:(NSString *)key;
+- (NSString*)persistentUUID:(NSString*)key;
 
 @end

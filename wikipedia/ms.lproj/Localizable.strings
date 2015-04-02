@@ -41,6 +41,7 @@
 "account-creation-password-placeholder-text" = "Kata laluan";
 "account-creation-password-confirm-placeholder-text" = "Sahkan kata laluan";
 "account-creation-email-placeholder-text" = "E-mel (pilihan)";
+"account-creation-missing-fields" = "Anda mesti menaipkan nama pengguna, kata laluan dan sekali lagi kata laluan untuk pengesahan untuk membuka akaun.";
 "login-name-not-found" = "Nama pengguna diperlukan untuk log masuk.";
 "login-name-illegal" = "Nama pengguna yang diberikan tidak sah.";
 "login-name-does-not-exist" = "Nama pengguna yang diberikan tidak wujud.";
@@ -109,6 +110,7 @@
 "main-menu-terms-of-use" = "Syarat-syarat penggunaan";
 "main-menu-rate-app" = "Beri nilai aplikasi";
 "main-menu-heading-zero" = "Wikipedia Zero";
+// Fuzzy
 "main-menu-heading-legal" = "Entah apa-apa";
 "main-menu-show-today" = "Hari ini";
 "main-menu-nearby" = "Berdekatan";
@@ -117,7 +119,6 @@
 "saved-pages-clear-confirmation-heading" = "Padamkan semua item tersimpan?";
 "saved-pages-clear-confirmation-sub-heading" = "Tindakan ini tidak boleh dipulihkan!";
 "saved-pages-clear-cancel" = "Batalkan";
-"saved-pages-clear-delete-all" = "Padam Semua";
 "page-history-title" = "Sejarah laman";
 "page-history-downloading" = "Memuatkan sejarah laman...";
 "navbar-title-mode-edit-wikitext" = "Sunting";
@@ -172,7 +173,9 @@
 "timestamp-days" = "%d hari yang lalu";
 "timestamp-months" = "%d bulan yang lalu";
 "timestamp-years" = "%d tahun yang lalu";
+// Fuzzy
 "lastmodified-by-user" = "Diubah pada $1 oleh $2";
+// Fuzzy
 "lastmodified-by-anon" = "Diubah pada $1 oleh pengguna tanpa nama";
 "button-next" = "Seterusnya";
 "button-done" = "Siap";
@@ -231,3 +234,4 @@
 "nearby-location-updates-settings-menu" = "Privasi > Perkhidmatan Lokasi > Wikipedia\n(Privacy > Location Services > Wikipedia)";
 "nearby-location-general-error" = "Lokasi tidak dapat ditentukan. Sila tarik untuk muat semula atau cuba lagi nanti.";
 "nearby-wifi" = "Memasang Wi-Fi boleh membantu peranti anda menentukan lokasi anda dengan lebih baik.";
+"migration-update-progress-label" = "Menaiktaraf data setempat";

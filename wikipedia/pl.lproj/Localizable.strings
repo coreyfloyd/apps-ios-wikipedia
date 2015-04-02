@@ -5,6 +5,7 @@
 // Author: Bsitzmann
 // Author: Chrumps
 // Author: Jacenty359
+// Author: Peter Bowman
 // Author: Pio387
 // Author: Py64
 // Author: Ty221
@@ -14,6 +15,8 @@
 "article-languages-cancel" = "Anuluj";
 "article-languages-downloading" = "Ładowanie języków artykułu...";
 "article-languages-filter-placeholder" = "Filtr językowy";
+"article-read-more-title" = "Czytaj więcej";
+"info-box-close-text" = "Zamknij";
 "language-button-text" = "Możesz czytać ten artykuł w %d innych językach.";
 "history-label" = "Ostatnie";
 "history-section-today" = "Dzisiaj";
@@ -104,7 +107,7 @@
 "saved-pages-clear-confirmation-heading" = "Usunąć wszystkie zapisane elementy?";
 "saved-pages-clear-confirmation-sub-heading" = "Ta akcja nie można zostać cofnięta!";
 "saved-pages-clear-cancel" = "Anuluj";
-"saved-pages-clear-delete-all" = "Usuń wszystko";
+"saved-pages-refresh-cancel-alert-title" = "Aktualizacja anulowana";
 "page-history-title" = "Historia strony";
 "page-history-downloading" = "Ładowanie historii artykułu...";
 "navbar-title-mode-edit-wikitext" = "Edytuj";
@@ -130,6 +133,7 @@
 "credits-external-libraries" = "Zewnętrzny";
 "about-wikipedia" = "Wikipedia";
 "about-translators" = "tłumacze";
+"about-libraries-license" = "Licencja";
 "about-repositories" = "repozytoria";
 "share-menu-save-page" = "Zapisz stronę";
 "share-menu-page-saved" = "Zapisano do czytania w trybie offline.";
@@ -139,7 +143,9 @@
 "timestamp-days" = "%d dni temu";
 "timestamp-months" = "%d miesięcy temu";
 "timestamp-years" = "%d lat temu";
+// Fuzzy
 "lastmodified-by-user" = "$1 zmodyfikowana przez $2";
+// Fuzzy
 "lastmodified-by-anon" = "$ zmodyfikowany przez anonimowego użytkownika";
 "button-next" = "Następny";
 "button-done" = "Gotowe";
@@ -188,3 +194,6 @@
 "nearby-location-updates-settings-menu" = "Prywatność > Usługi lokalizacji > Wikipedia";
 "nearby-location-general-error" = "Nie udało się ustalić położenia. Odśwież lub spróbuj ponownie później.";
 "nearby-wifi" = "Uruchomienie Wi-Fi może pomóc urządzeniu lepiej określić twoją lokalizację.";
+"hockeyapp-alert-send-report" = "Wyślij raport";
+"hockeyapp-alert-always-send" = "Zawsze wysyłaj";
+"hockeyapp-alert-do-not-send" = "Nie wysyłaj";
