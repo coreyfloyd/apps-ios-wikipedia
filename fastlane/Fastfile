@@ -54,7 +54,7 @@ lane :alpha do
     scheme: "WikipediaAlpha",
     clean: nil, # this means 'Do Clean'. Clean project before building.
     archive: nil, # this means 'Do Archive'. Archive project to the Xcode organizer after building.
-    # verbose: nil, # this means 'Do Verbose'.
+    verbose: nil, # this means 'Do Verbose'.
   })
 
   # Upload the DSYM to Hockey
@@ -122,7 +122,7 @@ end
 
 after_all do |lane|
 
-  reset_git_repo :force
+  # reset_git_repo :force
 
   # This block is called, only if the executed lane was successful
   # slack({
