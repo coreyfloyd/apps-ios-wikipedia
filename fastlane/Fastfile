@@ -12,19 +12,15 @@ before_all do
 end
 
 def pre_check
-  #sh './scripts/uncrustify_all.sh'
-
-  xcbuild({
-    scheme: 'Wikipedia',
-    analyze: nil
-  })
 
   xctest({
     scheme: 'Wikipedia',
-    destination: "platform=iOS Simulator,name=iPhone 5s,OS=8.2",
+    destination: "platform=iOS Simulator,name=iPhone 6,OS=8.2",
     report_formats: [ "html", "junit" ],
+    report_path: "build/reports/iOS82/report.xml",
     clean: nil
   })
+
 end
 
 lane :test do
@@ -51,6 +47,8 @@ lane :alpha do
     produce_version: '4.1.1',
     produce_sku: '01985',
   })
+
+  pre_check
 
   increment_build_number ENV['BUILD_NUMBER'].to_i
 
@@ -130,7 +128,7 @@ lane :appstore do
 end
 
 after_all do |lane|
-  reset_git_repo :force
+
 end
 
 

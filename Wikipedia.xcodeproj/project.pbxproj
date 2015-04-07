@@ -205,6 +205,7 @@
 		04F39590186CF80100B0D6FC /* TOCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F3958F186CF80100B0D6FC /* TOCViewController.m */; };
 		08D631F71A69B1AB00D87AD0 /* WMFImageGalleryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08D631F61A69B1AB00D87AD0 /* WMFImageGalleryViewController.m */; };
 		0EA4402E1AA6281200B09DBA /* NSDateFormatter+WMFExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EA4402D1AA6281200B09DBA /* NSDateFormatter+WMFExtensions.m */; };
+		0EBC56681AD3656900E82CDD /* WMFAsyncTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = BC7ACB631AB34C9C00791497 /* WMFAsyncTestCase.m */; };
 		701FF5EE601DEA3FCAB7EFD3 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D82982ED992F47428037BDF2 /* libPods.a */; };
 		954BA118838BF8BA6B01C34A /* libPods-WikipediaUnitTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CE61C6963F825760822A28A /* libPods-WikipediaUnitTests.a */; };
 		BC0FED621AAA0263002488D7 /* WMFCodingStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6FEAE01A9B7EFD00A1D890 /* WMFCodingStyle.m */; };
@@ -236,7 +237,6 @@
 		BC50C37F1A83C784006DC7AF /* WMFNetworkUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = BC50C37E1A83C784006DC7AF /* WMFNetworkUtilities.m */; };
 		BC50C3871A83CBDA006DC7AF /* MWKImageInfoResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = BC50C3861A83CBDA006DC7AF /* MWKImageInfoResponseSerializer.m */; };
 		BC69C3141AB0C1FF0090B039 /* WMFImageInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC69C3131AB0C1FF0090B039 /* WMFImageInfoController.m */; };
-		BC7ACB641AB34C9C00791497 /* WMFAsyncTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = BC7ACB631AB34C9C00791497 /* WMFAsyncTestCase.m */; };
 		BC7DFCD61AA4E5FE000035C3 /* WMFImageURLParsing.m in Sources */ = {isa = PBXBuildFile; fileRef = BC7DFCD51AA4E5FE000035C3 /* WMFImageURLParsing.m */; };
 		BC86B9361A92966B00B4C039 /* AFHTTPRequestOperationManager+UniqueRequests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC86B9351A92966B00B4C039 /* AFHTTPRequestOperationManager+UniqueRequests.m */; };
 		BC86B93D1A929CC500B4C039 /* UICollectionViewFlowLayout+NSCopying.m in Sources */ = {isa = PBXBuildFile; fileRef = BC86B93C1A929CC500B4C039 /* UICollectionViewFlowLayout+NSCopying.m */; };
@@ -306,10 +306,10 @@
 		BCDB75C41AB0E8300005593F /* WMFSubstringUtilsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCDB75C31AB0E8300005593F /* WMFSubstringUtilsTests.m */; };
 		BCE912BA1ACC5E6900B74B42 /* NSIndexSet+BKReduce.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE912B91ACC5E6900B74B42 /* NSIndexSet+BKReduce.m */; };
 		BCE912BD1ACC629B00B74B42 /* NSIndexSet+BKReduceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BCE912BC1ACC629B00B74B42 /* NSIndexSet+BKReduceTests.m */; };
+		BCE912D31ACCAF6900B74B42 /* OldDataSchemaBundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = BCE912D21ACCAF6500B74B42 /* OldDataSchemaBundle.bundle */; };
 		BCEC778F1AC9AEC800D9DDA5 /* MWKImage+AssociationTestUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = BCEC778E1AC9AEC800D9DDA5 /* MWKImage+AssociationTestUtils.m */; };
 		BCEC77921AC9B6AD00D9DDA5 /* HCIsCollectionContainingInAnyOrder+WMFCollectionMatcherUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = BCEC77911AC9B6AD00D9DDA5 /* HCIsCollectionContainingInAnyOrder+WMFCollectionMatcherUtils.m */; };
 		BCEC77951AC9C74700D9DDA5 /* NSArray+WMFShuffle.m in Sources */ = {isa = PBXBuildFile; fileRef = BCEC77941AC9C74700D9DDA5 /* NSArray+WMFShuffle.m */; };
-		BCE912D31ACCAF6900B74B42 /* OldDataSchemaBundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = BCE912D21ACCAF6500B74B42 /* OldDataSchemaBundle.bundle */; };
 		C42D947E1A937DAC00A4871A /* SavedArticlesFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = C42D947D1A937DAC00A4871A /* SavedArticlesFetcher.m */; };
 		C42D94861A937DE000A4871A /* WMFBorderButton.m in Sources */ = {isa = PBXBuildFile; fileRef = C42D94831A937DE000A4871A /* WMFBorderButton.m */; };
 		C42D94871A937DE000A4871A /* WMFProgressLineView.m in Sources */ = {isa = PBXBuildFile; fileRef = C42D94851A937DE000A4871A /* WMFProgressLineView.m */; };
@@ -2988,18 +2988,16 @@
 				BC0FED681AAA0268002488D7 /* MWKUserTests.m in Sources */,
 				BCB3AE861AC11320004AD205 /* NSPersistentStoreCoordinator+WMFTempCoordinator.m in Sources */,
 				BC0FED661AAA0268002488D7 /* MWKSiteTests.m in Sources */,
+				0EBC56681AD3656900E82CDD /* WMFAsyncTestCase.m in Sources */,
 				BCA9575D1ABE473800B62AE8 /* OldDataSchemaMigratorTests.m in Sources */,
 				BC0FED691AAA0268002488D7 /* MWKProtectionStatusTests.m in Sources */,
 				BC0FED6C1AAA0268002488D7 /* MWKImageStorageTests.m in Sources */,
 				BC0FED721AAA026C002488D7 /* WMFErrorForApiErrorObjectTests.m in Sources */,
 				BCA6765A1AC0600500A16160 /* MWKDataStore+TemporaryDataStore.m in Sources */,
-				04D686CA1AB28FE40009B44A /* UIImage+WMFFocalImageDrawing.m in Sources */,
-				04D686FF1AB2949C0009B44A /* WikiGlyphLabel.m in Sources */,
 				04F122671ACB818F002FC3B5 /* NSString+FormattedAttributedString.m in Sources */,
 				BC0FED711AAA026C002488D7 /* WMFJoinedPropertyParametersTests.m in Sources */,
 				BC0FED6A1AAA0268002488D7 /* MWKDataStorePathTests.m in Sources */,
 				BC0FED761AAA026C002488D7 /* NSString+WMFHTMLParsingTests.m in Sources */,
-
 				BCA676571AC05FE200A16160 /* XCTestCase+WMFBundleConvenience.m in Sources */,
 				BC0FED671AAA0268002488D7 /* MWKTitleTests.m in Sources */,
 				BC0FED631AAA0263002488D7 /* MWKTestCase.m in Sources */,
