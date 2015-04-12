@@ -2,6 +2,9 @@
 # https://github.com/krausefx/fastlane#customise-the-fastfile
 # vim: ft=ruby
 
+require 'chunky_png'
+
+
 ENV['XCODE_WORKSPACE'] = 'Wikipedia.xcworkspace'
 
 # Returns true if the `NO_RESET` env var is set to 1
@@ -43,12 +46,12 @@ before_all do
 end
 
 lane :test do
-  make 'lint'
+  run_unit_tests
 end
 
 lane :alpha do
   run_unit_tests
-  
+
   # Download the Certificate for signing
   cert
 
@@ -155,3 +158,27 @@ end
 # error do |lane, exception|
 # end
 
+def add_text_to_icons(icon_name_prefix, text)
+  #Partially Taken from elsewhere in Fastlane
+
+  #find an xcodeproj (ignoring the Cocoapods one)
+  xcodeproj_paths = Dir[File.expand_path(File.join(ENV['PWD'], '**/*.xcodeproj'))].reject { |path| /Pods\/.*.xcodeproj/ =~ path }
+
+  unless xcodeproj_paths.count == 0
+    xcodeproj_path = xcodeproj_paths.first
+
+    #Open the project
+    project = Xcodeproj::Project.open(xcodeproj_path)
+    # info_plist_files = project.objects.select { |object| object.isa == 'XCBuildConfiguration' }.map(&:to_hash).map { |object_hash| object_hash['buildSettings'] }.select { |build_settings| build_settings.key?('INFOPLIST_FILE') }.map { |build_settings| build_settings['INFOPLIST_FILE'] }.uniq.map { |info_plist_path| Pathname.new(File.expand_path(File.join(xcodeproj_path, '..', info_plist_path))).relative_path_from(repo_pathname).to_s }
+
+    unless project.targets.count == 0
+      #Get the target
+      target = project.targets.select { |target| target.class == PBXNativeTarget }.first
+
+      #Add a new shell script build phase and save the project
+      build_phase = target.new_shell_script_build_phase 'Process Icons'
+      build_phase.shell_script = './scripts/process-icons.sh'
+      project.save
+    end
+  end
+end
