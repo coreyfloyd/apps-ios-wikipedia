@@ -223,6 +223,9 @@
 		BC69C3141AB0C1FF0090B039 /* WMFImageInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC69C3131AB0C1FF0090B039 /* WMFImageInfoController.m */; };
 		BC7328661ADC48F400F64305 /* WMFApiRequestSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = BC7328651ADC48F400F64305 /* WMFApiRequestSerializer.m */; };
 		BC7328681ADC51A000F64305 /* WMFApiRequestSerializerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC7328671ADC51A000F64305 /* WMFApiRequestSerializerTests.m */; };
+		BC73286C1ADC743B00F64305 /* AFHTTPRequestOperationManager+WMFApiRequestManager.m in Sources */ = {isa = PBXBuildFile; fileRef = BC73286B1ADC743B00F64305 /* AFHTTPRequestOperationManager+WMFApiRequestManager.m */; };
+		BC73286F1ADC784A00F64305 /* WMFApiRequestParameters.m in Sources */ = {isa = PBXBuildFile; fileRef = BC73286E1ADC784A00F64305 /* WMFApiRequestParameters.m */; };
+		BC7328711ADC78EC00F64305 /* WMFApiRequestParametersTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC7328701ADC78EC00F64305 /* WMFApiRequestParametersTests.m */; };
 		BC7DFCD61AA4E5FE000035C3 /* WMFImageURLParsing.m in Sources */ = {isa = PBXBuildFile; fileRef = BC7DFCD51AA4E5FE000035C3 /* WMFImageURLParsing.m */; };
 		BC86B9361A92966B00B4C039 /* AFHTTPRequestOperationManager+UniqueRequests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC86B9351A92966B00B4C039 /* AFHTTPRequestOperationManager+UniqueRequests.m */; };
 		BC86B93D1A929CC500B4C039 /* UICollectionViewFlowLayout+NSCopying.m in Sources */ = {isa = PBXBuildFile; fileRef = BC86B93C1A929CC500B4C039 /* UICollectionViewFlowLayout+NSCopying.m */; };
@@ -746,6 +749,11 @@
 		BC7328641ADC48F400F64305 /* WMFApiRequestSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFApiRequestSerializer.h; path = Serializers/WMFApiRequestSerializer.h; sourceTree = "<group>"; };
 		BC7328651ADC48F400F64305 /* WMFApiRequestSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFApiRequestSerializer.m; path = Serializers/WMFApiRequestSerializer.m; sourceTree = "<group>"; };
 		BC7328671ADC51A000F64305 /* WMFApiRequestSerializerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFApiRequestSerializerTests.m; sourceTree = "<group>"; };
+		BC73286A1ADC743B00F64305 /* AFHTTPRequestOperationManager+WMFApiRequestManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AFHTTPRequestOperationManager+WMFApiRequestManager.h"; sourceTree = "<group>"; };
+		BC73286B1ADC743B00F64305 /* AFHTTPRequestOperationManager+WMFApiRequestManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AFHTTPRequestOperationManager+WMFApiRequestManager.m"; sourceTree = "<group>"; };
+		BC73286D1ADC784A00F64305 /* WMFApiRequestParameters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFApiRequestParameters.h; sourceTree = "<group>"; };
+		BC73286E1ADC784A00F64305 /* WMFApiRequestParameters.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFApiRequestParameters.m; sourceTree = "<group>"; };
+		BC7328701ADC78EC00F64305 /* WMFApiRequestParametersTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFApiRequestParametersTests.m; sourceTree = "<group>"; };
 		BC7ACB621AB34C9C00791497 /* WMFAsyncTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFAsyncTestCase.h; path = ../WMFAsyncTestCase.h; sourceTree = "<group>"; };
 		BC7ACB631AB34C9C00791497 /* WMFAsyncTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFAsyncTestCase.m; path = ../WMFAsyncTestCase.m; sourceTree = "<group>"; };
 		BC7DFCCB1AA4BA8A000035C3 /* WMFCodingStyle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFCodingStyle.h; sourceTree = "<group>"; };
@@ -1614,6 +1622,8 @@
 				0487047D19F8262600B7D307 /* WikiTextSectionUploader.m */,
 				BC955BC51A82BEFD000EF9E4 /* MWKImageInfoFetcher.h */,
 				BC955BC61A82BEFD000EF9E4 /* MWKImageInfoFetcher.m */,
+				BC73286A1ADC743B00F64305 /* AFHTTPRequestOperationManager+WMFApiRequestManager.h */,
+				BC73286B1ADC743B00F64305 /* AFHTTPRequestOperationManager+WMFApiRequestManager.m */,
 			);
 			path = Fetchers;
 			sourceTree = "<group>";
@@ -2047,6 +2057,7 @@
 				BCE912BC1ACC629B00B74B42 /* NSIndexSet+BKReduceTests.m */,
 				0EBC56951AD5B22800E82CDD /* BITHockeyManagerWMFExtensionsTests.m */,
 				BC7328671ADC51A000F64305 /* WMFApiRequestSerializerTests.m */,
+				BC7328701ADC78EC00F64305 /* WMFApiRequestParametersTests.m */,
 			);
 			path = WikipediaUnitTests;
 			sourceTree = "<group>";
@@ -2128,6 +2139,8 @@
 				BC50C3861A83CBDA006DC7AF /* MWKImageInfoResponseSerializer.m */,
 				BC7328641ADC48F400F64305 /* WMFApiRequestSerializer.h */,
 				BC7328651ADC48F400F64305 /* WMFApiRequestSerializer.m */,
+				BC73286D1ADC784A00F64305 /* WMFApiRequestParameters.h */,
+				BC73286E1ADC784A00F64305 /* WMFApiRequestParameters.m */,
 			);
 			name = Serializers;
 			sourceTree = "<group>";
@@ -2878,6 +2891,7 @@
 				BC0FED621AAA0263002488D7 /* WMFCodingStyle.m in Sources */,
 				BC0FED741AAA026C002488D7 /* CircularBitwiseRotationTests.m in Sources */,
 				BCEC77951AC9C74700D9DDA5 /* NSArray+WMFShuffle.m in Sources */,
+				BC7328711ADC78EC00F64305 /* WMFApiRequestParametersTests.m in Sources */,
 				BCE912BD1ACC629B00B74B42 /* NSIndexSet+BKReduceTests.m in Sources */,
 				BCB3AE8A1AC11458004AD205 /* NSManagedObjectContext+WMFTempContext.m in Sources */,
 				BCEC77921AC9B6AD00D9DDA5 /* HCIsCollectionContainingInAnyOrder+WMFCollectionMatcherUtils.m in Sources */,
@@ -2905,6 +2919,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC73286F1ADC784A00F64305 /* WMFApiRequestParameters.m in Sources */,
 				D49B2ED2196C687C002F035D /* PullToRefreshViewController.m in Sources */,
 				0449E63518A9845C00D51524 /* LoginViewController.m in Sources */,
 				BCB669A61A83F6C400C7B1FE /* MWKDataObject.m in Sources */,
@@ -3091,6 +3106,7 @@
 				0480AE8B1AA4E61000A9950C /* WMFOptionsFooterViewController.m in Sources */,
 				BCB669B51A83F6C400C7B1FE /* MWKUserDataStore.m in Sources */,
 				0487045519F824D700B7D307 /* QueuesSingleton.m in Sources */,
+				BC73286C1ADC743B00F64305 /* AFHTTPRequestOperationManager+WMFApiRequestManager.m in Sources */,
 				04F27B7818FE0F2E00EDD838 /* PageHistoryViewController.m in Sources */,
 				BCB669A41A83F6C400C7B1FE /* MWKSite.m in Sources */,
 				BCB669AC1A83F6C400C7B1FE /* MWKSavedPageEntry.m in Sources */,
