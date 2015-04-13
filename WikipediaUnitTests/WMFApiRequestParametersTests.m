@@ -20,6 +20,8 @@
 
 @implementation WMFApiRequestParametersTests
 
+#pragma mark - Tests
+
 - (void)testQueryParameterProcessingOnlyProcessesArrays {
     NSDictionary* queryParams = @{@"foo": @"bar",
                                   @"biz": @0,
@@ -35,7 +37,7 @@
     expect(result).to.haveCountOf(queryParams.count);
 }
 
-- (void)testDefaultParameterOverrides {
+- (void)testOverridesWithDefaults {
     NSDictionary* queryParams = @{@"foo": @"bar",
                                   @"biz": @"0",
                                   @"baz": @[@"fuz", @"fuzzy"]};
@@ -46,7 +48,7 @@
     .to.equal(defaults.allValues);
 }
 
-- (void)testDefaultParameterOverridesWithContinue {
+- (void)testDefaultRawContinueOmittedWhenOverridesContainsContinue {
     NSDictionary* queryParams = @{@"foo": @"bar",
                                   @"biz": @"0",
                                   @"baz": @[@"fuz", @"fuzzy"],
@@ -57,7 +59,7 @@
     expect(overriddenDefaults).to.haveCountOf(queryParams.count);
 }
 
-- (void)testDefaultParameterOverridesWithRawContinue {
+- (void)testDefaultsWithOverridesPreservesRawContinue {
     NSDictionary* queryParams = @{@"foo": @"bar",
                                   @"biz": @"0",
                                   @"baz": @[@"fuz", @"fuzzy"],
@@ -65,12 +67,6 @@
     NSDictionary* overriddenDefaults = WMFDefaultApiParametersWithOverrides(queryParams);
     [self verifyOverriddenDefaults:overriddenDefaults preservedEntriesOf:queryParams];
     expect(overriddenDefaults).to.haveCountOf(queryParams.count);
-}
-
-- (void)verifyOverriddenDefaults:(NSDictionary*)result preservedEntriesOf:(NSDictionary*)overrides {
-    [overrides enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-        expect(result[key]).to.equal(obj);
-    }];
 }
 
 - (void)testExpectedQueryParameters {
@@ -81,12 +77,19 @@
     NSMutableDictionary* expectedQueryParams =
         [WMFDefaultApiParametersWithOverrides(
             WMFReplaceArraysWithJoinedApiParameters(queryParams)) mutableCopy];
-
     expectedQueryParams[@"format"] = @"json";
     expectedQueryParams[@"action"] = WMFStringFromApiAction(WMFApiActionQuery);
 
     WMFApiRequestParameters* apiParams = [WMFApiRequestParameters jsonQueryWithParameters:queryParams];
     expect([apiParams httpQueryParameterDictionary]).to.equal(expectedQueryParams);
+}
+
+#pragma mark - Verifications
+
+- (void)verifyOverriddenDefaults:(NSDictionary*)result preservedEntriesOf:(NSDictionary*)overrides {
+    [overrides enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
+        expect(result[key]).to.equal(obj);
+    }];
 }
 
 @end
