@@ -15,4 +15,5 @@ pod 'HockeySDK', '3.6.2'
 target 'WikipediaUnitTests', :exclusive => false do
   pod 'OCMockito', '~> 1.4'
   pod 'OCHamcrest', '~> 4.1'
+  pod 'Expecta', '~> 0.3.0'
 end
