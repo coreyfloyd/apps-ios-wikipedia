@@ -11,8 +11,16 @@
 @class MWKTitle;
 @class AFHTTPRequestOperationManager;
 
-typedef void (^ WMFArticlePreviewOpenCallback)(MWKTitle* pageTitle);
-typedef void (^ WMFArticlePreviewErrorCallback)(MWKTitle* pageTitle, NSError* error);
+@class WMFArticlePreviewController;
+@protocol WMFArticlePreviewControllerDelegate <NSObject>
+
+- (void)openPageForTitle:(MWKTitle*)title;
+
+- (void)previewController:(WMFArticlePreviewController*)controller
+     failedToPreviewTitle:(MWKTitle*)title
+                    error:(NSError*)error;
+
+@end
 
 /**
  * Controller (perhaps a view controller eventually) which manages the display of a preview for a given article.
@@ -22,19 +30,12 @@ typedef void (^ WMFArticlePreviewErrorCallback)(MWKTitle* pageTitle, NSError* er
  */
 @interface WMFArticlePreviewController : NSObject
 
+@property (nonatomic, weak) id<WMFArticlePreviewControllerDelegate> delegate;
+
 /// Designated initializer, only exposed for testing.
 - (instancetype)initWithRequestManager:(AFHTTPRequestOperationManager*)requestManager;
 
-/**
- * Shows a preview for an article, with capabilities to dismiss the preview and open the previewed page.
- * @param pageTitle The title of the page to preview.
- * @param openPage  Block which will be invoked when the user indicates they want to open the page being previewed.
- */
-- (void)showPreviewForPage:(MWKTitle*)pageTitle
-          openPageCallback:(WMFArticlePreviewOpenCallback)openPage
-                     error:(WMFArticlePreviewErrorCallback)error;
-
-// placeholder...
-- (void)dismissPreview;
+/// Shows a preview for the article specified by `pageTitle`.
+- (void)showPreviewForPage:(MWKTitle*)pageTitle;
 
 @end

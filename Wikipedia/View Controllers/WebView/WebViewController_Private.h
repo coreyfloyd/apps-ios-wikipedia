@@ -98,6 +98,7 @@ static const CGFloat kBottomScrollSpacerHeight = 2000.0f;
 static const int kMinimumTextSelectionLength = 2;
 
 @interface WebViewController ()
+<WMFArticlePreviewControllerDelegate>
 {
     CGFloat scrollViewDragBeganVerticalOffset_;
     SessionSingleton* session;

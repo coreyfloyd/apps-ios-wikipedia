@@ -14,9 +14,14 @@
 #import "WMFApiRequestParameters+ArticlePreview.h"
 #import "MWKTitle.h"
 #import "MWKArticlePreview.h"
+#import <BlocksKit/BlocksKit.h>
+#import "WMFArticlePreviewInteractionHandler.h"
+#import "AFHTTPRequestOperationManager+UniqueRequests.h"
 
 @interface WMFArticlePreviewController ()
+<UIAlertViewDelegate>
 @property (nonatomic, copy, readonly) AFHTTPRequestOperationManager* requestManager;
+@property (nonatomic, strong) WMFArticlePreviewInteractionHandler* interactionHandler;
 @end
 
 @implementation WMFArticlePreviewController
@@ -36,42 +41,36 @@
     return self;
 }
 
-- (void)showPreviewForPage:(MWKTitle*)pageTitle
-          openPageCallback:(WMFArticlePreviewOpenCallback)openPageCallback
-                     error:(WMFArticlePreviewErrorCallback)errorCallback {
+- (void)showPreviewForPage:(MWKTitle*)pageTitle {
+    self.interactionHandler = nil;
+
     WMFApiRequestParameters* requestForPreview =
         [WMFApiRequestParameters articlePreviewParametersForTitle:pageTitle.prefixedText];
 
     __weak __typeof__(self) weakSelf = self;
-#warning TODO: keep the request around so it can be cancelled in the event of another request
-#warning TODO: use idempotent get to prevent multiple in-flight requests for the same title
-    //AFHTTPRequestOperation* request =
     [self.requestManager
-     GET:[[SessionSingleton sharedInstance] urlForLanguage:pageTitle.site.language].absoluteString
-     parameters:[requestForPreview  httpQueryParameterDictionary]
-        success:^(AFHTTPRequestOperation* response, MWKArticlePreview* articlePreview) {
+     wmf_idempotentGET:[[SessionSingleton sharedInstance] urlForLanguage:pageTitle.site.language].absoluteString
+            parameters:[requestForPreview  httpQueryParameterDictionary]
+               success:^(AFHTTPRequestOperation* response, MWKArticlePreview* articlePreview) {
         dispatch_async(dispatch_get_main_queue(), ^{
-            [weakSelf showPopupWithData:articlePreview];
+            [weakSelf showPreviewWithData:articlePreview forTitle:pageTitle];
         });
     }
-        failure:^(AFHTTPRequestOperation* response, NSError* error) {
-        if (errorCallback) {
+               failure:^(AFHTTPRequestOperation* response, NSError* error) {
+        if (![error wmf_isCancelledCocoaError]) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                errorCallback(pageTitle, error);
             });
         }
     }];
 }
 
-- (void)dismissPreview {
-    // dismiss...
-}
-
-#pragma mark - Private methods
-
-- (void)showPopupWithData:(MWKArticlePreview*)previewData {
+- (void)showPreviewWithData:(MWKArticlePreview*)previewData forTitle:(MWKTitle*)title {
     NSParameterAssert([NSThread isMainThread]);
-    NSLog(@"Showing popup for article preview %@", previewData);
+    self.interactionHandler =
+        [[WMFArticlePreviewInteractionHandler alloc] initWithPreview:previewData
+                                                            delegate:self.delegate
+                                                               title:title];
+    [self.interactionHandler show];
 }
 
 @end

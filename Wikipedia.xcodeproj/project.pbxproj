@@ -218,6 +218,7 @@
 		BC2375C11ABB14CC00B0BAA8 /* WMFArticleImageInjectionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2375C01ABB14CC00B0BAA8 /* WMFArticleImageInjectionTests.m */; };
 		BC2CBB8E1AA10F400079A313 /* UIView+WMFFrameUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = BC2CBB8D1AA10F400079A313 /* UIView+WMFFrameUtils.m */; };
 		BC31B2521AB1D9DC008138CA /* WMFImageInfoControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = BC31B2511AB1D9DC008138CA /* WMFImageInfoControllerTests.m */; };
+		BC4E47631ADDBF4E006234AC /* WMFArticlePreviewInteractionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = BC4E47621ADDBF4E006234AC /* WMFArticlePreviewInteractionHandler.m */; };
 		BC50C37F1A83C784006DC7AF /* WMFNetworkUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = BC50C37E1A83C784006DC7AF /* WMFNetworkUtilities.m */; };
 		BC50C3871A83CBDA006DC7AF /* MWKImageInfoResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = BC50C3861A83CBDA006DC7AF /* MWKImageInfoResponseSerializer.m */; };
 		BC69C3141AB0C1FF0090B039 /* WMFImageInfoController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC69C3131AB0C1FF0090B039 /* WMFImageInfoController.m */; };
@@ -742,6 +743,8 @@
 		BC2CBB8D1AA10F400079A313 /* UIView+WMFFrameUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WMFFrameUtils.m"; sourceTree = "<group>"; };
 		BC31B2511AB1D9DC008138CA /* WMFImageInfoControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFImageInfoControllerTests.m; sourceTree = "<group>"; };
 		BC4273521A7C736800068882 /* WikipediaUnitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WikipediaUnitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		BC4E47611ADDBF4E006234AC /* WMFArticlePreviewInteractionHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFArticlePreviewInteractionHandler.h; path = "Article Preview/WMFArticlePreviewInteractionHandler.h"; sourceTree = "<group>"; };
+		BC4E47621ADDBF4E006234AC /* WMFArticlePreviewInteractionHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFArticlePreviewInteractionHandler.m; path = "Article Preview/WMFArticlePreviewInteractionHandler.m"; sourceTree = "<group>"; };
 		BC50C37D1A83C784006DC7AF /* WMFNetworkUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFNetworkUtilities.h; sourceTree = "<group>"; };
 		BC50C37E1A83C784006DC7AF /* WMFNetworkUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFNetworkUtilities.m; sourceTree = "<group>"; };
 		BC50C3821A83C88F006DC7AF /* WMFJoinedPropertyParametersTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFJoinedPropertyParametersTests.m; sourceTree = "<group>"; };
@@ -2104,6 +2107,8 @@
 			children = (
 				BC8F31971ADDA0A700E25D24 /* WMFArticlePreviewController.h */,
 				BC8F31981ADDA0A700E25D24 /* WMFArticlePreviewController.m */,
+				BC4E47611ADDBF4E006234AC /* WMFArticlePreviewInteractionHandler.h */,
+				BC4E47621ADDBF4E006234AC /* WMFArticlePreviewInteractionHandler.m */,
 			);
 			name = "Article Preview";
 			sourceTree = "<group>";
@@ -3057,6 +3062,7 @@
 				BCB669AE1A83F6C400C7B1FE /* MWKHistoryEntry.m in Sources */,
 				0433542618A093C5009305F0 /* UIView+RemoveConstraints.m in Sources */,
 				BC8F31891ADD7C0200E25D24 /* WMFApiRequestParameters.m in Sources */,
+				BC4E47631ADDBF4E006234AC /* WMFArticlePreviewInteractionHandler.m in Sources */,
 				04D686FC1AB2949C0009B44A /* WikiGlyphButton.m in Sources */,
 				C98990341A699DE000AF44FC /* WMFShareCardViewController.m in Sources */,
 				C42D94861A937DE000A4871A /* WMFBorderButton.m in Sources */,

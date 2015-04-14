@@ -46,3 +46,9 @@ inline static NSDictionary* WMFNonEmptyDictionary(id object) {
 - (id)wmf_nonEmptyDictionaryForKey:(id<NSCopying>)key;
 
 @end
+
+@interface NSError (WMFIsCancelled)
+
+- (BOOL)wmf_isCancelledCocoaError;
+
+@end

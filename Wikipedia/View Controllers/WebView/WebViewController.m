@@ -1988,25 +1988,26 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
 
 - (WMFArticlePreviewController*)previewController {
     if (!_previewController) {
-        _previewController = [WMFArticlePreviewController new];
+        _previewController          = [WMFArticlePreviewController new];
+        _previewController.delegate = self;
     }
     return _previewController;
 }
 
 - (void)showPreviewForTitle:(MWKTitle*)title {
-    __weak __typeof__(self) weakSelf = self;
-    [self.previewController showPreviewForPage:title
-                              openPageCallback:^(MWKTitle* pageTitle) {
-        __typeof__(weakSelf) strSelf = weakSelf;
-        if (!strSelf) {
-            return;
-        }
-        [strSelf animateTopAndBottomMenuReveal];
-        [strSelf navigateToPage:title discoveryMethod:MWK_DISCOVERY_METHOD_LINK showLoadingIndicator:YES];
-    } error:^(MWKTitle* pageTitle, NSError* error) {
-        NSLog(@"Failed to show preview for title %@. %@", pageTitle, error);
-        #warning TOOD: show alert
-    }];
+    [self.previewController showPreviewForPage:title];
+}
+
+- (void)openPageForTitle:(MWKTitle*)title {
+    [self animateTopAndBottomMenuReveal];
+    [self navigateToPage:title discoveryMethod:MWK_DISCOVERY_METHOD_LINK showLoadingIndicator:YES];
+}
+
+- (void)previewController:(WMFArticlePreviewController*)controller
+     failedToPreviewTitle:(MWKTitle*)title
+                    error:(NSError*)error {
+    NSLog(@"Failed to show preview for title %@. %@", title, error);
+    #warning TOOD: show alert
 }
 
 @end

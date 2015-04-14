@@ -46,3 +46,11 @@ NSString* WMFExtractTextFromHTML(NSString* htmlString) {
 }
 
 @end
+
+@implementation NSError (WMFIsCancelled)
+
+- (BOOL)wmf_isCancelledCocoaError {
+    return [self.domain isEqualToString:NSCocoaErrorDomain] && self.code == NSURLErrorCancelled;
+}
+
+@end
