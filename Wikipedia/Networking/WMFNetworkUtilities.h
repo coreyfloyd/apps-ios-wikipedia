@@ -34,3 +34,15 @@ extern NSError* WMFErrorForApiErrorObject(NSDictionary* apiError);
  * @return A URL which points to the API endpoint for the given mediawiki instance.
  */
 extern NSURL* WMFBaseApiURL(NSString* languageCode, NSString* siteDomain);
+
+#warning HAX: workaround for back-end JSON serialization bug which returns empty objects as arrays
+/// @return A dictionary if `object` is a non-empty dictionary, otherwise `nil`.
+inline static NSDictionary* WMFNonEmptyDictionary(id object) {
+    return ([object isKindOfClass:[NSDictionary class]] && [object count] > 0) ? object : nil;
+}
+
+@interface NSDictionary (WMFNonEmptyDictForKey)
+
+- (id)wmf_nonEmptyDictionaryForKey:(id<NSCopying>)key;
+
+@end

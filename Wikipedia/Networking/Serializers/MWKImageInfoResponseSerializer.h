@@ -6,10 +6,9 @@
 //  Copyright (c) 2015 Wikimedia Foundation. All rights reserved.
 //
 
-#import <AFNetworking/AFURLResponseSerialization.h>
+#import "WMFJSONResponseSerializer.h"
 
-
-@interface MWKImageInfoResponseSerializer : AFJSONResponseSerializer
+@interface MWKImageInfoResponseSerializer : WMFJSONResponseSerializer
 
 + (NSArray*)requiredExtMetadataKeys;
 

@@ -33,3 +33,11 @@ NSError* WMFErrorForApiErrorObject(NSDictionary* apiError){
 extern NSURL* WMFBaseApiURL(NSString* languageCode, NSString* siteDomain) {
     return [NSURL URLWithString:[NSString stringWithFormat:@"https://%@.%@/w/api.php", languageCode, siteDomain]];
 }
+
+@implementation NSDictionary (WMFNonEmptyDictForKey)
+
+- (id)wmf_nonEmptyDictionaryForKey:(id<NSCopying>)key {
+    return WMFNonEmptyDictionary(self[key]);
+}
+
+@end

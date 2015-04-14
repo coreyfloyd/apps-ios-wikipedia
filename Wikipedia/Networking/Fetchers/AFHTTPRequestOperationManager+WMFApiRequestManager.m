@@ -8,14 +8,9 @@
 
 #import "AFHTTPRequestOperationManager+WMFApiRequestManager.h"
 #import "AFHTTPRequestOperationManager+WMFConfig.h"
-#import "WMFApiRequestSerializer.h"
+#import "WMFJSONResponseSerializer.h"
 
 @implementation AFHTTPRequestOperationManager (WMFApiRequestManager)
-
-+ (instancetype)wmf_apiRequestManager {
-    return [self wmf_apiRequestManagerWithRequestSerializer:[WMFApiRequestSerializer serializer]
-                                        responseSerializers:@[[AFJSONResponseSerializer serializerWithReadingOptions:0]]];
-}
 
 + (instancetype)wmf_apiRequestManagerWithRequestSerializer:(AFHTTPRequestSerializer*)requestSerializer
                                        responseSerializers:(NSArray*)responseSerializers {
@@ -24,10 +19,9 @@
 
     AFHTTPRequestOperationManager* manager = [self wmf_createDefaultManager];
 
-    manager.requestSerializer = requestSerializer;
-
     if (responseSerializers.count > 1) {
-        manager.responseSerializer = [AFCompoundResponseSerializer compoundSerializerWithResponseSerializers:responseSerializers];
+        manager.responseSerializer =
+            [AFCompoundResponseSerializer compoundSerializerWithResponseSerializers:responseSerializers];
     } else {
         manager.responseSerializer = responseSerializers.firstObject;
     }

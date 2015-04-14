@@ -30,10 +30,10 @@
 - (void)testExample {
     WMFApiRequestParameters* articlePreviewRequestParams =
         [WMFApiRequestParameters articlePreviewParametersForTitle:@"Taiko"];
-        
+
     XCTestExpectation* requestExpectation = [self expectationWithDescription:@"GET"];
     [self.manager GET:WMFBaseApiURL(@"en", @"wikipedia.org").absoluteString
-           parameters:articlePreviewRequestParams
+           parameters:[articlePreviewRequestParams httpQueryParameterDictionary]
               success:^(AFHTTPRequestOperation* response, id json) {
         NSLog(@"Success! %@", json);
         [requestExpectation fulfill];
