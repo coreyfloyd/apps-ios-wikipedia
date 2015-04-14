@@ -11,6 +11,8 @@
 #import "AFHTTPRequestOperationManager+WMFApiRequestManager.h"
 #import "WMFNetworkUtilities.h"
 #import "WMFApiRequestParameters+ArticlePreview.h"
+#import "MWKArticlePreviewResponseSerializer.h"
+#import "MWKArticlePreview.h"
 
 // set default timeout to 5s (since we're doing network I/O to get fixture data)
 #define WMFDefaultExpectationTimeout 5
@@ -24,7 +26,9 @@
 
 - (void)setUp {
     [super setUp];
-    self.manager = [AFHTTPRequestOperationManager wmf_apiRequestManager];
+    self.manager =
+        [AFHTTPRequestOperationManager wmf_apiRequestManagerWithResponseSerializers:
+         @[[MWKArticlePreviewResponseSerializer serializer]]];
 }
 
 - (void)testExample {
@@ -34,8 +38,8 @@
     XCTestExpectation* requestExpectation = [self expectationWithDescription:@"GET"];
     [self.manager GET:WMFBaseApiURL(@"en", @"wikipedia.org").absoluteString
            parameters:[articlePreviewRequestParams httpQueryParameterDictionary]
-              success:^(AFHTTPRequestOperation* response, id json) {
-        NSLog(@"Success! %@", json);
+              success:^(AFHTTPRequestOperation* response, MWKArticlePreview* articlePreview) {
+        NSLog(@"Success! %@", articlePreview);
         [requestExpectation fulfill];
     }
               failure:^(AFHTTPRequestOperation* response, NSError* error) {

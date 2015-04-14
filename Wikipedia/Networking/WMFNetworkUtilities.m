@@ -8,6 +8,7 @@
 
 #import "WMFNetworkUtilities.h"
 #import "NSMutableDictionary+WMFMaybeSet.h"
+#import "NSString+WMFHTMLParsing.h"
 
 NSString* const WMFNetworkingErrorDomain = @"WMFNetworkingErrorDomain";
 
@@ -32,6 +33,10 @@ NSError* WMFErrorForApiErrorObject(NSDictionary* apiError){
 
 extern NSURL* WMFBaseApiURL(NSString* languageCode, NSString* siteDomain) {
     return [NSURL URLWithString:[NSString stringWithFormat:@"https://%@.%@/w/api.php", languageCode, siteDomain]];
+}
+
+NSString* WMFExtractTextFromHTML(NSString* htmlString) {
+    return [[htmlString wmf_joinedHtmlTextNodes] wmf_getCollapsedWhitespaceStringAdjustedForTerminalPunctuation];
 }
 
 @implementation NSDictionary (WMFNonEmptyDictForKey)

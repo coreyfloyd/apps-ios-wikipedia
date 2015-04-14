@@ -2,6 +2,12 @@
 
 @interface NSString (WMFHTMLParsing)
 
+/**
+ * Higher-order method for getting plain text from an HTML string.
+ * @return A copy of the receiver after going through HTML text extraction and sanitation.
+ */
+- (NSString*)wmf_stringByExtractingAndSanitizingHTML;
+
 /// Parse the receiver as HTML and return the content of any text nodes found.
 - (NSArray*)wmf_htmlTextNodes;
 
@@ -28,9 +34,8 @@
 - (NSString*)wmf_getStringSnippetWithoutHTML;
 
 /**
- *
- *
- *  @return Return string with internal whitespace segments reduced to single space. Accounts for end of sentence punctuation like commas, semicolons and periods. Trims leading and trailing whitespace as well.
+ *  Collapses internal whitespace segments reduced to single space. Accounts for end of sentence punctuation like
+ *  commas, semicolons and periods. Trims leading and trailing whitespace as well.
  */
 - (NSString*)wmf_getCollapsedWhitespaceStringAdjustedForTerminalPunctuation;
 
