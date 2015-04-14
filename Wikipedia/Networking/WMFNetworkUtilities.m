@@ -29,3 +29,7 @@ NSError* WMFErrorForApiErrorObject(NSDictionary* apiError){
     maybeMapApiToUserInfo(NSLocalizedRecoverySuggestionErrorKey, @"*");
     return [NSError errorWithDomain:WMFNetworkingErrorDomain code:WMFNetworkingError_APIError userInfo:userInfoBuilder];
 }
+
+extern NSURL* WMFBaseApiURL(NSString* languageCode, NSString* siteDomain) {
+    return [NSURL URLWithString:[NSString stringWithFormat:@"https://%@.%@/w/api.php", languageCode, siteDomain]];
+}

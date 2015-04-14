@@ -10,7 +10,7 @@
 
 /// @name Constants
 
-FOUNDATION_EXPORT NSString* const WMFNetworkingErrorDomain;
+extern NSString* const WMFNetworkingErrorDomain;
 
 typedef NS_ENUM (NSInteger, WMFNetworkingError) {
     WMFNetworkingError_APIError
@@ -23,6 +23,14 @@ typedef NS_ENUM (NSInteger, WMFNetworkingError) {
  * Take an array of strings and concatenate them with "|" as a delimiter.
  * @return A string of the concatenated elements, or an empty string if @c props is empty or @c nil.
  */
-FOUNDATION_EXPORT NSString* WMFJoinedPropertyParameters(NSArray* props);
+extern NSString* WMFJoinedPropertyParameters(NSArray* props);
 
-FOUNDATION_EXPORT NSError* WMFErrorForApiErrorObject(NSDictionary* apiError);
+extern NSError* WMFErrorForApiErrorObject(NSDictionary* apiError);
+
+/**
+ * Construct a base API URL.
+ * @param languageCode  A language code, e.g. "en".
+ * @param siteDomain    A site domain, e.g. "wikipedia.org".
+ * @return A URL which points to the API endpoint for the given mediawiki instance.
+ */
+extern NSURL* WMFBaseApiURL(NSString* languageCode, NSString* siteDomain);

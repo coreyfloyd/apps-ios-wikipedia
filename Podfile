@@ -12,7 +12,7 @@ pod 'blockskit/Core', '~> 2.2'
 pod 'Masonry', '~> 0.6'
 pod 'HockeySDK', '3.6.2'
 
-target 'WikipediaUnitTests', :exclusive => false do
+target 'WikipediaUnitTests', :exclusive => true do
   pod 'OCMockito', '~> 1.4'
   pod 'OCHamcrest', '~> 4.1'
   pod 'Expecta', '~> 0.3.0'
