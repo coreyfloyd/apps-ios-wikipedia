@@ -42,8 +42,7 @@
 }
 
 - (void)showPreviewForPage:(MWKTitle*)pageTitle {
-    self.interactionHandler = nil;
-
+#warning TODO: cache model objects? JSON is supposedly already cached by the shared NSURLCache
     WMFApiRequestParameters* requestForPreview =
         [WMFApiRequestParameters articlePreviewParametersForTitle:pageTitle.prefixedText];
 
@@ -59,6 +58,7 @@
                failure:^(AFHTTPRequestOperation* response, NSError* error) {
         if (![error wmf_isCancelledCocoaError]) {
             dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf.delegate previewController:weakSelf failedToPreviewTitle:pageTitle error:error];
             });
         }
     }];
@@ -66,10 +66,9 @@
 
 - (void)showPreviewWithData:(MWKArticlePreview*)previewData forTitle:(MWKTitle*)title {
     NSParameterAssert([NSThread isMainThread]);
-    self.interactionHandler =
-        [[WMFArticlePreviewInteractionHandler alloc] initWithPreview:previewData
-                                                            delegate:self.delegate
-                                                               title:title];
+    self.interactionHandler = [[WMFArticlePreviewInteractionHandler alloc] initWithPreview:previewData
+                                                                                  delegate:self.delegate
+                                                                                     title:title];
     [self.interactionHandler show];
 }
 
