@@ -233,6 +233,7 @@
 		BC8F318C1ADD82A100E25D24 /* WMFJSONResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8F318B1ADD82A100E25D24 /* WMFJSONResponseSerializer.m */; };
 		BC8F318F1ADD939700E25D24 /* MWKArticlePreview.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8F318E1ADD939700E25D24 /* MWKArticlePreview.m */; };
 		BC8F31921ADD974A00E25D24 /* MWKArticlePreviewResponseSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8F31911ADD974A00E25D24 /* MWKArticlePreviewResponseSerializer.m */; };
+		BC8F31991ADDA0A700E25D24 /* WMFArticlePreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BC8F31981ADDA0A700E25D24 /* WMFArticlePreviewController.m */; };
 		BC90C4B91AC201BB009F36D2 /* AppDelegate+DataMigrationProgressDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BC90C4B81AC201BB009F36D2 /* AppDelegate+DataMigrationProgressDelegate.m */; };
 		BC90C4BE1AC219FE009F36D2 /* UIWindow+WMFMainScreenWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = BC90C4BD1AC219FE009F36D2 /* UIWindow+WMFMainScreenWindow.m */; };
 		BC955BC71A82BEFD000EF9E4 /* MWKImageInfoFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = BC955BC61A82BEFD000EF9E4 /* MWKImageInfoFetcher.m */; };
@@ -774,6 +775,8 @@
 		BC8F318E1ADD939700E25D24 /* MWKArticlePreview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MWKArticlePreview.m; sourceTree = "<group>"; };
 		BC8F31901ADD974A00E25D24 /* MWKArticlePreviewResponseSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MWKArticlePreviewResponseSerializer.h; path = Serializers/MWKArticlePreviewResponseSerializer.h; sourceTree = "<group>"; };
 		BC8F31911ADD974A00E25D24 /* MWKArticlePreviewResponseSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MWKArticlePreviewResponseSerializer.m; path = Serializers/MWKArticlePreviewResponseSerializer.m; sourceTree = "<group>"; };
+		BC8F31971ADDA0A700E25D24 /* WMFArticlePreviewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFArticlePreviewController.h; path = "Article Preview/WMFArticlePreviewController.h"; sourceTree = "<group>"; };
+		BC8F31981ADDA0A700E25D24 /* WMFArticlePreviewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFArticlePreviewController.m; path = "Article Preview/WMFArticlePreviewController.m"; sourceTree = "<group>"; };
 		BC90C4B71AC201BB009F36D2 /* AppDelegate+DataMigrationProgressDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+DataMigrationProgressDelegate.h"; sourceTree = "<group>"; };
 		BC90C4B81AC201BB009F36D2 /* AppDelegate+DataMigrationProgressDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+DataMigrationProgressDelegate.m"; sourceTree = "<group>"; };
 		BC90C4BC1AC219FE009F36D2 /* UIWindow+WMFMainScreenWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWindow+WMFMainScreenWindow.h"; sourceTree = "<group>"; };
@@ -1723,6 +1726,7 @@
 		04C43AB0183441A4006C643B /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				BC8F31931ADD9FA900E25D24 /* Article Preview */,
 				045D871D19FAD2D00035C1F9 /* About */,
 				04A97E8418B81D440046B166 /* AccountCreation */,
 				04B7B9BA18B5569600A63551 /* Captcha */,
@@ -2093,6 +2097,15 @@
 				BC8F31851ADD7BF000E25D24 /* WMFApiRequestParameters+ArticlePreview.m */,
 			);
 			name = Requests;
+			sourceTree = "<group>";
+		};
+		BC8F31931ADD9FA900E25D24 /* Article Preview */ = {
+			isa = PBXGroup;
+			children = (
+				BC8F31971ADDA0A700E25D24 /* WMFArticlePreviewController.h */,
+				BC8F31981ADDA0A700E25D24 /* WMFArticlePreviewController.m */,
+			);
+			name = "Article Preview";
 			sourceTree = "<group>";
 		};
 		BCA6764C1AC05FD600A16160 /* Supporting Files */ = {
@@ -3068,6 +3081,7 @@
 				BC86B9401A929D7900B4C039 /* UICollectionViewFlowLayout+WMFItemSizeThatFits.m in Sources */,
 				C96335911AA92AAC00A1EB2C /* WMFCrashAlertView.m in Sources */,
 				D401C2C01A659E5000D4D127 /* DataMigrationProgressViewController.m in Sources */,
+				BC8F31991ADDA0A700E25D24 /* WMFArticlePreviewController.m in Sources */,
 				04CCCFF01935093A00E3F60C /* SecondaryMenuViewController.m in Sources */,
 				0EBC567F1AD442CC00E82CDD /* BITHockeyManager+WMFExtensions.m in Sources */,
 				D4B0AE0B19366A2C00F0AC90 /* ReadingActionFunnel.m in Sources */,

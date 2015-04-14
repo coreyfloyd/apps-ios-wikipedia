@@ -70,6 +70,8 @@
 
 #import "WMFLoadingIndicatorOverlay.h"
 
+#import "WMFArticlePreviewController.h"
+
 //#import "UIView+Debugging.h"
 
 #define TOC_TOGGLE_ANIMATION_DURATION @0.225f
@@ -162,6 +164,7 @@ static const int kMinimumTextSelectionLength = 2;
 
 @property (nonatomic) BOOL keyboardIsVisible;
 
+@property (nonatomic, strong, readonly) WMFArticlePreviewController* previewController;
 
 - (void)cancelArticleLoading;
 

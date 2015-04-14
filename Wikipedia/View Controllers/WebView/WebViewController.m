@@ -13,6 +13,7 @@ NSString* const kSelectedStringJS                      = @"window.getSelection()
 #pragma mark Internal variables
 
 @implementation WebViewController
+@synthesize previewController = _previewController;
 
 - (BOOL)prefersStatusBarHidden {
     return NO;
@@ -816,14 +817,7 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
 
         // @todo merge this link title extraction into MWSite
         if ([href hasPrefix:@"/wiki/"]) {
-            // Ensure the menu is visible when navigating to new page.
-            [strSelf animateTopAndBottomMenuReveal];
-
-            MWKTitle* pageTitle = [[SessionSingleton sharedInstance].currentArticleSite titleWithInternalLink:href];
-
-            [strSelf navigateToPage:pageTitle
-                    discoveryMethod:MWK_DISCOVERY_METHOD_LINK
-               showLoadingIndicator:YES];
+            [strSelf showPreviewForTitle:[[SessionSingleton sharedInstance].currentArticleSite titleWithInternalLink:href]];
         } else if ([href hasPrefix:@"http:"] || [href hasPrefix:@"https:"] || [href hasPrefix:@"//"]) {
             // A standard external link, either explicitly http(s) or left protocol-relative on web meaning http(s)
             if ([href hasPrefix:@"//"]) {
@@ -1988,6 +1982,31 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
         self.footerViewController = [[WMFWebViewFooterViewController alloc] init];
         [self wmf_addChildController:self.footerViewController andConstrainToEdgesOfContainerView:self.footerContainer];
     }
+}
+
+#pragma mark - Article Preview
+
+- (WMFArticlePreviewController*)previewController {
+    if (!_previewController) {
+        _previewController = [WMFArticlePreviewController new];
+    }
+    return _previewController;
+}
+
+- (void)showPreviewForTitle:(MWKTitle*)title {
+    __weak __typeof__(self) weakSelf = self;
+    [self.previewController showPreviewForPage:title
+                              openPageCallback:^(MWKTitle* pageTitle) {
+        __typeof__(weakSelf) strSelf = weakSelf;
+        if (!strSelf) {
+            return;
+        }
+        [strSelf animateTopAndBottomMenuReveal];
+        [strSelf navigateToPage:title discoveryMethod:MWK_DISCOVERY_METHOD_LINK showLoadingIndicator:YES];
+    } error:^(MWKTitle* pageTitle, NSError* error) {
+        NSLog(@"Failed to show preview for title %@. %@", pageTitle, error);
+        #warning TOOD: show alert
+    }];
 }
 
 @end
