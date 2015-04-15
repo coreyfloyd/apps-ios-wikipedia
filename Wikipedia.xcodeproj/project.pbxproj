@@ -195,6 +195,8 @@
 		0EBC567F1AD442CC00E82CDD /* BITHockeyManager+WMFExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBC567E1AD442CC00E82CDD /* BITHockeyManager+WMFExtensions.m */; };
 		0EBC56961AD5B22800E82CDD /* BITHockeyManagerWMFExtensionsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBC56951AD5B22800E82CDD /* BITHockeyManagerWMFExtensionsTests.m */; };
 		0EBC56971AD5B69300E82CDD /* BITHockeyManager+WMFExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBC567E1AD442CC00E82CDD /* BITHockeyManager+WMFExtensions.m */; };
+		0ED0F6591ADEE66000A4EF70 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED0F6571ADEE66000A4EF70 /* UIImage+ImageEffects.m */; };
+		0ED0F65C1ADEE81400A4EF70 /* UIView+SnapShot.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ED0F65A1ADEE81400A4EF70 /* UIView+SnapShot.m */; };
 		701FF5EE601DEA3FCAB7EFD3 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D82982ED992F47428037BDF2 /* libPods.a */; };
 		954BA118838BF8BA6B01C34A /* libPods-WikipediaUnitTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CE61C6963F825760822A28A /* libPods-WikipediaUnitTests.a */; };
 		BC0FED621AAA0263002488D7 /* WMFCodingStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6FEAE01A9B7EFD00A1D890 /* WMFCodingStyle.m */; };
@@ -733,6 +735,10 @@
 		0EBC567D1AD442CC00E82CDD /* BITHockeyManager+WMFExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BITHockeyManager+WMFExtensions.h"; sourceTree = "<group>"; };
 		0EBC567E1AD442CC00E82CDD /* BITHockeyManager+WMFExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BITHockeyManager+WMFExtensions.m"; sourceTree = "<group>"; };
 		0EBC56951AD5B22800E82CDD /* BITHockeyManagerWMFExtensionsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITHockeyManagerWMFExtensionsTests.m; sourceTree = "<group>"; };
+		0ED0F6571ADEE66000A4EF70 /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
+		0ED0F6581ADEE66000A4EF70 /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
+		0ED0F65A1ADEE81400A4EF70 /* UIView+SnapShot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SnapShot.m"; sourceTree = "<group>"; };
+		0ED0F65B1ADEE81400A4EF70 /* UIView+SnapShot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+SnapShot.h"; sourceTree = "<group>"; };
 		17A2F22335C5256576CEDBDD /* Pods-WikipediaUnitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WikipediaUnitTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WikipediaUnitTests/Pods-WikipediaUnitTests.release.xcconfig"; sourceTree = "<group>"; };
 		1BC5FB470144D2C10C55A037 /* Pods-WikipediaUnitTests.alpha.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WikipediaUnitTests.alpha.xcconfig"; path = "Pods/Target Support Files/Pods-WikipediaUnitTests/Pods-WikipediaUnitTests.alpha.xcconfig"; sourceTree = "<group>"; };
 		357504E50DA104E39C6ACFEB /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -1747,6 +1753,10 @@
 		04C43AB7183442FC006C643B /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				0ED0F65A1ADEE81400A4EF70 /* UIView+SnapShot.m */,
+				0ED0F65B1ADEE81400A4EF70 /* UIView+SnapShot.h */,
+				0ED0F6581ADEE66000A4EF70 /* UIImage+ImageEffects.h */,
+				0ED0F6571ADEE66000A4EF70 /* UIImage+ImageEffects.m */,
 				BCB669711A83F58600C7B1FE /* NSMutableDictionary+WMFMaybeSet.h */,
 				BCB669721A83F58600C7B1FE /* NSMutableDictionary+WMFMaybeSet.m */,
 				043F18DA18D9691D00D8489A /* TopActionSheet */,
@@ -3050,6 +3060,7 @@
 				0484B9061ABB50FA00874073 /* WMFArticleParsing.m in Sources */,
 				04B6925018E77B2A00F88D8A /* UIWebView+HideScrollGradient.m in Sources */,
 				048830D21AB775E3005BF3A1 /* UIScrollView+WMFScrollsToTop.m in Sources */,
+				0ED0F65C1ADEE81400A4EF70 /* UIView+SnapShot.m in Sources */,
 				047E95511996DD030046A122 /* NearbyViewController.m in Sources */,
 				04AE520519DB5E0900F89B92 /* NSObject+ConstraintsScale.m in Sources */,
 				BC86B9401A929D7900B4C039 /* UICollectionViewFlowLayout+WMFItemSizeThatFits.m in Sources */,
@@ -3105,6 +3116,7 @@
 				BCB669AB1A83F6C400C7B1FE /* MWKProtectionStatus.m in Sources */,
 				BCC185E01A9EC836005378F8 /* UIButton+FrameUtils.m in Sources */,
 				04C9509D19EF02980013F3C0 /* EventLogger.m in Sources */,
+				0ED0F6591ADEE66000A4EF70 /* UIImage+ImageEffects.m in Sources */,
 				D4E8A8A719084F1300DA4765 /* SQLiteHelper.m in Sources */,
 				04F39590186CF80100B0D6FC /* TOCViewController.m in Sources */,
 				042950D41A9D3BA7009BE784 /* UIColor+WMFHexColor.m in Sources */,

@@ -11,6 +11,22 @@ static inline WMFCardType cardPopupType(){
     return FBTweakValue(@"Card", @"Style", @"Type", WMFCardTypePrototype1, 0, 1);
 }
 
+static inline NSString* cardbackgroundColor(){
+    return FBTweakValue(@"Background", @"Tint", @"Color (Hex)", @"000000");
+}
+
+static inline CGFloat cardbackgroundAlpha(){
+    return FBTweakValue(@"Background", @"Tint", @"Alpha", 0.2, 0.1, 1.0);
+}
+
+static inline CGFloat cardbackgroundBlur(){
+    return FBTweakValue(@"Background", @"Blur", @"Enabled", NO);
+}
+
+static inline CGFloat cardbackgroundBlurRadius(){
+    return FBTweakValue(@"Background", @"Blur", @"Radius", 3.0, 1.0, 50.0);
+}
+
 static inline CGFloat cardPopupHeight(){
     return FBTweakValue(@"Card", @"Style", @"Height", 300.0, 50.0, 500.0);
 }

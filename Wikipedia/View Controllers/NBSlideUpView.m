@@ -8,10 +8,16 @@
 
 #import "NBSlideUpView.h"
 #import <Masonry/Masonry.h>
+#import "WMFCardHelpers.h"
+#import "UIColor+WMFHexColor.h"
+#import "UIImage+ImageEffects.h"
+#import "UIView+SnapShot.h"
+
 
 @interface NBSlideUpView ()
 
-@property (nonatomic, strong, readwrite) UIView* backgroundView;
+@property (nonatomic, strong) UIImageView* backgroundBlur;
+@property (nonatomic, strong) UIView* backgroundView;
 @property (nonatomic, strong) UIView* slideOutContainer;
 
 @end
@@ -24,8 +30,15 @@
     if (self) {
         self.backgroundColor = [UIColor clearColor];
 
+        UIImageView* backgroundBlur = [[UIImageView alloc] initWithFrame:self.bounds];
+        backgroundBlur.alpha = 0.0;
+    
+        [self addSubview:backgroundBlur];
+        
+        self.backgroundBlur = backgroundBlur;
+
         UIView* background = [[UIView alloc] initWithFrame:self.bounds];
-        background.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.4];
+        background.backgroundColor = [UIColor wmf_colorWithHexString:cardbackgroundColor() alpha:cardbackgroundAlpha()];
         background.alpha           = 0.0;
 
         UITapGestureRecognizer* tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapWithGesture:)];
@@ -60,16 +73,31 @@
         [self mas_remakeConstraints:^(MASConstraintMaker* make) {
             make.edges.equalTo(self.superview);
         }];
-
+        
         [self layoutIfNeeded];
 
         [self setNeedsUpdateConstraints];
         [self updateConstraintsIfNeeded];
+        
+        if(cardbackgroundBlur()){
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                UIImage* image = [self.superview snapshotOfContents];
+                image = [image applyBlurWithRadius:cardbackgroundBlurRadius() tintColor:nil saturationDeltaFactor:1.8 maskImage:nil];
+                self.backgroundBlur.image = image;
+            });
+        }
+
     }
 }
 
 - (void)updateConstraints {
     [super updateConstraints];
+
+    [self.backgroundBlur mas_remakeConstraints:^(MASConstraintMaker* make) {
+        make.edges.equalTo(self);
+    }];
 
     [self.backgroundView mas_remakeConstraints:^(MASConstraintMaker* make) {
         make.edges.equalTo(self);
@@ -152,6 +180,7 @@
 
     [UIView animateWithDuration:self.animateInOutTime delay:0 usingSpringWithDamping:self.springDamping initialSpringVelocity:self.initialSpringVelocity options:UIViewAnimationOptionCurveEaseInOut animations:^(void)
     {
+        self.backgroundBlur.alpha = 1.0;
         self.backgroundView.alpha = 1.0;
         self.visible = YES;
     }                completion:^(BOOL completed){
@@ -164,6 +193,7 @@
 - (void)animateOut {
     [UIView animateWithDuration:self.animateInOutTime delay:0 usingSpringWithDamping:self.springDamping initialSpringVelocity:self.initialSpringVelocity options:UIViewAnimationOptionCurveEaseInOut animations:^(void)
     {
+        self.backgroundBlur.alpha = 0.0;
         self.backgroundView.alpha = 0.0;
         self.visible = NO;
     }                completion:^(BOOL completed) {
