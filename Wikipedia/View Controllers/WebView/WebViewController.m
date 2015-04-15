@@ -3,6 +3,7 @@
 
 #import "WebViewController_Private.h"
 #import <Masonry/Masonry.h>
+#import "UIViewController+WMFCardPresenting.h"
 
 NSString* const WebViewControllerTextWasHighlighted    = @"textWasSelected";
 NSString* const WebViewControllerWillShareNotification = @"SelectionShare";
@@ -820,10 +821,12 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
             [strSelf animateTopAndBottomMenuReveal];
 
             MWKTitle* pageTitle = [[SessionSingleton sharedInstance].currentArticleSite titleWithInternalLink:href];
-
-            [strSelf navigateToPage:pageTitle
-                    discoveryMethod:MWK_DISCOVERY_METHOD_LINK
-               showLoadingIndicator:YES];
+            
+            [strSelf presentCardForArticleWithTitle:pageTitle animated:YES completion:NULL];
+            
+//            [strSelf navigateToPage:pageTitle
+//                    discoveryMethod:MWK_DISCOVERY_METHOD_LINK
+//               showLoadingIndicator:YES];
         } else if ([href hasPrefix:@"http:"] || [href hasPrefix:@"https:"] || [href hasPrefix:@"//"]) {
             // A standard external link, either explicitly http(s) or left protocol-relative on web meaning http(s)
             if ([href hasPrefix:@"//"]) {
