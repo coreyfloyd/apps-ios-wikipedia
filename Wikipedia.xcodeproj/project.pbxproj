@@ -3513,6 +3513,106 @@
 			};
 			name = Alpha;
 		};
+		0ED0F65D1ADEEC7300A4EF70 /* Experimental */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_SECURITY_FLOATLOOPCOUNTER = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				RUN_CLANG_STATIC_ANALYZER = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Experimental;
+		};
+		0ED0F65E1ADEEC7300A4EF70 /* Experimental */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C7C26C8CB2ECA7439FB76EAE /* Pods.alpha.xcconfig */;
+			buildSettings = {
+				APP_ID_SUFFIX = .tfexperiment;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "wikipedia/Wikipedia-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SDKROOT)/usr/include/libxml2",
+					"$(PROJECT_DIR)/cocoapods/Pods/Headers/Public/AFNetworking",
+					"$(PROJECT_DIR)/cocoapods/Pods/Headers/Public/hpple",
+					"$(PROJECT_DIR)/MediaWikiKit/MediaWikiKit",
+					"$(PROJECT_DIR)/OldDataSchema/**",
+				);
+				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LIBRARY_SEARCH_PATHS = "$(inherited)";
+				OTHER_LDFLAGS = "$(inherited)";
+				PRODUCT_NAME = "Wikipedia ${CONFIGURATION}";
+				PROVISIONING_PROFILE = "a5d0e7f0-7ffa-4395-96ad-21cfa02bf37a";
+				RUN_CLANG_STATIC_ANALYZER = NO;
+				WARNING_CFLAGS = (
+					"$(inherited)",
+					"-Werror=switch",
+					"-Werror=arc-retain-cycles",
+					"-Werror=incompatible-pointer-types",
+					"-Werror=incomplete-implementation",
+				);
+				WRAPPER_EXTENSION = app;
+			};
+			name = Experimental;
+		};
+		0ED0F65F1ADEEC7300A4EF70 /* Experimental */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1BC5FB470144D2C10C55A037 /* Pods-WikipediaUnitTests.alpha.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = WikipediaUnitTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wikipedia ${CONFIGURATION}.app/Wikipedia ${CONFIGURATION}";
+			};
+			name = Experimental;
+		};
 		A69698A61AC9D08700208A11 /* Beta */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -3826,6 +3926,7 @@
 				BC42735B1A7C736800068882 /* Debug */,
 				BC42735C1A7C736800068882 /* Release */,
 				0E4F85D91AC1BF56004CA3CD /* Alpha */,
+				0ED0F65F1ADEEC7300A4EF70 /* Experimental */,
 				A69698A81AC9D08700208A11 /* Beta */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -3837,6 +3938,7 @@
 				D4991468181D51DF00E6073C /* Debug */,
 				D4991469181D51DF00E6073C /* Release */,
 				0E4F85D71AC1BF56004CA3CD /* Alpha */,
+				0ED0F65D1ADEEC7300A4EF70 /* Experimental */,
 				A69698A61AC9D08700208A11 /* Beta */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -3848,6 +3950,7 @@
 				D499146B181D51DF00E6073C /* Debug */,
 				D499146C181D51DF00E6073C /* Release */,
 				0E4F85D81AC1BF56004CA3CD /* Alpha */,
+				0ED0F65E1ADEEC7300A4EF70 /* Experimental */,
 				A69698A71AC9D08700208A11 /* Beta */,
 			);
 			defaultConfigurationIsVisible = 0;

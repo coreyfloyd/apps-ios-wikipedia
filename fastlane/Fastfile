@@ -103,6 +103,40 @@ lane :beta do
   end
 end
 
+lane :experimental do
+  # Download the Certificate for signing
+  cert
+
+  # Create and/or download the right provisioning profile
+  sigh({
+    force: true,
+    provisioning_name: 'TF Experimental',
+    app_identifier: 'org.wikimedia.wikipedia.tfexperiment',
+  })
+
+  increment_build_number (10 + ENV['BUILD_NUMBER'].to_i)
+
+  # Create and sign the IPA (and DSYM)
+  ipa({
+    scheme: 'Wikipedia Alpha',
+    configuration: 'Alpha', #Prevents fastlane from passing --configuration "Release" - bug?
+    clean: nil, # this means 'Do Clean'. Clean project before building.
+    archive: nil, # this means 'Do Archive'. Archive project to the Xcode organizer after building.
+    # verbose: nil, # this means 'Do Verbose'.
+  })
+
+  unless deploy_disabled?
+    ENV['HOCKEY_API_TOKEN'] = 'c881c19fd8d0401682c4640b7948ef5e'
+    # Upload the DSYM to Hockey
+    hockey({
+      api_token: hockey_api_token,
+      notes: git_commit_log,
+      notify: 0,
+      status: 1, #Means do not make available for download
+    })
+  end
+end
+
 lane :appstore do
   run_unit_tests
   snapshot
@@ -117,4 +151,3 @@ end
 
 # error do |lane, exception|
 # end
-
