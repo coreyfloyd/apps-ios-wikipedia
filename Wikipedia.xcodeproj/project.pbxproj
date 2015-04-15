@@ -185,6 +185,10 @@
 		04F27B7818FE0F2E00EDD838 /* PageHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F27B7418FE0F2E00EDD838 /* PageHistoryViewController.m */; };
 		04F39590186CF80100B0D6FC /* TOCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F3958F186CF80100B0D6FC /* TOCViewController.m */; };
 		08D631F71A69B1AB00D87AD0 /* WMFImageGalleryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08D631F61A69B1AB00D87AD0 /* WMFImageGalleryViewController.m */; };
+		0E09518F1ADD91280028FEB0 /* UIViewController+WMFCardPresenting.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E09518E1ADD91280028FEB0 /* UIViewController+WMFCardPresenting.m */; };
+		0E9D08BF1ADCBF0C00EF1F12 /* WMFCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E9D08BD1ADCBF0C00EF1F12 /* WMFCardViewController.m */; };
+		0E9D08C01ADCBF0C00EF1F12 /* WMFCardViewControllerProtoType1.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0E9D08BE1ADCBF0C00EF1F12 /* WMFCardViewControllerProtoType1.xib */; };
+		0EA3EFDA1ADDE50000FABFEF /* NBSlideUpView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EA3EFD91ADDE50000FABFEF /* NBSlideUpView.m */; };
 		0EA4402E1AA6281200B09DBA /* NSDateFormatter+WMFExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EA4402D1AA6281200B09DBA /* NSDateFormatter+WMFExtensions.m */; };
 		0EBC56681AD3656900E82CDD /* WMFAsyncTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = BC7ACB631AB34C9C00791497 /* WMFAsyncTestCase.m */; };
 		0EBC567F1AD442CC00E82CDD /* BITHockeyManager+WMFExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBC567E1AD442CC00E82CDD /* BITHockeyManager+WMFExtensions.m */; };
@@ -714,10 +718,18 @@
 		08D631F81A69B8CD00D87AD0 /* WMFImageGalleryCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFImageGalleryCollectionViewCell.h; path = "Image Gallery/WMFImageGalleryCollectionViewCell.h"; sourceTree = "<group>"; };
 		08D631F91A69B8CD00D87AD0 /* WMFImageGalleryCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFImageGalleryCollectionViewCell.m; path = "Image Gallery/WMFImageGalleryCollectionViewCell.m"; sourceTree = "<group>"; };
 		08F646F7D0488CE3C6D6A763 /* Pods.beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.beta.xcconfig; path = "Pods/Target Support Files/Pods/Pods.beta.xcconfig"; sourceTree = "<group>"; };
-		0EA4402C1AA6281200B09DBA /* NSDateFormatter+WMFExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDateFormatter+WMFExtensions.h"; path = "Wikipedia/Categories/NSDateFormatter+WMFExtensions.h"; sourceTree = SOURCE_ROOT; };
-		0EA4402D1AA6281200B09DBA /* NSDateFormatter+WMFExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDateFormatter+WMFExtensions.m"; path = "Wikipedia/Categories/NSDateFormatter+WMFExtensions.m"; sourceTree = SOURCE_ROOT; };
-		0EBC567D1AD442CC00E82CDD /* BITHockeyManager+WMFExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "BITHockeyManager+WMFExtensions.h"; path = "Wikipedia/Categories/BITHockeyManager+WMFExtensions.h"; sourceTree = SOURCE_ROOT; };
-		0EBC567E1AD442CC00E82CDD /* BITHockeyManager+WMFExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "BITHockeyManager+WMFExtensions.m"; path = "Wikipedia/Categories/BITHockeyManager+WMFExtensions.m"; sourceTree = SOURCE_ROOT; };
+		0E09518D1ADD91280028FEB0 /* UIViewController+WMFCardPresenting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+WMFCardPresenting.h"; sourceTree = "<group>"; };
+		0E09518E1ADD91280028FEB0 /* UIViewController+WMFCardPresenting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+WMFCardPresenting.m"; sourceTree = "<group>"; };
+		0E0951911ADD96E40028FEB0 /* WMFCardHelpers.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WMFCardHelpers.h; sourceTree = "<group>"; };
+		0E9D08BC1ADCBF0C00EF1F12 /* WMFCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFCardViewController.h; sourceTree = "<group>"; };
+		0E9D08BD1ADCBF0C00EF1F12 /* WMFCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFCardViewController.m; sourceTree = "<group>"; };
+		0E9D08BE1ADCBF0C00EF1F12 /* WMFCardViewControllerProtoType1.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WMFCardViewControllerProtoType1.xib; sourceTree = "<group>"; };
+		0EA3EFD81ADDE50000FABFEF /* NBSlideUpView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NBSlideUpView.h; sourceTree = "<group>"; };
+		0EA3EFD91ADDE50000FABFEF /* NBSlideUpView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NBSlideUpView.m; sourceTree = "<group>"; };
+		0EA4402C1AA6281200B09DBA /* NSDateFormatter+WMFExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+WMFExtensions.h"; sourceTree = "<group>"; };
+		0EA4402D1AA6281200B09DBA /* NSDateFormatter+WMFExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+WMFExtensions.m"; sourceTree = "<group>"; };
+		0EBC567D1AD442CC00E82CDD /* BITHockeyManager+WMFExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BITHockeyManager+WMFExtensions.h"; sourceTree = "<group>"; };
+		0EBC567E1AD442CC00E82CDD /* BITHockeyManager+WMFExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "BITHockeyManager+WMFExtensions.m"; sourceTree = "<group>"; };
 		0EBC56951AD5B22800E82CDD /* BITHockeyManagerWMFExtensionsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITHockeyManagerWMFExtensionsTests.m; sourceTree = "<group>"; };
 		17A2F22335C5256576CEDBDD /* Pods-WikipediaUnitTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WikipediaUnitTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-WikipediaUnitTests/Pods-WikipediaUnitTests.release.xcconfig"; sourceTree = "<group>"; };
 		1BC5FB470144D2C10C55A037 /* Pods-WikipediaUnitTests.alpha.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WikipediaUnitTests.alpha.xcconfig"; path = "Pods/Target Support Files/Pods-WikipediaUnitTests/Pods-WikipediaUnitTests.alpha.xcconfig"; sourceTree = "<group>"; };
@@ -1698,6 +1710,7 @@
 		04C43AB0183441A4006C643B /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				0E9D08BB1ADCBE6800EF1F12 /* Card */,
 				045D871D19FAD2D00035C1F9 /* About */,
 				04A97E8418B81D440046B166 /* AccountCreation */,
 				04B7B9BA18B5569600A63551 /* Captcha */,
@@ -2004,6 +2017,21 @@
 				BCB848811AAE06420077EC24 /* ImageGallerySpecs */,
 			);
 			name = "Image Gallery";
+			sourceTree = "<group>";
+		};
+		0E9D08BB1ADCBE6800EF1F12 /* Card */ = {
+			isa = PBXGroup;
+			children = (
+				0E0951911ADD96E40028FEB0 /* WMFCardHelpers.h */,
+				0EA3EFD81ADDE50000FABFEF /* NBSlideUpView.h */,
+				0EA3EFD91ADDE50000FABFEF /* NBSlideUpView.m */,
+				0E09518D1ADD91280028FEB0 /* UIViewController+WMFCardPresenting.h */,
+				0E09518E1ADD91280028FEB0 /* UIViewController+WMFCardPresenting.m */,
+				0E9D08BC1ADCBF0C00EF1F12 /* WMFCardViewController.h */,
+				0E9D08BD1ADCBF0C00EF1F12 /* WMFCardViewController.m */,
+				0E9D08BE1ADCBF0C00EF1F12 /* WMFCardViewControllerProtoType1.xib */,
+			);
+			name = Card;
 			sourceTree = "<group>";
 		};
 		BC69C3101AB0C16B0090B039 /* View Model */ = {
@@ -2696,6 +2724,7 @@
 				C98990361A699DFB00AF44FC /* ShareCard.xib in Resources */,
 				0493C2D419526A0100EBB973 /* WikiFont-Glyphs.ttf in Resources */,
 				04F27B7618FE0F2E00EDD838 /* PageHistoryResultPrototypeView.xib in Resources */,
+				0E9D08C01ADCBF0C00EF1F12 /* WMFCardViewControllerProtoType1.xib in Resources */,
 				04B0EA47190B2319007458AF /* PreviewLicenseView.xib in Resources */,
 				04CCCFEF1935093A00E3F60C /* SecondaryMenuRowView.xib in Resources */,
 				04E106351A3560030046DC27 /* LeadImageContainer.xib in Resources */,
@@ -2942,6 +2971,7 @@
 				042B3996192EAEEA0066B270 /* ShareMenuSavePageActivity.m in Sources */,
 				0429301018604898002A13FC /* SavedPagesViewController.m in Sources */,
 				04D149DF18877343006B4104 /* UIViewController+Alert.m in Sources */,
+				0E09518F1ADD91280028FEB0 /* UIViewController+WMFCardPresenting.m in Sources */,
 				BCA96E731AAA354D009A61FA /* WMFGradientView.m in Sources */,
 				04B91AAB18E3D9E200FFAA1C /* NSString+FormattedAttributedString.m in Sources */,
 				043F18E518D9691D00D8489A /* UINavigationController+TopActionSheet.m in Sources */,
@@ -2979,6 +3009,7 @@
 				BCC185D81A9E5628005378F8 /* UILabel+WMFStyling.m in Sources */,
 				BCB669B11A83F6C400C7B1FE /* MWKRecentSearchList.m in Sources */,
 				04DD89B118BFE63A00DD5DAD /* PreviewAndSaveViewController.m in Sources */,
+				0EA3EFDA1ADDE50000FABFEF /* NBSlideUpView.m in Sources */,
 				0487048819F8262600B7D307 /* NearbyFetcher.m in Sources */,
 				0415581C18ADFA5D00B81A59 /* UIImage+ColorMask.m in Sources */,
 				04A70FD7185BB6C300E24515 /* URLCache.m in Sources */,
@@ -2993,6 +3024,7 @@
 				04E106341A3560030046DC27 /* LeadImageContainer.m in Sources */,
 				0487048019F8262600B7D307 /* AccountLogin.m in Sources */,
 				04D149DD18877343006B4104 /* AlertLabel.m in Sources */,
+				0E9D08BF1ADCBF0C00EF1F12 /* WMFCardViewController.m in Sources */,
 				BCB669AE1A83F6C400C7B1FE /* MWKHistoryEntry.m in Sources */,
 				0433542618A093C5009305F0 /* UIView+RemoveConstraints.m in Sources */,
 				04D686FC1AB2949C0009B44A /* WikiGlyphButton.m in Sources */,
@@ -3425,8 +3457,8 @@
 					"$(PROJECT_DIR)/MediaWikiKit/MediaWikiKit",
 					"$(PROJECT_DIR)/OldDataSchema/**",
 				);
-				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				INFOPLIST_FILE = "Wikipedia/Supporting Files/Wikipedia-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = "Wikipedia ${CONFIGURATION}";
@@ -3525,8 +3557,8 @@
 					"$(PROJECT_DIR)/MediaWikiKit/MediaWikiKit",
 					"$(PROJECT_DIR)/OldDataSchema/**",
 				);
-				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				INFOPLIST_FILE = "Wikipedia/Supporting Files/Wikipedia-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = "Wikipedia ${CONFIGURATION}";
@@ -3714,8 +3746,8 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/OldDataSchema/**",
 				);
-				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				INFOPLIST_FILE = "Wikipedia/Supporting Files/Wikipedia-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = "Wikipedia ${CONFIGURATION}";
@@ -3751,8 +3783,8 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/OldDataSchema/**",
 				);
-				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				INFOPLIST_FILE = "Wikipedia/Supporting Files/Wikipedia-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = Wikipedia;
 				PROVISIONING_PROFILE = "";
