@@ -7,11 +7,13 @@
 //
 
 #import "UIWindow+WMFMainScreenWindow.h"
+#import <Tweaks/FBTweakShakeWindow.h>
 
 @implementation UIWindow (WMFMainScreenWindow)
 
 + (instancetype)wmf_newWithMainScreenBounds {
-    return [[self alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    
+    return [[FBTweakShakeWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 }
 
 @end

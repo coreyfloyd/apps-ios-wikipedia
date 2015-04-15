@@ -11,6 +11,7 @@ typedef NS_ENUM(NSUInteger, WMFCardType) {
 
 @property (nonatomic, strong) IBOutlet UIImageView* imageView;
 @property (nonatomic, strong) IBOutlet UILabel* articleTitle;
+@property (nonatomic, strong) IBOutlet UILabel* wikidataDescription;
 @property (nonatomic, strong) IBOutlet UILabel* summary;
 
 @property (nonatomic, assign, readonly) WMFCardType type;

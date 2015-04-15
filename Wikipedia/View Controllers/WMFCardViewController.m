@@ -1,6 +1,7 @@
 
 #import "WMFCardViewController.h"
 #import <LoremIpsum/LoremIpsum.h>
+#import "WMFCardHelpers.h"
 
 @interface WMFCardViewController ()
 
@@ -20,8 +21,8 @@
     if(!typeToNibMap){
         
         typeToNibMap = @{
-                         @(WMFCardTypePrototype1) : @"WMFCardViewControllerProtoType1",
-                         @(WMFCardTypePrototype2) : @"WMFCardViewControllerProtoType2",
+                         @(WMFCardTypePrototype1) : @"WMFCardViewControllerPrototype1",
+                         @(WMFCardTypePrototype2) : @"WMFCardViewControllerPrototype2",
                          };
     }
     
@@ -38,7 +39,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.articleTitle.text = [LoremIpsum sentence];
+    self.articleTitle.font = [UIFont systemFontOfSize:cardTitleFontSize()];
+    self.wikidataDescription.font = [UIFont systemFontOfSize:cardDescriptionFontSize()];
+    self.summary.font = [UIFont systemFontOfSize:cardSummaryFontSize()];
+    
+    self.articleTitle.text = [LoremIpsum title];
+    self.wikidataDescription.text = [LoremIpsum sentence];
     self.summary.text = [LoremIpsum paragraph];
 }
 
