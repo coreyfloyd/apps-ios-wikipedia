@@ -12,7 +12,6 @@
 @implementation UIWindow (WMFMainScreenWindow)
 
 + (instancetype)wmf_newWithMainScreenBounds {
-    
     return [[FBTweakShakeWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 }
 

@@ -9,8 +9,8 @@
 
 @protocol NBSlideUpViewDelegate <NSObject>
 
-- (void)slideUpViewDidAnimateOut:(UIView *)slideUpView;
-- (void)slideUpViewDidAnimateIn:(UIView *)slideUpView;
+- (void)slideUpViewDidAnimateOut:(UIView*)slideUpView;
+- (void)slideUpViewDidAnimateIn:(UIView*)slideUpView;
 
 @end
 
@@ -30,7 +30,7 @@
 @property (nonatomic) CGFloat initialSpringVelocity;
 @property (nonatomic) CGFloat animateInOutTime;
 
-@property (nonatomic, strong) UIView *contentView;
+@property (nonatomic, strong) UIView* contentView;
 
 @property (nonatomic, strong) id<NBSlideUpViewDelegate> delegate;
 

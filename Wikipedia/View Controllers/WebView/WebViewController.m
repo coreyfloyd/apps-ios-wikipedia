@@ -821,9 +821,9 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
             [strSelf animateTopAndBottomMenuReveal];
 
             MWKTitle* pageTitle = [[SessionSingleton sharedInstance].currentArticleSite titleWithInternalLink:href];
-            
+
             [strSelf presentCardForArticleWithTitle:pageTitle animated:YES completion:NULL];
-            
+
 //            [strSelf navigateToPage:pageTitle
 //                    discoveryMethod:MWK_DISCOVERY_METHOD_LINK
 //               showLoadingIndicator:YES];

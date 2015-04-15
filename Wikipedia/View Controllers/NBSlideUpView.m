@@ -19,123 +19,103 @@
 @implementation NBSlideUpView
 
 
-- (instancetype)init{
-    
+- (instancetype)init {
     self = [super initWithFrame:CGRectZero];
     if (self) {
-        
         self.backgroundColor = [UIColor clearColor];
-        
+
         UIView* background = [[UIView alloc] initWithFrame:self.bounds];
         background.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.4];
-        background.alpha = 0.0;
-        
+        background.alpha           = 0.0;
+
         UITapGestureRecognizer* tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapWithGesture:)];
         [background addGestureRecognizer:tap];
-        
+
         [self addSubview:background];
-        
+
         self.backgroundView = background;
-        
+
         UIView* slideOutContainer = [[UIView alloc] initWithFrame:CGRectZero];
         slideOutContainer.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.4];
         slideOutContainer.backgroundColor = [UIColor clearColor];
-        
+
         [self addSubview:slideOutContainer];
-        
+
         self.slideOutContainer = slideOutContainer;
-        
-        _visible = NO;
+
+        _visible        = NO;
         _viewablePixels = 100.0;
-        
+
         self.initialSpringVelocity = 1;
-        self.animateInOutTime = 0.5;
-        self.springDamping = 0.8;
-        
+        self.animateInOutTime      = 0.5;
+        self.springDamping         = 0.8;
     }
     return self;
 }
 
-- (void)didMoveToSuperview{
-    
+- (void)didMoveToSuperview {
     [super didMoveToSuperview];
-    
-    if(self.superview){
-        
-        [self mas_remakeConstraints:^(MASConstraintMaker *make) {
-            
+
+    if (self.superview) {
+        [self mas_remakeConstraints:^(MASConstraintMaker* make) {
             make.edges.equalTo(self.superview);
         }];
 
         [self layoutIfNeeded];
-        
+
         [self setNeedsUpdateConstraints];
         [self updateConstraintsIfNeeded];
     }
 }
 
-- (void)updateConstraints{
-    
+- (void)updateConstraints {
     [super updateConstraints];
-    
-    [self.backgroundView mas_remakeConstraints:^(MASConstraintMaker *make) {
-        
+
+    [self.backgroundView mas_remakeConstraints:^(MASConstraintMaker* make) {
         make.edges.equalTo(self);
     }];
 
-    [_contentView mas_updateConstraints:^(MASConstraintMaker *make) {
-        
+    [_contentView mas_updateConstraints:^(MASConstraintMaker* make) {
         make.edges.equalTo(self.slideOutContainer);
     }];
-    
-    [_slideOutContainer mas_remakeConstraints:^(MASConstraintMaker *make) {
-        
-        if(self.visible){
-            
+
+    [_slideOutContainer mas_remakeConstraints:^(MASConstraintMaker* make) {
+        if (self.visible) {
             make.top.equalTo(self.mas_bottom).with.offset(-self->_viewablePixels);
-            
-        }else{
+        } else {
             make.top.equalTo(self.mas_bottom);
-            
         }
-        
+
         make.left.equalTo(self.mas_left);
         make.right.equalTo(self.mas_right);
         make.height.equalTo(@(self->_viewablePixels));
     }];
 }
 
-
-- (void)setContentView:(UIView *)contentView{
-    
-    if(![_contentView isEqual:contentView]){
-        
+- (void)setContentView:(UIView*)contentView {
+    if (![_contentView isEqual:contentView]) {
         [_contentView removeFromSuperview];
-        
+
         _contentView = contentView;
-        
+
         [self.slideOutContainer addSubview:_contentView];
     }
 }
 
-- (void)setVisible:(BOOL)visible{
-    
-    if(_visible != visible){
-        
+- (void)setVisible:(BOOL)visible {
+    if (_visible != visible) {
         _visible = visible;
-        
+
         [self setNeedsUpdateConstraints];
         [self updateConstraintsIfNeeded];
         [self layoutIfNeeded];
     }
 }
 
-- (void)setViewablePixels:(CGFloat)viewablePixels
-{
-    if(_viewablePixels != viewablePixels){
-        
+- (void)setViewablePixels:(CGFloat)viewablePixels {
+    if (_viewablePixels != viewablePixels) {
         _viewablePixels = viewablePixels;
-        
+
         [self setNeedsUpdateConstraints];
         [self updateConstraintsIfNeeded];
         [self layoutIfNeeded];
@@ -165,48 +145,42 @@
 //}
 
 
-- (void)animateIn
-{
- 
-    if ([self.superview isKindOfClass:[UIScrollView class]]){
+- (void)animateIn {
+    if ([self.superview isKindOfClass:[UIScrollView class]]) {
         ((UIScrollView*)self.superview).scrollEnabled = NO;
     }
 
     [UIView animateWithDuration:self.animateInOutTime delay:0 usingSpringWithDamping:self.springDamping initialSpringVelocity:self.initialSpringVelocity options:UIViewAnimationOptionCurveEaseInOut animations:^(void)
-     {
-         self.backgroundView.alpha = 1.0;
-         self.visible = YES;
-
-     } completion:^(BOOL completed){
-         if (completed)
-             [self.delegate slideUpViewDidAnimateIn:self];
-     }];
+    {
+        self.backgroundView.alpha = 1.0;
+        self.visible = YES;
+    }                completion:^(BOOL completed){
+        if (completed) {
+            [self.delegate slideUpViewDidAnimateIn:self];
+        }
+    }];
 }
 
-- (void)animateOut
-{
+- (void)animateOut {
     [UIView animateWithDuration:self.animateInOutTime delay:0 usingSpringWithDamping:self.springDamping initialSpringVelocity:self.initialSpringVelocity options:UIViewAnimationOptionCurveEaseInOut animations:^(void)
-     {
-         self.backgroundView.alpha = 0.0;
-         self.visible = NO;
-         
-     } completion:^(BOOL completed) {
-         
-         if ([self.superview isKindOfClass:[UIScrollView class]]){
-             ((UIScrollView*)self.superview).scrollEnabled = YES;
-         }
+    {
+        self.backgroundView.alpha = 0.0;
+        self.visible = NO;
+    }                completion:^(BOOL completed) {
+        if ([self.superview isKindOfClass:[UIScrollView class]]) {
+            ((UIScrollView*)self.superview).scrollEnabled = YES;
+        }
 
-         if (completed)
-             [self.delegate slideUpViewDidAnimateOut:self];
-     }];
+        if (completed) {
+            [self.delegate slideUpViewDidAnimateOut:self];
+        }
+    }];
 }
 
 #pragma mark - UITapGestureRecognizerDelegate
 
-- (void)didTapWithGesture:(UITapGestureRecognizer*)tap{
-    
+- (void)didTapWithGesture:(UITapGestureRecognizer*)tap {
     [self animateOut];
 }
-
 
 @end

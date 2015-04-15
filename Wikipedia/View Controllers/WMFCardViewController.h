@@ -1,8 +1,7 @@
 
 #import <UIKit/UIKit.h>
 
-typedef NS_ENUM(NSUInteger, WMFCardType) {
-    
+typedef NS_ENUM (NSUInteger, WMFCardType) {
     WMFCardTypePrototype1 = 0,
     WMFCardTypePrototype2,
 };
