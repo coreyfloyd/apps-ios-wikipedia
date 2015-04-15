@@ -15,13 +15,28 @@
 #import "MWKTitle.h"
 #import "MWKArticlePreview.h"
 #import <BlocksKit/BlocksKit.h>
-#import "WMFArticlePreviewInteractionHandler.h"
 #import "AFHTTPRequestOperationManager+UniqueRequests.h"
+
+static void* const WMFAssociatedPreviewTitleKey = (void*)"com.wikimedia.wikipedia.articlepreview.associatedtitle";
+
+inline static void WMFSetAssociatedPreviewTitle(id obj, MWKTitle* title) {
+    [obj bk_associateValue:title withKey:WMFAssociatedPreviewTitleKey];
+}
+
+inline static MWKTitle* WMFGetAssociatedPreviewTitle(id obj) {
+    return [obj bk_associatedValueForKey:WMFAssociatedPreviewTitleKey];
+}
 
 @interface WMFArticlePreviewController ()
 <UIAlertViewDelegate>
 @property (nonatomic, copy, readonly) AFHTTPRequestOperationManager* requestManager;
-@property (nonatomic, strong) WMFArticlePreviewInteractionHandler* interactionHandler;
+
+/**
+ * Current preview UI.
+ * @note This has the `weak` ownership qualifier to ensure that the current preview is automatically `nil` when
+ *       it has been dismissed.
+ */
+@property (nonatomic, weak) UIAlertView* preview;
 @end
 
 @implementation WMFArticlePreviewController
@@ -41,8 +56,15 @@
     return self;
 }
 
+- (BOOL)isPreviewingTitle:(MWKTitle*)title {
+    return [title.prefixedText isEqualToString:[self.preview bk_associatedValueForKey:WMFAssociatedPreviewTitleKey]];
+}
+
 - (void)showPreviewForPage:(MWKTitle*)pageTitle {
-#warning TODO: cache model objects? JSON is supposedly already cached by the shared NSURLCache
+    if ([self isPreviewingTitle:pageTitle]) {
+        return;
+    }
+
     WMFApiRequestParameters* requestForPreview =
         [WMFApiRequestParameters articlePreviewParametersForTitle:pageTitle.prefixedText];
 
@@ -51,6 +73,7 @@
      wmf_idempotentGET:[[SessionSingleton sharedInstance] urlForLanguage:pageTitle.site.language].absoluteString
             parameters:[requestForPreview  httpQueryParameterDictionary]
                success:^(AFHTTPRequestOperation* response, MWKArticlePreview* articlePreview) {
+#warning TODO: cache model object. JSON is supposedly already cached by the shared NSURLCache
         dispatch_async(dispatch_get_main_queue(), ^{
             [weakSelf showPreviewWithData:articlePreview forTitle:pageTitle];
         });
@@ -65,11 +88,27 @@
 }
 
 - (void)showPreviewWithData:(MWKArticlePreview*)previewData forTitle:(MWKTitle*)title {
-    NSParameterAssert([NSThread isMainThread]);
-    self.interactionHandler = [[WMFArticlePreviewInteractionHandler alloc] initWithPreview:previewData
-                                                                                  delegate:self.delegate
-                                                                                     title:title];
-    [self.interactionHandler show];
+    UIAlertView* alertView = [[UIAlertView alloc] initWithTitle:previewData.pageTitle
+                                                        message:previewData.pageDescription
+                                                       delegate:self
+                                              cancelButtonTitle:@"Back"
+                                              otherButtonTitles:@"Open", nil];
+    [alertView show];
+    // using associated objects to tie "current title" state to the transient alert view
+    WMFSetAssociatedPreviewTitle(alertView, title);
+    self.preview = alertView;
+}
+
+#pragma mark - UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView*)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+    if (buttonIndex != alertView.cancelButtonIndex) {
+        MWKTitle* title = WMFGetAssociatedPreviewTitle(alertView);
+        NSAssert(title, @"Title was never set for preview!");
+        if (title) {
+            [self.delegate openPageForTitle:title];
+        }
+    }
 }
 
 @end
