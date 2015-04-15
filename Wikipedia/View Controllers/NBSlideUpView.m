@@ -32,9 +32,9 @@
 
         UIImageView* backgroundBlur = [[UIImageView alloc] initWithFrame:self.bounds];
         backgroundBlur.alpha = 0.0;
-    
+
         [self addSubview:backgroundBlur];
-        
+
         self.backgroundBlur = backgroundBlur;
 
         UIView* background = [[UIView alloc] initWithFrame:self.bounds];
@@ -73,22 +73,19 @@
         [self mas_remakeConstraints:^(MASConstraintMaker* make) {
             make.edges.equalTo(self.superview);
         }];
-        
+
         [self layoutIfNeeded];
 
         [self setNeedsUpdateConstraints];
         [self updateConstraintsIfNeeded];
-        
-        if(cardbackgroundBlur()){
-            
+
+        if (cardbackgroundBlur()) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                
                 UIImage* image = [self.superview snapshotOfContents];
                 image = [image applyBlurWithRadius:cardbackgroundBlurRadius() tintColor:nil saturationDeltaFactor:1.8 maskImage:nil];
                 self.backgroundBlur.image = image;
             });
         }
-
     }
 }
 

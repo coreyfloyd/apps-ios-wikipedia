@@ -12,10 +12,8 @@
                            alpha:alpha];
 }
 
-+ (UIColor*)wmf_colorWithHexString:(NSString*)hex alpha:(CGFloat)alpha{
-    
++ (UIColor*)wmf_colorWithHexString:(NSString*)hex alpha:(CGFloat)alpha {
     return [self wmf_colorWithHex:[hex integerValue] alpha:alpha];
 }
-
 
 @end

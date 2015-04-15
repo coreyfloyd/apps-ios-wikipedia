@@ -10,23 +10,18 @@
 
 @implementation UIView (SnapShot)
 
-- (UIImage*)snapshotOfContents{
-    
+- (UIImage*)snapshotOfContents {
     UIGraphicsBeginImageContextWithOptions(self.bounds.size, NO, 0);
-    
-    if([self isKindOfClass:[UIScrollView class]]){
-        
+
+    if ([self isKindOfClass:[UIScrollView class]]) {
         [self drawViewHierarchyInRect:CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height) afterScreenUpdates:YES];
-        
-    }else{
-        
+    } else {
         [self drawViewHierarchyInRect:self.bounds afterScreenUpdates:YES];
     }
-    
-    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+
+    UIImage* newImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return newImage;
-    
 }
 
 @end
