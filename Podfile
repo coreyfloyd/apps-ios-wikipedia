@@ -27,3 +27,13 @@ target 'WikipediaUnitTests', :exclusive => false do
   pod 'OCMockito', '~> 1.4'
   pod 'OCHamcrest', '~> 4.1'
 end
+
+post_install do |installer_representation|
+  installer_representation.project.targets.each do |target|
+    if target.name == "Pods-Tweaks"
+      target.build_configurations.each do |config|
+        config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= ['$(inherited)', 'FB_TWEAK_ENABLED=1']
+      end
+    end
+  end
+end

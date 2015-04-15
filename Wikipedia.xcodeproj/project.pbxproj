@@ -3461,12 +3461,12 @@
 					"$(PROJECT_DIR)/MediaWikiKit/MediaWikiKit",
 					"$(PROJECT_DIR)/OldDataSchema/**",
 				);
-				INFOPLIST_FILE = "Wikipedia/Supporting Files/Wikipedia-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = "Wikipedia ${CONFIGURATION}";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "a5d0e7f0-7ffa-4395-96ad-21cfa02bf37a";
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				WARNING_CFLAGS = (
 					"$(inherited)",
@@ -3561,7 +3561,7 @@
 					"$(PROJECT_DIR)/MediaWikiKit/MediaWikiKit",
 					"$(PROJECT_DIR)/OldDataSchema/**",
 				);
-				INFOPLIST_FILE = "Wikipedia/Supporting Files/Wikipedia-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "$(inherited)";
@@ -3750,7 +3750,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/OldDataSchema/**",
 				);
-				INFOPLIST_FILE = "Wikipedia/Supporting Files/Wikipedia-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "$(inherited)";
@@ -3787,7 +3787,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/OldDataSchema/**",
 				);
-				INFOPLIST_FILE = "Wikipedia/Supporting Files/Wikipedia-Info.plist";
+				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = Wikipedia;
