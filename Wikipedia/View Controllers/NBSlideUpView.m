@@ -7,94 +7,176 @@
 //
 
 #import "NBSlideUpView.h"
+#import <Masonry/Masonry.h>
+
+@interface NBSlideUpView ()
+
+@property (nonatomic, strong, readwrite) UIView* backgroundView;
+@property (nonatomic, strong) UIView* slideOutContainer;
+
+@end
 
 @implementation NBSlideUpView
 
-- (id)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
-    }
-    return self;
-}
 
-- (id)initWithSuperview:(UIView *)superview viewableHeight:(CGFloat)viewablePixels
-{
-    self.viewablePixels = viewablePixels;
-    self.dragMultiplier = 3.0;
-    CGRect frame = CGRectMake(0, superview.frame.size.height, superview.frame.size.width, self.viewablePixels + superview.frame.size.height/self.dragMultiplier);
-    self = [super initWithFrame:frame];
+- (instancetype)init{
+    
+    self = [super initWithFrame:CGRectZero];
     if (self) {
+        
         self.backgroundColor = [UIColor clearColor];
         
-        CGRect contentViewFrame = frame;
-        contentViewFrame.origin.y = 0;
-        UIView *contentView = [[UIView alloc] initWithFrame:contentViewFrame];
-        [self addSubview:contentView];
-        self.contentView = contentView;
-        self.contentView.backgroundColor = [UIColor grayColor];
-        self.contentView.layer.cornerRadius = 15;
+        UIView* background = [[UIView alloc] initWithFrame:self.bounds];
+        background.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.4];
+        background.alpha = 0.0;
         
-        self.arrowAlpha = 0.7;
+        UITapGestureRecognizer* tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapWithGesture:)];
+        [background addGestureRecognizer:tap];
         
-        UIImageView *arrowImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"close.png"]];
-        arrowImageView.alpha = self.arrowAlpha;
-        CGRect arrowFrame = CGRectMake((superview.frame.size.width-37)/2.0, 11, 37, 10);
-        arrowImageView.frame = arrowFrame;
-        [self addSubview:arrowImageView];
+        [self addSubview:background];
+        
+        self.backgroundView = background;
+        
+        UIView* slideOutContainer = [[UIView alloc] initWithFrame:CGRectZero];
+        slideOutContainer.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.4];
+        slideOutContainer.backgroundColor = [UIColor clearColor];
+        
+        [self addSubview:slideOutContainer];
+        
+        self.slideOutContainer = slideOutContainer;
+        
+        _visible = NO;
+        _viewablePixels = 100.0;
         
         self.initialSpringVelocity = 1;
         self.animateInOutTime = 0.5;
         self.springDamping = 0.8;
         
-        if ([superview isKindOfClass:[UIScrollView class]])
-            self.superviewIsScrollView = YES;
-        
-        [superview addSubview:self];
     }
     return self;
 }
 
-- (void)setViewablePixels:(CGFloat)viewablePixels
-{
-    _viewablePixels = viewablePixels;
-    if (self.superview)
-    {
-        CGRect frame = CGRectMake(0, self.superview.frame.size.height, self.superview.frame.size.width, viewablePixels + self.superview.frame.size.height/self.dragMultiplier);
-        self.frame = frame;
-        frame.origin.y = 0;
-        self.contentView.frame = frame;
+- (void)didMoveToSuperview{
+    
+    [super didMoveToSuperview];
+    
+    if(self.superview){
+        
+        [self mas_remakeConstraints:^(MASConstraintMaker *make) {
+            
+            make.edges.equalTo(self.superview);
+        }];
+
+        [self layoutIfNeeded];
+        
+        [self setNeedsUpdateConstraints];
+        [self updateConstraintsIfNeeded];
     }
 }
 
-# pragma mark - Touches/Dragging
+- (void)updateConstraints{
+    
+    [super updateConstraints];
+    
+    [self.backgroundView mas_remakeConstraints:^(MASConstraintMaker *make) {
+        
+        make.edges.equalTo(self);
+    }];
 
-- (void)touchesMoved:(NSSet*)touches withEvent:(UIEvent*)event
-{
-    UITouch* touch = [touches anyObject];
-    CGPoint location = [touch locationInView:self.superview];
-    if (self.previousTouch.y == 0)
-        _previousTouch = location;
-    CGFloat translation = location.y - self.previousTouch.y;
-    [self setCenter:CGPointMake(self.center.x, self.center.y + translation/self.dragMultiplier)];
-    _previousTouch = location;
+    [_contentView mas_updateConstraints:^(MASConstraintMaker *make) {
+        
+        make.edges.equalTo(self.slideOutContainer);
+    }];
+    
+    [_slideOutContainer mas_remakeConstraints:^(MASConstraintMaker *make) {
+        
+        if(self.visible){
+            
+            make.top.equalTo(self.mas_bottom).with.offset(-self->_viewablePixels);
+            
+        }else{
+            make.top.equalTo(self.mas_bottom);
+            
+        }
+        
+        make.left.equalTo(self.mas_left);
+        make.right.equalTo(self.mas_right);
+        make.height.equalTo(@(self->_viewablePixels));
+    }];
 }
 
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    _previousTouch = CGPointMake(0, 0);
-    if (self.frame.origin.y > self.superview.frame.size.height - self.viewablePixels)
-        [self animateOut];
-    else
-        [self animateRestore];
+
+- (void)setContentView:(UIView *)contentView{
+    
+    if(![_contentView isEqual:contentView]){
+        
+        [_contentView removeFromSuperview];
+        
+        _contentView = contentView;
+        
+        [self.slideOutContainer addSubview:_contentView];
+    }
 }
+
+- (void)setVisible:(BOOL)visible{
+    
+    if(_visible != visible){
+        
+        _visible = visible;
+        
+        [self setNeedsUpdateConstraints];
+        [self updateConstraintsIfNeeded];
+        [self layoutIfNeeded];
+    }
+}
+
+- (void)setViewablePixels:(CGFloat)viewablePixels
+{
+    if(_viewablePixels != viewablePixels){
+        
+        _viewablePixels = viewablePixels;
+        
+        [self setNeedsUpdateConstraints];
+        [self updateConstraintsIfNeeded];
+        [self layoutIfNeeded];
+    }
+}
+
+//#pragma mark - Touches/Dragging
+//
+//- (void)touchesMoved:(NSSet*)touches withEvent:(UIEvent*)event
+//{
+//    UITouch* touch = [touches anyObject];
+//    CGPoint location = [touch locationInView:self.superview];
+//    if (self.previousTouch.y == 0)
+//        _previousTouch = location;
+//    CGFloat translation = location.y - self.previousTouch.y;
+//    [self setCenter:CGPointMake(self.center.x, self.center.y + translation)];
+//    _previousTouch = location;
+//}
+//
+//- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+//{
+//    _previousTouch = CGPointMake(0, 0);
+//    if (self.frame.origin.y > self.superview.frame.size.height - self.viewablePixels)
+//        [self animateOut];
+//    else
+//        [self animateRestore];
+//}
+
 
 - (void)animateIn
 {
+ 
+    if ([self.superview isKindOfClass:[UIScrollView class]]){
+        ((UIScrollView*)self.superview).scrollEnabled = NO;
+    }
+
     [UIView animateWithDuration:self.animateInOutTime delay:0 usingSpringWithDamping:self.springDamping initialSpringVelocity:self.initialSpringVelocity options:UIViewAnimationOptionCurveEaseInOut animations:^(void)
      {
-         self.frame = CGRectMake(self.frame.origin.x, self.superview.frame.size.height - self.viewablePixels, self.frame.size.width, self.frame.size.height);
+         self.backgroundView.alpha = 1.0;
+         self.visible = YES;
+
      } completion:^(BOOL completed){
          if (completed)
              [self.delegate slideUpViewDidAnimateIn:self];
@@ -105,29 +187,26 @@
 {
     [UIView animateWithDuration:self.animateInOutTime delay:0 usingSpringWithDamping:self.springDamping initialSpringVelocity:self.initialSpringVelocity options:UIViewAnimationOptionCurveEaseInOut animations:^(void)
      {
-         if (self.superviewIsScrollView)
-             self.frame = CGRectMake(self.frame.origin.x, self.superview.frame.size.height + ((UIScrollView *)self.superview).contentOffset.y, self.frame.size.width, self.frame.size.height);
-         else
-             self.frame = CGRectMake(self.frame.origin.x, self.superview.frame.size.height, self.frame.size.width, self.frame.size.height);
+         self.backgroundView.alpha = 0.0;
+         self.visible = NO;
          
      } completion:^(BOOL completed) {
+         
+         if ([self.superview isKindOfClass:[UIScrollView class]]){
+             ((UIScrollView*)self.superview).scrollEnabled = YES;
+         }
+
          if (completed)
              [self.delegate slideUpViewDidAnimateOut:self];
      }];
 }
 
-- (void)animateRestore
-{
-    [UIView animateWithDuration:self.animateInOutTime delay:0 usingSpringWithDamping:self.springDamping initialSpringVelocity:self.initialSpringVelocity options:UIViewAnimationOptionCurveEaseInOut animations:^(void)
-     {
-         if (self.superviewIsScrollView)
-             self.frame = CGRectMake(self.frame.origin.x, ((UIScrollView *)self.superview).contentOffset.y + 120, self.frame.size.width, self.frame.size.height);
-         else
-             self.frame = CGRectMake(self.frame.origin.x, self.superview.frame.size.height - self.viewablePixels, self.frame.size.width, self.frame.size.height);
-     } completion:^(BOOL completed){
-         if (completed)
-             [self.delegate slideUpViewDidAnimateRestore:self];
-     }];
+#pragma mark - UITapGestureRecognizerDelegate
+
+- (void)didTapWithGesture:(UITapGestureRecognizer*)tap{
+    
+    [self animateOut];
 }
+
 
 @end
