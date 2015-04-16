@@ -9,7 +9,7 @@
 
 
 static inline WMFCardType cardPopupType(){
-    return FBTweakValue(@"Card", @".Card", @"Prototype", WMFCardTypePrototype2, 0, 1);
+    return FBTweakValue(@"Card", @".Card", @"Prototype", WMFCardTypePrototype2, 1, 2);
 }
 
 static inline CGFloat cardRadius(){
@@ -61,15 +61,24 @@ static inline UIColor* cardImageTintColor(){
 }
 
 static inline CGFloat cardAnimationDuration(){
-    return FBTweakValue(@"Card", @"Animation", @"Duration", 0.25, 0.1, 1.0);
+    return FBTweakValue(@"Card", @"Pop Animation", @"Duration", 0.25, 0.1, 1.0);
 }
 
 static inline CGFloat cardAnimationDamping(){
-    return FBTweakValue(@"Card", @"Animation", @"Damping", 0.82, 0.0, 1.0);
+    return FBTweakValue(@"Card", @"Pop Animation", @"Damping", 0.82, 0.0, 1.0);
 }
 
 static inline CGFloat cardAnimationVelocity(){
-    return FBTweakValue(@"Card", @"Animation", @"Velocity", 0.4, 0.0, 5.0);
+    return FBTweakValue(@"Card", @"Pop Animation", @"Velocity", 0.4, 0.0, 5.0);
 }
+
+static inline CGFloat cardImageFadeDuraton(){
+    return FBTweakValue(@"Card", @"Image Fade Animation", @"Duration", 0.3, 0.0, 1.0);
+}
+
+static inline CGFloat cardImageFadeScaleEffect(){
+    return FBTweakValue(@"Card", @"Image Fade Animation", @"Scale Effect", 0.95, 0.1, 1.0);
+}
+
 
 #endif

@@ -63,7 +63,7 @@
 
         //I know this is the big image
         if (self.wikidataDescription) {
-            self.imageView.layer.transform = CATransform3DMakeScale(0.95, 0.95, 1.0);
+            self.imageView.layer.transform = CATransform3DMakeScale(cardImageFadeScaleEffect(), cardImageFadeScaleEffect(), 1.0);
 
             UIColor* imageColor = [image averageColor];
             UIColor* textColor = [imageColor blackOrWhiteContrastingColor];
@@ -71,7 +71,7 @@
             self.imageTIntView.backgroundColor = imageTintColor;
 
             [UIView transitionWithView:self.articleTitle
-                              duration:0.25
+                              duration:cardImageFadeDuraton()
                                options:UIViewAnimationOptionTransitionCrossDissolve
                             animations:^{
                 self.articleTitle.textColor = textColor;
@@ -79,7 +79,7 @@
                             completion:nil];
 
             [UIView transitionWithView:self.wikidataDescription
-                              duration:0.25
+                              duration:cardImageFadeDuraton()
                                options:UIViewAnimationOptionTransitionCrossDissolve
                             animations:^{
                 self.wikidataDescription.textColor = textColor;
@@ -87,7 +87,7 @@
                             completion:nil];
 
             [UIView transitionWithView:self.summary
-                              duration:0.25
+                              duration:cardImageFadeDuraton()
                                options:UIViewAnimationOptionTransitionCrossDissolve
                             animations:^{
                 self.summary.textColor = textColor;
@@ -97,7 +97,7 @@
 
         self.imageView.image = image;
 
-        [UIView animateWithDuration:0.25 animations:^{
+        [UIView animateWithDuration:cardImageFadeDuraton() animations:^{
             self.imageView.alpha = 1.0;
             self.imageTIntView.alpha = 1.0;
             self.imageView.layer.transform = CATransform3DIdentity;
