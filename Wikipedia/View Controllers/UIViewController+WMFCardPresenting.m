@@ -99,7 +99,6 @@ static CGFloat kWMFInterAnimationPause = 0.1;
 
     NBSlideUpView* slideUp = [[NBSlideUpView alloc] init];
     slideUp.viewablePixels   = cardPopupHeight();
-    slideUp.animateInOutTime = cardAnimationDuration();
     slideUp.delegate         = self;
     [self setSlideUpView:slideUp];
 

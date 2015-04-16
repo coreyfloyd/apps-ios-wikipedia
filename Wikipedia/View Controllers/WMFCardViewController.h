@@ -8,7 +8,10 @@ typedef NS_ENUM (NSUInteger, WMFCardType) {
 
 @interface WMFCardViewController : UIViewController
 
+@property (strong, nonatomic) IBOutlet UIView *imageViewBackground;
 @property (nonatomic, strong) IBOutlet UIImageView* imageView;
+@property (strong, nonatomic) IBOutlet UIView *imageTIntView;
+
 @property (nonatomic, strong) IBOutlet UILabel* articleTitle;
 @property (nonatomic, strong) IBOutlet UILabel* wikidataDescription;
 @property (nonatomic, strong) IBOutlet UILabel* summary;

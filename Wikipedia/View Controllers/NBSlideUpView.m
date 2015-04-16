@@ -9,7 +9,6 @@
 #import "NBSlideUpView.h"
 #import <Masonry/Masonry.h>
 #import "WMFCardHelpers.h"
-#import "UIColor+WMFHexColor.h"
 #import "UIImage+ImageEffects.h"
 #import "UIView+SnapShot.h"
 
@@ -28,6 +27,8 @@
 - (instancetype)init {
     self = [super initWithFrame:CGRectZero];
     if (self) {
+        
+        self.clipsToBounds = YES;
         self.backgroundColor = [UIColor clearColor];
 
         UIImageView* backgroundBlur = [[UIImageView alloc] initWithFrame:self.bounds];
@@ -38,7 +39,7 @@
         self.backgroundBlur = backgroundBlur;
 
         UIView* background = [[UIView alloc] initWithFrame:self.bounds];
-        background.backgroundColor = [UIColor wmf_colorWithHexString:cardbackgroundColor() alpha:cardbackgroundAlpha()];
+        background.backgroundColor = cardbackgroundColor();
         background.alpha           = 0.0;
 
         UITapGestureRecognizer* tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapWithGesture:)];
@@ -49,19 +50,23 @@
         self.backgroundView = background;
 
         UIView* slideOutContainer = [[UIView alloc] initWithFrame:CGRectZero];
+        slideOutContainer.clipsToBounds = YES;
         slideOutContainer.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.4];
         slideOutContainer.backgroundColor = [UIColor clearColor];
-
+        slideOutContainer.layer.cornerRadius = cardRadius();
+        
         [self addSubview:slideOutContainer];
 
         self.slideOutContainer = slideOutContainer;
+        
+        
 
         _visible        = NO;
         _viewablePixels = 100.0;
 
-        self.initialSpringVelocity = 1;
-        self.animateInOutTime      = 0.5;
-        self.springDamping         = 0.8;
+        self.initialSpringVelocity = cardAnimationVelocity();
+        self.animateInOutTime      = cardAnimationDuration();
+        self.springDamping         = cardAnimationDamping();
     }
     return self;
 }
@@ -101,7 +106,11 @@
     }];
 
     [_contentView mas_updateConstraints:^(MASConstraintMaker* make) {
-        make.edges.equalTo(self.slideOutContainer);
+        make.top.equalTo(self.slideOutContainer.mas_top);
+        make.left.equalTo(self.slideOutContainer.mas_left);
+        make.right.equalTo(self.slideOutContainer.mas_right);
+        make.height.equalTo(@(self->_viewablePixels));
+
     }];
 
     [_slideOutContainer mas_remakeConstraints:^(MASConstraintMaker* make) {
@@ -113,7 +122,7 @@
 
         make.left.equalTo(self.mas_left);
         make.right.equalTo(self.mas_right);
-        make.height.equalTo(@(self->_viewablePixels));
+        make.height.equalTo(@(self->_viewablePixels+100));
     }];
 }
 
