@@ -59,6 +59,9 @@ fi
 if [[ "$CONFIGURATION" == "Alpha" ]]; then
   install_resource "${BUILT_PRODUCTS_DIR}/HockeySDKResources.bundle"
 fi
+if [[ "$CONFIGURATION" == "Experimental" ]]; then
+  install_resource "${BUILT_PRODUCTS_DIR}/HockeySDKResources.bundle"
+fi
 if [[ "$CONFIGURATION" == "Beta" ]]; then
   install_resource "${BUILT_PRODUCTS_DIR}/HockeySDKResources.bundle"
 fi

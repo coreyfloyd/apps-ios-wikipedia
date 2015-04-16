@@ -16,6 +16,10 @@ pod 'hpple', '~> 0.2'
 # Autolayout Helper
 pod 'Masonry', '~> 0.6'
 
+# Color
+pod 'UIImage+AverageColor'
+pod 'Colours'
+
 # Crash Reporting
 pod 'HockeySDK', '3.6.2'
 

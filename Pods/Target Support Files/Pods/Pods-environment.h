@@ -36,6 +36,12 @@
 #define COCOAPODS_VERSION_MINOR_BlocksKit_Core 2
 #define COCOAPODS_VERSION_PATCH_BlocksKit_Core 5
 
+// Colours
+#define COCOAPODS_POD_AVAILABLE_Colours
+#define COCOAPODS_VERSION_MAJOR_Colours 5
+#define COCOAPODS_VERSION_MINOR_Colours 6
+#define COCOAPODS_VERSION_PATCH_Colours 2
+
 // HockeySDK
 #define COCOAPODS_POD_AVAILABLE_HockeySDK
 #define COCOAPODS_VERSION_MAJOR_HockeySDK 3
@@ -59,6 +65,12 @@
 #define COCOAPODS_VERSION_MAJOR_Tweaks 2
 #define COCOAPODS_VERSION_MINOR_Tweaks 0
 #define COCOAPODS_VERSION_PATCH_Tweaks 0
+
+// UIImage+AverageColor
+#define COCOAPODS_POD_AVAILABLE_UIImage_AverageColor
+#define COCOAPODS_VERSION_MAJOR_UIImage_AverageColor 1
+#define COCOAPODS_VERSION_MINOR_UIImage_AverageColor 0
+#define COCOAPODS_VERSION_PATCH_UIImage_AverageColor 1
 
 // hpple
 #define COCOAPODS_POD_AVAILABLE_hpple
