@@ -27,8 +27,7 @@
 - (instancetype)init {
     self = [super initWithFrame:CGRectZero];
     if (self) {
-        
-        self.clipsToBounds = YES;
+        self.clipsToBounds   = YES;
         self.backgroundColor = [UIColor clearColor];
 
         UIImageView* backgroundBlur = [[UIImageView alloc] initWithFrame:self.bounds];
@@ -50,16 +49,16 @@
         self.backgroundView = background;
 
         UIView* slideOutContainer = [[UIView alloc] initWithFrame:CGRectZero];
-        slideOutContainer.clipsToBounds = YES;
-        slideOutContainer.backgroundColor = [UIColor colorWithWhite:0.2 alpha:0.4];
-        slideOutContainer.backgroundColor = [UIColor clearColor];
+        slideOutContainer.clipsToBounds      = YES;
+        slideOutContainer.backgroundColor    = [UIColor colorWithWhite:0.2 alpha:0.4];
+        slideOutContainer.backgroundColor    = [UIColor clearColor];
         slideOutContainer.layer.cornerRadius = cardRadius();
-        
+
         [self addSubview:slideOutContainer];
 
         self.slideOutContainer = slideOutContainer;
-        
-        
+
+
 
         _visible        = NO;
         _viewablePixels = 100.0;
@@ -110,7 +109,6 @@
         make.left.equalTo(self.slideOutContainer.mas_left);
         make.right.equalTo(self.slideOutContainer.mas_right);
         make.height.equalTo(@(self->_viewablePixels));
-
     }];
 
     [_slideOutContainer mas_remakeConstraints:^(MASConstraintMaker* make) {
@@ -122,7 +120,7 @@
 
         make.left.equalTo(self.mas_left);
         make.right.equalTo(self.mas_right);
-        make.height.equalTo(@(self->_viewablePixels+100));
+        make.height.equalTo(@(self->_viewablePixels + 100));
     }];
 }
 

@@ -21,7 +21,7 @@ static inline CGFloat cardPopupHeight(){
 }
 
 static inline UIColor* cardbackgroundColor(){
-    return [[UIColor colorFromHexString:FBTweakValue(@"Background", @"Tint", @"Color", @"000000")] colorWithAlphaComponent: FBTweakValue(@"Background", @"Tint", @"Alpha", 0.2, 0.1, 1.0)];
+    return [[UIColor colorFromHexString:FBTweakValue(@"Background", @"Tint", @"Color", @"000000")] colorWithAlphaComponent:FBTweakValue(@"Background", @"Tint", @"Alpha", 0.2, 0.1, 1.0)];
 }
 
 static inline CGFloat cardbackgroundBlur(){
@@ -57,7 +57,7 @@ static inline CGFloat cardImageBlurRadius(){
 }
 
 static inline UIColor* cardImageTintColor(){
-    return [[UIColor colorFromHexString:FBTweakValue(@"Card", @"Image", @"Tint Color (P1 only)", @"000000")] colorWithAlphaComponent: FBTweakValue(@"Card", @"Image", @"Tint Alpha", 0.20, 0.01, 1.0)];
+    return [[UIColor colorFromHexString:FBTweakValue(@"Card", @"Image", @"Tint Color (P1 only)", @"000000")] colorWithAlphaComponent:FBTweakValue(@"Card", @"Image", @"Tint Alpha", 0.20, 0.01, 1.0)];
 }
 
 static inline CGFloat cardAnimationDuration(){

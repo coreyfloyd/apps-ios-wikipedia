@@ -98,8 +98,8 @@ static CGFloat kWMFInterAnimationPause = 0.1;
     [self setCompletionBlock:completion];
 
     NBSlideUpView* slideUp = [[NBSlideUpView alloc] init];
-    slideUp.viewablePixels   = cardPopupHeight();
-    slideUp.delegate         = self;
+    slideUp.viewablePixels = cardPopupHeight();
+    slideUp.delegate       = self;
     [self setSlideUpView:slideUp];
 
     WMFCardViewController* vc = [WMFCardViewController cardViewControllerWithType:cardPopupType()];
