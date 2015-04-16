@@ -114,12 +114,12 @@ lane :experimental do
     app_identifier: 'org.wikimedia.wikipedia.tfexperiment',
   })
 
-  increment_build_number (10 + ENV['BUILD_NUMBER'].to_i)
+  increment_build_number 3
 
   # Create and sign the IPA (and DSYM)
   ipa({
-    scheme: 'Wikipedia Alpha',
-    configuration: 'Alpha', #Prevents fastlane from passing --configuration "Release" - bug?
+    scheme: 'Wikipedia Experimental',
+    configuration: 'Experimental', #Prevents fastlane from passing --configuration "Release" - bug?
     clean: nil, # this means 'Do Clean'. Clean project before building.
     archive: nil, # this means 'Do Archive'. Archive project to the Xcode organizer after building.
     # verbose: nil, # this means 'Do Verbose'.
@@ -130,7 +130,7 @@ lane :experimental do
     # Upload the DSYM to Hockey
     hockey({
       api_token: hockey_api_token,
-      notes: git_commit_log,
+      notes: '',
       notify: 0,
       status: 1, #Means do not make available for download
     })
