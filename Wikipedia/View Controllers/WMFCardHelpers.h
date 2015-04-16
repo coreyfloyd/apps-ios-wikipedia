@@ -80,5 +80,4 @@ static inline CGFloat cardImageFadeScaleEffect(){
     return FBTweakValue(@"Card", @"Image Fade Animation", @"Scale Effect", 0.95, 0.1, 1.0);
 }
 
-
 #endif
