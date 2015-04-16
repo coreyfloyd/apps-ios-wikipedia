@@ -110,6 +110,7 @@ lane :experimental do
   # Create and/or download the right provisioning profile
   sigh({
     force: true,
+    adhoc: true,
     provisioning_name: 'TF Experimental',
     app_identifier: 'org.wikimedia.wikipedia.tfexperiment',
   })
