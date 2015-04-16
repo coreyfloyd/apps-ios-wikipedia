@@ -66,7 +66,7 @@ def deploy_testflight_build
     # Upload the DSYM to Hockey
     hockey({
       api_token: ENV['HOCKEY_API_TOKEN'],
-      notes: git_commit_log,
+      notes: '',
       notify: 0,
       status: 1, #Means do not make available for download
     })
