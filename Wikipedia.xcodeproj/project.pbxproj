@@ -3482,7 +3482,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = "Wikipedia ${CONFIGURATION}";
-				PROVISIONING_PROFILE = "a5d0e7f0-7ffa-4395-96ad-21cfa02bf37a";
+				PROVISIONING_PROFILE = "";
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				WARNING_CFLAGS = (
 					"$(inherited)",
@@ -3582,7 +3582,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = "Wikipedia ${CONFIGURATION}";
-				PROVISIONING_PROFILE = "a5d0e7f0-7ffa-4395-96ad-21cfa02bf37a";
+				PROVISIONING_PROFILE = "";
 				RUN_CLANG_STATIC_ANALYZER = NO;
 				WARNING_CFLAGS = (
 					"$(inherited)",
