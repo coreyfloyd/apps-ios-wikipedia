@@ -14,6 +14,7 @@ NSString* const kSelectedStringJS                      = @"window.getSelection()
 #pragma mark Internal variables
 
 @implementation WebViewController
+@synthesize previewController = _previewController;
 
 - (BOOL)prefersStatusBarHidden {
     return NO;
@@ -827,6 +828,9 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
 //            [strSelf navigateToPage:pageTitle
 //                    discoveryMethod:MWK_DISCOVERY_METHOD_LINK
 //               showLoadingIndicator:YES];
+
+            [strSelf showPreviewForTitle:[[SessionSingleton sharedInstance].currentArticleSite titleWithInternalLink:href]];
+
         } else if ([href hasPrefix:@"http:"] || [href hasPrefix:@"https:"] || [href hasPrefix:@"//"]) {
             // A standard external link, either explicitly http(s) or left protocol-relative on web meaning http(s)
             if ([href hasPrefix:@"//"]) {
@@ -1991,6 +1995,32 @@ static const CGFloat kScrollIndicatorMinYMargin = 4.0f;
         self.footerViewController = [[WMFWebViewFooterViewController alloc] init];
         [self wmf_addChildController:self.footerViewController andConstrainToEdgesOfContainerView:self.footerContainer];
     }
+}
+
+#pragma mark - Article Preview
+
+- (WMFArticlePreviewController*)previewController {
+    if (!_previewController) {
+        _previewController          = [WMFArticlePreviewController new];
+        _previewController.delegate = self;
+    }
+    return _previewController;
+}
+
+- (void)showPreviewForTitle:(MWKTitle*)title {
+    [self.previewController showPreviewForPage:title];
+}
+
+- (void)openPageForTitle:(MWKTitle*)title {
+    [self animateTopAndBottomMenuReveal];
+    [self navigateToPage:title discoveryMethod:MWK_DISCOVERY_METHOD_LINK showLoadingIndicator:YES];
+}
+
+- (void)previewController:(WMFArticlePreviewController*)controller
+     failedToPreviewTitle:(MWKTitle*)title
+                    error:(NSError*)error {
+    NSLog(@"Failed to show preview for title %@. %@", title, error);
+    #warning TOOD: show alert
 }
 
 @end

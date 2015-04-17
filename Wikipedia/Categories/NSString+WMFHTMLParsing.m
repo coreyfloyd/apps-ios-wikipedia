@@ -7,6 +7,10 @@ static const int kHighestIndexForSubstringAfterHTMLRemoved     = 350;
 
 @implementation NSString (WMFHTMLParsing)
 
+- (NSString*)wmf_stringByExtractingAndSanitizingHTML {
+    return [[self wmf_joinedHtmlTextNodes] wmf_getCollapsedWhitespaceStringAdjustedForTerminalPunctuation];
+}
+
 - (NSArray*)wmf_htmlTextNodes {
     return [[[[TFHpple alloc]
               initWithHTMLData:[self dataUsingEncoding:NSUTF8StringEncoding]]

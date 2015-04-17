@@ -70,6 +70,8 @@
 
 #import "WMFLoadingIndicatorOverlay.h"
 
+#import "WMFArticlePreviewController.h"
+
 //#import "UIView+Debugging.h"
 
 #define TOC_TOGGLE_ANIMATION_DURATION @0.225f
@@ -96,6 +98,7 @@ static const CGFloat kBottomScrollSpacerHeight = 2000.0f;
 static const int kMinimumTextSelectionLength = 2;
 
 @interface WebViewController ()
+<WMFArticlePreviewControllerDelegate>
 {
     CGFloat scrollViewDragBeganVerticalOffset_;
     SessionSingleton* session;
@@ -162,6 +165,7 @@ static const int kMinimumTextSelectionLength = 2;
 
 @property (nonatomic) BOOL keyboardIsVisible;
 
+@property (nonatomic, strong, readonly) WMFArticlePreviewController* previewController;
 
 - (void)cancelArticleLoading;
 

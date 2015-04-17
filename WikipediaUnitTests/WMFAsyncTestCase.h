@@ -10,7 +10,9 @@
 
 #define PushExpectation() ([self pushExpectation:__FILE__ line:__LINE__])
 
-extern float const WMFDefaultExpectationTimeout;
+#ifndef WMFDefaultExpectationTimeout
+#define WMFDefaultExpectationTimeout 0.1
+#endif
 
 #define WaitForExpectations() ([self waitForExpectationsWithTimeout:WMFDefaultExpectationTimeout handler:nil])
 

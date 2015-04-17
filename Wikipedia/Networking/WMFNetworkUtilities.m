@@ -8,6 +8,7 @@
 
 #import "WMFNetworkUtilities.h"
 #import "NSMutableDictionary+WMFMaybeSet.h"
+#import "NSString+WMFHTMLParsing.h"
 
 NSString* const WMFNetworkingErrorDomain = @"WMFNetworkingErrorDomain";
 
@@ -29,3 +30,27 @@ NSError* WMFErrorForApiErrorObject(NSDictionary* apiError){
     maybeMapApiToUserInfo(NSLocalizedRecoverySuggestionErrorKey, @"*");
     return [NSError errorWithDomain:WMFNetworkingErrorDomain code:WMFNetworkingError_APIError userInfo:userInfoBuilder];
 }
+
+extern NSURL* WMFBaseApiURL(NSString* languageCode, NSString* siteDomain) {
+    return [NSURL URLWithString:[NSString stringWithFormat:@"https://%@.%@/w/api.php", languageCode, siteDomain]];
+}
+
+NSString* WMFExtractTextFromHTML(NSString* htmlString) {
+    return [[htmlString wmf_joinedHtmlTextNodes] wmf_getCollapsedWhitespaceStringAdjustedForTerminalPunctuation];
+}
+
+@implementation NSDictionary (WMFNonEmptyDictForKey)
+
+- (id)wmf_nonEmptyDictionaryForKey:(id<NSCopying>)key {
+    return WMFNonEmptyDictionary(self[key]);
+}
+
+@end
+
+@implementation NSError (WMFIsCancelled)
+
+- (BOOL)wmf_isCancelledCocoaError {
+    return [self.domain isEqualToString:NSCocoaErrorDomain] && self.code == NSURLErrorCancelled;
+}
+
+@end

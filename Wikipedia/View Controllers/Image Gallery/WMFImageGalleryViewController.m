@@ -453,9 +453,10 @@ static NSString* const WMFImageGalleryCollectionViewCellReuseId = @"WMFImageGall
             [infoForImage.imageDescription stringByTrimmingCharactersInSet:
              [NSCharacterSet whitespaceAndNewlineCharacterSet]];
 
-        NSString* ownerOrFallback = infoForImage.owner ?
-                                    [infoForImage.owner stringByTrimmingCharactersInSet : [NSCharacterSet whitespaceAndNewlineCharacterSet]]
-                                    : MWLocalizedString(@"image-gallery-unknown-owner", nil);
+        NSString* ownerOrFallback =
+            infoForImage.owner ?
+            [infoForImage.owner stringByTrimmingCharactersInSet : [NSCharacterSet whitespaceAndNewlineCharacterSet]]
+            : MWLocalizedString(@"image-gallery-unknown-owner", nil);
 
         [cell.detailOverlayView setLicense:infoForImage.license owner:ownerOrFallback];
 
