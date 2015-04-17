@@ -102,7 +102,7 @@ static CGFloat kWMFInterAnimationPause = 0.1;
     slideUp.delegate       = self;
     [self setSlideUpView:slideUp];
 
-    WMFCardViewController* vc = [WMFCardViewController cardViewControllerWithType:cardPopupType()];
+    WMFCardViewController* vc = [WMFCardViewController cardViewControllerWithType:cardPopupType() pageTitle:title];
     [self setCardController:vc];
     [self addChildViewController:vc];
 

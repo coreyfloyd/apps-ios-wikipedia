@@ -12,6 +12,10 @@ static inline WMFCardType cardPopupType(){
     return FBTweakValue(@"Card", @".Card", @"Prototype", WMFCardTypePrototype2, 1, 2);
 }
 
+static inline BOOL cardLoremIpsumEnabled(){
+    return FBTweakValue(@"Card", @".Card", @"Lorem Ipsum", NO);
+}
+
 static inline CGFloat cardRadius(){
     return FBTweakValue(@"Card", @"Style", @"Corner Radius", 15.0, 0.0, 100.0);
 }
@@ -37,11 +41,11 @@ static inline CGFloat cardTitleFontSize(){
 }
 
 static inline CGFloat cardDescriptionFontSize(){
-    return (CGFloat)FBTweakValue(@"Card", @"Fonts", @"Wikidata Description Size", 17.0, 10.0, 50.0);
+    return (CGFloat)FBTweakValue(@"Card", @"Fonts", @"Wikidata Description Size", 18.0, 10.0, 50.0);
 }
 
 static inline CGFloat cardSummaryFontSize(){
-    return (CGFloat)FBTweakValue(@"Card", @"Fonts", @"Summary Size", 15.0, 10.0, 40.0);
+    return (CGFloat)FBTweakValue(@"Card", @"Fonts", @"Summary Size", 16.0, 10.0, 40.0);
 }
 
 static inline UIColor* cardImageBackgroundColor(){

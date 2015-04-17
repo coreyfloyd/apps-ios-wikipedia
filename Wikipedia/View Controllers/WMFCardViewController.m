@@ -1,5 +1,17 @@
 
 #import "WMFCardViewController.h"
+
+#import <BlocksKit/BlocksKit.h>
+#import "AFHTTPRequestOperationManager+WMFApiRequestManager.h"
+#import "AFHTTPRequestOperationManager+UniqueRequests.h"
+#import "MWKArticlePreviewResponseSerializer.h"
+#import "WMFNetworkUtilities.h"
+#import "SessionSingleton.h"
+#import "WMFApiRequestParameters+ArticlePreview.h"
+#import "MWKTitle.h"
+#import "MWKArticlePreview.h"
+
+
 #import <LoremIpsum/LoremIpsum.h>
 #import "WMFCardHelpers.h"
 #import <Colours/Colours.h>
@@ -7,9 +19,23 @@
 #import "UIImage+ImageEffects.h"
 #import "UIView+SnapShot.h"
 
+
 @interface WMFCardViewController ()
 
+@property (nonatomic, copy) AFHTTPRequestOperationManager* requestManager;
+@property (nonatomic, strong) id <AFURLResponseSerialization> imageResponseSerializer;
+@property (readwrite, nonatomic, strong) AFHTTPRequestOperation *imageRequestOperation;
+
+@property (strong, nonatomic) IBOutlet UIView* imageViewBackground;
+@property (nonatomic, strong) IBOutlet UIImageView* imageView;
+@property (strong, nonatomic) IBOutlet UIView* imageTIntView;
+
+@property (nonatomic, strong) IBOutlet UILabel* articleTitle;
+@property (nonatomic, strong) IBOutlet UILabel* wikidataDescription;
+@property (nonatomic, strong) IBOutlet UILabel* summary;
+
 @property (nonatomic, assign, readwrite) WMFCardType type;
+@property (nonatomic, strong, readwrite) MWKTitle* pageTitle;
 
 
 @end
@@ -27,97 +53,250 @@
             @(WMFCardTypePrototype2): @"WMFCardViewControllerPrototype2",
         };
     }
-
     return typeToNibMap[@(type)];
 }
 
-+ (instancetype)cardViewControllerWithType:(WMFCardType)type {
-    return [[[self class] alloc] initWithNibName:[[self class] nibnameForCardType:type] bundle:nil];
++ (instancetype)cardViewControllerWithType:(WMFCardType)type pageTitle:(MWKTitle*)title{
+    WMFCardViewController* vc = [[[self class] alloc] initWithNibName:[[self class] nibnameForCardType:type] bundle:nil];
+    vc.pageTitle = title;
+    return vc;
 }
 
 #pragma mark - UIViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.requestManager = [AFHTTPRequestOperationManager wmf_apiRequestManagerWithResponseSerializers:
+     @[[MWKArticlePreviewResponseSerializer serializer]]];
+    
+    self.imageResponseSerializer = [AFImageResponseSerializer serializer];
 
     self.articleTitle.font        = [UIFont boldSystemFontOfSize:cardTitleFontSize()];
     self.wikidataDescription.font = [UIFont boldSystemFontOfSize:cardDescriptionFontSize()];
     self.summary.font             = [UIFont systemFontOfSize:cardSummaryFontSize()];
 
-    self.articleTitle.text                   = [LoremIpsum title];
-    self.wikidataDescription.text            = [LoremIpsum sentence];
-    self.summary.text                        = [LoremIpsum paragraph];
     self.imageViewBackground.backgroundColor = cardImageBackgroundColor();
     self.imageView.alpha                     = 0.0;
     self.imageTIntView.backgroundColor       = cardImageTintColor();
     self.imageTIntView.alpha                 = 0.0;
+    self.wikidataDescription.alpha = 0.0;
+    self.summary.alpha = 0.0;
+    
+    self.articleTitle.text                   = self.pageTitle.text ? :[LoremIpsum title];
+;
+    
+    if(cardLoremIpsumEnabled()){
+        [self updateUIWithLoremIpsum];
+    }else{
+        [self getArticlePreviewForPageTitle:self.pageTitle];
+    }
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
+- (void)updateUIWithPreview:(MWKArticlePreview*)preview{
+    
+    self.wikidataDescription.text            = preview.pageDescription;
+    self.summary.text                        = preview.pageSnippet;
 
+    [UIView animateWithDuration:0.3 animations:^{
+        
+        self.wikidataDescription.alpha = 1.0;
+        self.summary.alpha = 1.0;
+ 
+    }];
+    
+    if(preview.thumbnailURL){
+        
+        NSURL* imageURL = [NSURL URLWithString:preview.thumbnailURL];
+   
+        [self getImageWithURL:imageURL completion:^(UIImage *image) {
+            
+            if (cardImageBlur()) {
+                image = [image applyBlurWithRadius:cardbackgroundBlurRadius() tintColor:nil saturationDeltaFactor:1.8 maskImage:nil];
+            }
+            
+            //I know this is the big image
+            if (self.wikidataDescription) {
+                self.imageView.layer.transform = CATransform3DMakeScale(cardImageFadeScaleEffect(), cardImageFadeScaleEffect(), 1.0);
+                
+                UIColor* imageColor = [image averageColor];
+                UIColor* textColor = [imageColor blackOrWhiteContrastingColor];
+                UIColor* imageTintColor = [[textColor blackOrWhiteContrastingColor] colorWithAlphaComponent:[self.imageTIntView.backgroundColor alpha]];
+                self.imageTIntView.backgroundColor = imageTintColor;
+                
+                [UIView transitionWithView:self.articleTitle
+                                  duration:cardImageFadeDuraton()
+                                   options:UIViewAnimationOptionTransitionCrossDissolve
+                                animations:^{
+                                    self.articleTitle.textColor = textColor;
+                                }
+                                completion:nil];
+                
+                [UIView transitionWithView:self.wikidataDescription
+                                  duration:cardImageFadeDuraton()
+                                   options:UIViewAnimationOptionTransitionCrossDissolve
+                                animations:^{
+                                    self.wikidataDescription.textColor = textColor;
+                                }
+                                completion:nil];
+                
+                [UIView transitionWithView:self.summary
+                                  duration:cardImageFadeDuraton()
+                                   options:UIViewAnimationOptionTransitionCrossDissolve
+                                animations:^{
+                                    self.summary.textColor = textColor;
+                                }
+                                completion:nil];
+            }
+            
+            self.imageView.image = image;
+            
+            [UIView animateWithDuration:cardImageFadeDuraton() animations:^{
+                self.imageView.alpha = 1.0;
+                self.imageTIntView.alpha = 1.0;
+                self.imageView.layer.transform = CATransform3DIdentity;
+            }];
+
+            
+        }];
+    }
+}
+
+
+
+- (void)updateUIWithLoremIpsum{
+    
+    self.wikidataDescription.text            = [LoremIpsum sentence];
+    self.summary.text                        = [LoremIpsum paragraph];
+
+    [UIView animateWithDuration:0.3 animations:^{
+        
+        self.wikidataDescription.alpha = 1.0;
+        self.summary.alpha = 1.0;
+        
+    }];
+    
     [LoremIpsum asyncPlaceholderImageFromService:LIPlaceholderImageServiceLoremPixel withSize:CGSizeMake(self.imageView.bounds.size.width, self.imageView.bounds.size.height)  completion:^(UIImage* image) {
         if (cardImageBlur()) {
             image = [image applyBlurWithRadius:cardbackgroundBlurRadius() tintColor:nil saturationDeltaFactor:1.8 maskImage:nil];
         }
-
+        
         //I know this is the big image
         if (self.wikidataDescription) {
             self.imageView.layer.transform = CATransform3DMakeScale(cardImageFadeScaleEffect(), cardImageFadeScaleEffect(), 1.0);
-
+            
             UIColor* imageColor = [image averageColor];
             UIColor* textColor = [imageColor blackOrWhiteContrastingColor];
             UIColor* imageTintColor = [[textColor blackOrWhiteContrastingColor] colorWithAlphaComponent:[self.imageTIntView.backgroundColor alpha]];
             self.imageTIntView.backgroundColor = imageTintColor;
-
+            
             [UIView transitionWithView:self.articleTitle
                               duration:cardImageFadeDuraton()
                                options:UIViewAnimationOptionTransitionCrossDissolve
                             animations:^{
-                self.articleTitle.textColor = textColor;
-            }
+                                self.articleTitle.textColor = textColor;
+                            }
                             completion:nil];
-
+            
             [UIView transitionWithView:self.wikidataDescription
                               duration:cardImageFadeDuraton()
                                options:UIViewAnimationOptionTransitionCrossDissolve
                             animations:^{
-                self.wikidataDescription.textColor = textColor;
-            }
+                                self.wikidataDescription.textColor = textColor;
+                            }
                             completion:nil];
-
+            
             [UIView transitionWithView:self.summary
                               duration:cardImageFadeDuraton()
                                options:UIViewAnimationOptionTransitionCrossDissolve
                             animations:^{
-                self.summary.textColor = textColor;
-            }
+                                self.summary.textColor = textColor;
+                            }
                             completion:nil];
         }
-
+        
         self.imageView.image = image;
-
+        
         [UIView animateWithDuration:cardImageFadeDuraton() animations:^{
             self.imageView.alpha = 1.0;
             self.imageTIntView.alpha = 1.0;
             self.imageView.layer.transform = CATransform3DIdentity;
         }];
     }];
+    
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+#pragma msrk - Networking
+
+- (void)getArticlePreviewForPageTitle:(MWKTitle*)pageTitle {
+    
+    if(!pageTitle){
+        return;
+    }
+    
+    WMFApiRequestParameters* requestForPreview =
+    [WMFApiRequestParameters articlePreviewParametersForTitle:pageTitle.prefixedText];
+    
+    __weak __typeof__(self) weakSelf = self;
+    [self.requestManager
+     wmf_idempotentGET:[[SessionSingleton sharedInstance] urlForLanguage:pageTitle.site.language].absoluteString
+     parameters:[requestForPreview  httpQueryParameterDictionary]
+     success:^(AFHTTPRequestOperation* response, MWKArticlePreview* articlePreview) {
+         
+         dispatch_async(dispatch_get_main_queue(), ^{
+             [weakSelf updateUIWithPreview:articlePreview];
+         });
+     }
+     failure:NULL];
 }
 
-/*
-   #pragma mark - Navigation
++ (NSOperationQueue *)sharedImageRequestOperationQueue {
+    static NSOperationQueue *sharedImageRequestOperationQueue = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedImageRequestOperationQueue = [[NSOperationQueue alloc] init];
+        sharedImageRequestOperationQueue.maxConcurrentOperationCount = NSOperationQueueDefaultMaxConcurrentOperationCount;
+    });
+    
+    return sharedImageRequestOperationQueue;
+}
 
-   // In a storyboard-based application, you will often want to do a little preparation before navigation
-   - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-   }
- */
+//Take from UIImage+AFNetworking and then modified
+- (void)getImageWithURL:(NSURL*)url completion:(void (^)(UIImage *image))completion
+{
+    
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+    [request addValue:@"image/*" forHTTPHeaderField:@"Accept"];
+
+    __weak __typeof(self)weakSelf = self;
+    self.imageRequestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    self.imageRequestOperation.responseSerializer = self.imageResponseSerializer;
+    [self.imageRequestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        __strong __typeof(weakSelf)strongSelf = weakSelf;
+        if ([[request URL] isEqual:[strongSelf.imageRequestOperation.request URL]]) {
+            
+            if(completion){
+                completion(responseObject);
+            }
+            
+            if (operation == strongSelf.imageRequestOperation){
+                strongSelf.imageRequestOperation = nil;
+            }
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        __strong __typeof(weakSelf)strongSelf = weakSelf;
+        if ([[request URL] isEqual:[strongSelf.imageRequestOperation.request URL]]) {
+
+            if (operation == strongSelf.imageRequestOperation){
+                strongSelf.imageRequestOperation = nil;
+            }
+        }
+    }];
+    
+    [[[self class] sharedImageRequestOperationQueue] addOperation:self.imageRequestOperation];
+}
+
+
 
 @end

@@ -70,7 +70,7 @@
                 <constraint firstItem="ZuV-7T-9bK" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="12" id="kiB-6Y-LXf"/>
                 <constraint firstItem="Pj2-Pf-Hto" firstAttribute="leading" secondItem="c09-Gf-00Z" secondAttribute="leading" id="mgX-rm-ULE"/>
                 <constraint firstAttribute="trailing" secondItem="iAg-Gz-dtz" secondAttribute="trailing" constant="12" id="qao-jy-Sa7"/>
-                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="rSt-Zd-St9" secondAttribute="bottom" constant="8" id="ufB-1K-raR"/>
+                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="rSt-Zd-St9" secondAttribute="bottom" constant="16" id="ufB-1K-raR"/>
                 <constraint firstItem="iAg-Gz-dtz" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="12" id="ugW-Bn-UBA"/>
                 <constraint firstItem="iAg-Gz-dtz" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="50" id="zqG-M9-xXc"/>
             </constraints>
