@@ -36,16 +36,41 @@ static inline CGFloat cardbackgroundBlurRadius(){
     return FBTweakValue(@"Background", @"Blur", @"Radius", 3.0, 1.0, 50.0);
 }
 
-static inline CGFloat cardTitleFontSize(){
-    return (CGFloat)FBTweakValue(@"Card", @"Fonts", @"Title Size", 21.0, 10.0, 50.0);
+static NSString* serifFont = @"Georgia";
+static NSString* boldSerifFont = @"Georgia-Bold";
+
+
+static inline UIFont* cardFont(BOOL serifs, BOOL bold, CGFloat fontSize){
+    
+    if(serifs){
+        if(bold){
+            return [UIFont fontWithName:boldSerifFont size:fontSize];
+            
+        }else{
+            
+            return [UIFont fontWithName:serifFont size:fontSize];
+        }
+    }else{
+        if(bold){
+            return [UIFont boldSystemFontOfSize:fontSize];
+            
+        }else{
+            
+            return [UIFont systemFontOfSize:fontSize];
+        }
+    }
 }
 
-static inline CGFloat cardDescriptionFontSize(){
-    return (CGFloat)FBTweakValue(@"Card", @"Fonts", @"Wikidata Description Size", 18.0, 10.0, 50.0);
+static inline UIFont* cardTitleFont(){
+    return cardFont(FBTweakValue(@"Card", @"Fonts", @"Title Serifs", NO), FBTweakValue(@"Card", @"Fonts", @"Title Bold", YES), (CGFloat)FBTweakValue(@"Card", @"Fonts", @"Title Size", 21.0, 10.0, 50.0));
 }
 
-static inline CGFloat cardSummaryFontSize(){
-    return (CGFloat)FBTweakValue(@"Card", @"Fonts", @"Summary Size", 16.0, 10.0, 40.0);
+static inline UIFont* cardDescriptionFont(){
+    return cardFont(FBTweakValue(@"Card", @"Fonts", @"Description Serifs", NO), FBTweakValue(@"Card", @"Fonts", @"Description Bold", YES), (CGFloat)FBTweakValue(@"Card", @"Fonts", @"Description Size", 18.0, 10.0, 50.0));
+}
+
+static inline UIFont* cardSummaryFont(){
+    return cardFont(FBTweakValue(@"Card", @"Fonts", @"Snippet Serifs", NO), FBTweakValue(@"Card", @"Fonts", @"Snippet Bold", NO), (CGFloat)FBTweakValue(@"Card", @"Fonts", @"Snippet Size", 16.0, 10.0, 50.0));
 }
 
 static inline UIColor* cardImageBackgroundColor(){

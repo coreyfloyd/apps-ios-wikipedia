@@ -124,7 +124,7 @@ lane :experimental do
     produce_sku: '01986',
   })
 
-  increment_build_number 4
+  increment_build_number 5
 
   # Create and sign the IPA (and DSYM)
   ipa({

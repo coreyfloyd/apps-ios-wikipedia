@@ -72,9 +72,9 @@
 
     self.imageResponseSerializer = [AFImageResponseSerializer serializer];
 
-    self.articleTitle.font        = [UIFont boldSystemFontOfSize:cardTitleFontSize()];
-    self.wikidataDescription.font = [UIFont boldSystemFontOfSize:cardDescriptionFontSize()];
-    self.summary.font             = [UIFont systemFontOfSize:cardSummaryFontSize()];
+    self.articleTitle.font        = cardTitleFont();
+    self.wikidataDescription.font = cardDescriptionFont();
+    self.summary.font             = cardSummaryFont();
 
     self.imageViewBackground.backgroundColor = cardImageBackgroundColor();
     self.imageView.alpha                     = 0.0;
