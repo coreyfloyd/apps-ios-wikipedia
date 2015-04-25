@@ -2,12 +2,7 @@
 
 require 'git'
 
-ENV['HOCKEY_API_TOKEN'] = 'c881c19fd8d0401682c4640b7948ef5e'
-
-# Returns true if the `NO_RESET` env var is set to 1
-def reset_disabled?
-  ENV['NO_RESET'] == '1'
-end
+ENV['FL_HOCKEY_API_TOKEN'] = '03557690d9d44f39972d70b04980623c'
 
 # Returns true if the `NO_DEPLOY` env var is set to 1
 def deploy_disabled?
@@ -66,10 +61,9 @@ def deploy_testflight_build
   unless deploy_disabled?
     # Upload the DSYM to Hockey
     hockey({
-      api_token: ENV['HOCKEY_API_TOKEN'],
       notes: '',
-      notify: 0,
-      status: 1, #Means do not make available for download
+      notify: '0',
+      status: '1', #Means do not make available for download
     })
 
     #Set "Feedback email" in iTunes Connect for Testflight builds
@@ -80,6 +74,11 @@ def deploy_testflight_build
     self.class.const_set("DELIVER_BETA_DESCRIPTION", git_commit_log)
 
     # Upload the IPA and DSYM to iTunes Connect
-    deliver :testflight, :beta, :skip_deploy, :force
+    deliver(
+      force: true, # Set to true to skip PDF verification
+      beta: true, # Upload a new version to TestFlight
+      skip_deploy: true, # Set true to not submit app for review (works with both App Store and beta builds)
+    )
+
   end
 end
