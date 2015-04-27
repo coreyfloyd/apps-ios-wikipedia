@@ -36,26 +36,21 @@ static inline CGFloat cardbackgroundBlurRadius(){
     return FBTweakValue(@"Background", @"Blur", @"Radius", 3.0, 1.0, 50.0);
 }
 
-static NSString* serifFont = @"Georgia";
+static NSString* serifFont     = @"Georgia";
 static NSString* boldSerifFont = @"Georgia-Bold";
 
 
 static inline UIFont* cardFont(BOOL serifs, BOOL bold, CGFloat fontSize){
-    
-    if(serifs){
-        if(bold){
+    if (serifs) {
+        if (bold) {
             return [UIFont fontWithName:boldSerifFont size:fontSize];
-            
-        }else{
-            
+        } else {
             return [UIFont fontWithName:serifFont size:fontSize];
         }
-    }else{
-        if(bold){
+    } else {
+        if (bold) {
             return [UIFont boldSystemFontOfSize:fontSize];
-            
-        }else{
-            
+        } else {
             return [UIFont systemFontOfSize:fontSize];
         }
     }

@@ -114,9 +114,10 @@
             if (self.wikidataDescription) {
                 self.imageView.layer.transform = CATransform3DMakeScale(cardImageFadeScaleEffect(), cardImageFadeScaleEffect(), 1.0);
 
-                UIColor* imageColor = [image averageColor];
-                UIColor* textColor = [imageColor blackOrWhiteContrastingColor];
-                UIColor* imageTintColor = [[textColor blackOrWhiteContrastingColor] colorWithAlphaComponent:[self.imageTIntView.backgroundColor alpha]];
+//                UIColor* imageColor = [image averageColor];
+//                UIColor* textColor = [imageColor blackOrWhiteContrastingColor];
+                UIColor* textColor = [UIColor whiteColor];
+                UIColor* imageTintColor = [[UIColor blackColor] colorWithAlphaComponent:[self.imageTIntView.backgroundColor alpha]];
                 self.imageTIntView.backgroundColor = imageTintColor;
 
                 [UIView transitionWithView:self.articleTitle
