@@ -17,11 +17,11 @@ static inline BOOL cardLoremIpsumEnabled(){
 }
 
 static inline CGFloat cardRadius(){
-    return FBTweakValue(@"Card", @"Style", @"Corner Radius", 15.0, 0.0, 100.0);
+    return FBTweakValue(@"Card", @"Style", @"Corner Radius", 3.0, 0.0, 100.0);
 }
 
 static inline CGFloat cardPopupHeight(){
-    return FBTweakValue(@"Card", @"Style", @"Height", 300.0, 50.0, 500.0);
+    return FBTweakValue(@"Card", @"Style", @"Height", 270.0, 50.0, 500.0);
 }
 
 static inline UIColor* cardbackgroundColor(){
@@ -57,11 +57,11 @@ static inline UIFont* cardFont(BOOL serifs, BOOL bold, CGFloat fontSize){
 }
 
 static inline UIFont* cardTitleFont(){
-    return cardFont(FBTweakValue(@"Card", @"Fonts", @"Title Serifs", NO), FBTweakValue(@"Card", @"Fonts", @"Title Bold", YES), (CGFloat)FBTweakValue(@"Card", @"Fonts", @"Title Size", 21.0, 10.0, 50.0));
+    return cardFont(FBTweakValue(@"Card", @"Fonts", @"Title Serifs", YES), FBTweakValue(@"Card", @"Fonts", @"Title Bold", NO), (CGFloat)FBTweakValue(@"Card", @"Fonts", @"Title Size", 26.0, 10.0, 50.0));
 }
 
 static inline UIFont* cardDescriptionFont(){
-    return cardFont(FBTweakValue(@"Card", @"Fonts", @"Description Serifs", NO), FBTweakValue(@"Card", @"Fonts", @"Description Bold", YES), (CGFloat)FBTweakValue(@"Card", @"Fonts", @"Description Size", 18.0, 10.0, 50.0));
+    return cardFont(FBTweakValue(@"Card", @"Fonts", @"Description Serifs", NO), FBTweakValue(@"Card", @"Fonts", @"Description Bold", NO), (CGFloat)FBTweakValue(@"Card", @"Fonts", @"Description Size", 14.0, 10.0, 50.0));
 }
 
 static inline UIFont* cardSummaryFont(){
