@@ -14,7 +14,7 @@ beta_ipa ENV["IPA_OUTPUT_PATH"]
 ########################################
 
 # Set apple_id for Testflight builds
-apple_id '981253550'
+apple_id ENV['APP_APPLE_ID']
 
 copyright "#{Time.now.year} Wikimedia Foundation"
 

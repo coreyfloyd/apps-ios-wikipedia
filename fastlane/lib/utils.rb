@@ -2,7 +2,15 @@
 
 require 'git'
 
+# Set the version number for the build
+ENV['VERSION_NUMBER'] = '4.1.3'
+
+# Set "Feedback email" in iTunes Connect for Testflight builds
+ENV['DELIVER_BETA_FEEDBACK_EMAIL'] = 'abaso@wikimedia.org'
+
+# Hockey API Key
 ENV['FL_HOCKEY_API_TOKEN'] = '03557690d9d44f39972d70b04980623c'
+
 
 # Returns true if the `NO_DEPLOY` env var is set to 1
 def deploy_disabled?
@@ -59,19 +67,35 @@ end
 
 def deploy_testflight_build
   unless deploy_disabled?
+
+    increment_version_number(
+      version_number: ENV['VERSION_NUMBER'] # Set a specific version number
+    )
+
+    increment_build_number(
+      build_number: ENV['BUILD_NUMBER'].to_i # set a specific number
+    )
+
+    # Create and sign the IPA (and DSYM)
+    ipa({
+      scheme: ENV['IPA_BUILD_SCHEME'],
+      configuration: ENV['IPA_BUILD_CONFIG'], #Prevents fastlane from passing --configuration "Release" - bug?
+      clean: true,
+      archive: nil,
+      # verbose: nil, # this means 'Be Verbose'.
+    })
+
     # Upload the DSYM to Hockey
     hockey({
       notes: '',
-      notify: '0',
+      notify: '0', #Means do not notify
       status: '1', #Means do not make available for download
     })
 
-    #Set "Feedback email" in iTunes Connect for Testflight builds
-    self.class.const_set("DELIVER_BETA_FEEDBACK_EMAIL", 'abaso@wikimedia.org')
     #Set "What To Test" in iTunes Connect for Testflight builds, in the future, reference tickets instead of git commits
-    self.class.const_set("DELIVER_WHAT_TO_TEST", git_commit_log)
+    ENV['DELIVER_WHAT_TO_TEST'] = git_commit_log
     #Set "App Description" in iTunes Connect for Testflight builds, in the future set a better description
-    self.class.const_set("DELIVER_BETA_DESCRIPTION", git_commit_log)
+    # ENV['DELIVER_BETA_DESCRIPTION'] = git_commit_log
 
     # Upload the IPA and DSYM to iTunes Connect
     deliver(
