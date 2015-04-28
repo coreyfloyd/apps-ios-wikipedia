@@ -53,3 +53,4 @@ Wikipedia/assets/
 
 # Git
 *.orig
+*.dSYM.zip
