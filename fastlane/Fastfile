@@ -7,6 +7,8 @@ $:.unshift File.dirname(__FILE__)
 
 require 'lib/utils.rb'
 
+ENV['APPLE_USER_NAME'] = 'ci-apps@wikimedia.org'
+
 before_all do
   p ENV
 end
@@ -33,7 +35,7 @@ lane :alpha do
 
   # Create the app in iTunes Connect if needed
   produce({
-    produce_username: 'cfloyd@wikimedia.org',
+    produce_username: ENV['APPLE_USER_NAME'],
     produce_app_identifier: 'org.wikimedia.wikipedia.tfalpha',
     produce_app_identifier_suffix: '', #work around for: https://github.com/KrauseFx/produce/issues/27
     produce_app_name: 'Wikipedia Alpha',
@@ -68,7 +70,7 @@ lane :beta do
 
   # Create the app in iTunes Connect if needed
   produce({
-    produce_username: 'cfloyd@wikimedia.org',
+    produce_username: ENV['APPLE_USER_NAME'],
     produce_app_identifier: 'org.wikimedia.wikipedia.tfbeta',
     produce_app_name: 'Wikipedia Beta',
     produce_language: 'English',
@@ -85,6 +87,38 @@ lane :beta do
 
 end
 
+lane :appstore do
+  ensure_git_status_clean
+
+  run_unit_tests
+
+  # Download the Certificate for signing
+  cert
+
+  # Create and/or download the right provisioning profile
+  sigh({
+    provisioning_name: 'org.wikimedia.wikipedia AppStore',
+    app_identifier: 'org.wikimedia.wikipedia',
+  })
+
+  # Create the app in iTunes Connect if needed
+  produce({
+    produce_username: ENV['APPLE_USER_NAME'],
+    produce_app_identifier: 'org.wikimedia.wikipedia',
+    produce_app_name: 'Wikipedia Mobile',
+    produce_language: 'English',
+    produce_version: '4.1.1',
+    produce_sku: '01982',
+  })
+
+  # Set variables for building and distributing
+  ENV['IPA_BUILD_SCHEME'] = 'Wikipedia'
+  ENV['IPA_BUILD_CONFIG'] = 'Release'
+  ENV['APP_APPLE_ID'] = '324715238'
+
+  deploy_appstore_build
+
+end
 # after_all do |lane|
 # end
 

@@ -106,3 +106,31 @@ def deploy_testflight_build
 
   end
 end
+
+def deploy_appstore_build
+  unless deploy_disabled?
+
+    # Create and sign the IPA (and DSYM)
+    ipa({
+      scheme: ENV['IPA_BUILD_SCHEME'],
+      configuration: ENV['IPA_BUILD_CONFIG'], #Prevents fastlane from passing --configuration "Release" - bug?
+      clean: true,
+      archive: nil,
+      # verbose: nil, # this means 'Be Verbose'.
+    })
+
+    # Upload the DSYM to Hockey
+    hockey({
+      notes: '',
+      notify: '0', #Means do not notify
+      status: '1', #Means do not make available for download
+    })
+
+    # Upload the IPA and DSYM to iTunes Connect
+    deliver(
+      force: true, # Set to true to skip PDF verification
+      skip_deploy: true, # Set true to not submit app for review (works with both App Store and beta builds)
+    )
+
+  end
+end

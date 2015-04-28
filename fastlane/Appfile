@@ -4,4 +4,4 @@ team_id "AKK7J2GV64"
 team_name "Wikimedia Foundation"
 
 # Account to use to submit builds
-apple_id "cfloyd@wikimedia.org"
+apple_id ENV['APPLE_USER_NAME']
