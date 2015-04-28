@@ -5,12 +5,14 @@ require 'git'
 # Set the version number for the build
 ENV['VERSION_NUMBER'] = '4.1.3'
 
+# Set the user name for dev center and iTunes connect
+ENV['APPLE_USER_NAME'] = 'ci-apps@wikimedia.org'
+
 # Set "Feedback email" in iTunes Connect for Testflight builds
 ENV['DELIVER_BETA_FEEDBACK_EMAIL'] = 'abaso@wikimedia.org'
 
 # Hockey API Key
 ENV['FL_HOCKEY_API_TOKEN'] = '03557690d9d44f39972d70b04980623c'
-
 
 # Returns true if the `NO_DEPLOY` env var is set to 1
 def deploy_disabled?

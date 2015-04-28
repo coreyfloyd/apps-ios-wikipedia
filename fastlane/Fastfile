@@ -7,8 +7,6 @@ $:.unshift File.dirname(__FILE__)
 
 require 'lib/utils.rb'
 
-ENV['APPLE_USER_NAME'] = 'ci-apps@wikimedia.org'
-
 before_all do
   p ENV
 end
@@ -37,10 +35,9 @@ lane :alpha do
   produce({
     produce_username: ENV['APPLE_USER_NAME'],
     produce_app_identifier: 'org.wikimedia.wikipedia.tfalpha',
-    produce_app_identifier_suffix: '', #work around for: https://github.com/KrauseFx/produce/issues/27
     produce_app_name: 'Wikipedia Alpha',
     produce_language: 'English',
-    produce_version: '4.1.1',
+    produce_version: ENV['VERSION_NUMBER'],
     produce_sku: '01985',
   })
 
@@ -74,7 +71,7 @@ lane :beta do
     produce_app_identifier: 'org.wikimedia.wikipedia.tfbeta',
     produce_app_name: 'Wikipedia Beta',
     produce_language: 'English',
-    produce_version: '4.1.1',
+    produce_version: ENV['VERSION_NUMBER'],
     produce_sku: '01984',
   })
 
@@ -107,7 +104,7 @@ lane :appstore do
     produce_app_identifier: 'org.wikimedia.wikipedia',
     produce_app_name: 'Wikipedia Mobile',
     produce_language: 'English',
-    produce_version: '4.1.1',
+    produce_version: ENV['VERSION_NUMBER'],
     produce_sku: '01982',
   })
 
