@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <objects>
@@ -31,7 +31,7 @@
                     <rect key="frame" x="360" y="44" width="240" height="556"/>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EPw-aF-Lyg">
-                    <rect key="frame" x="8" y="53" width="344" height="20"/>
+                    <rect key="frame" x="20" y="53" width="332" height="20"/>
                     <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
@@ -44,7 +44,7 @@
                     </constraints>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Os5-R9-wqS">
-                    <rect key="frame" x="8" y="16" width="584" height="20"/>
+                    <rect key="frame" x="20" y="16" width="572" height="20"/>
                     <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
@@ -56,9 +56,9 @@
                 <constraint firstItem="PM7-Cl-b9b" firstAttribute="leading" secondItem="izI-m5-Ne3" secondAttribute="leading" id="4wi-2R-Vnn"/>
                 <constraint firstAttribute="trailing" secondItem="Wu3-FS-wwi" secondAttribute="trailing" id="5Pn-FD-aYR"/>
                 <constraint firstAttribute="trailing" secondItem="Os5-R9-wqS" secondAttribute="trailing" constant="8" id="5Qg-Lk-cxm"/>
-                <constraint firstItem="EPw-aF-Lyg" firstAttribute="width" secondItem="Wu3-FS-wwi" secondAttribute="width" multiplier="0.6" constant="-16" id="EEG-Rz-Plm"/>
+                <constraint firstItem="EPw-aF-Lyg" firstAttribute="width" secondItem="Wu3-FS-wwi" secondAttribute="width" multiplier="0.6" constant="-28" id="EEG-Rz-Plm"/>
                 <constraint firstAttribute="bottom" secondItem="Wu3-FS-wwi" secondAttribute="bottom" id="P9Y-K5-wkv"/>
-                <constraint firstItem="EPw-aF-Lyg" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="WZH-gD-1GT"/>
+                <constraint firstItem="EPw-aF-Lyg" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="WZH-gD-1GT"/>
                 <constraint firstItem="Wu3-FS-wwi" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="aA8-aa-rLk"/>
                 <constraint firstAttribute="trailing" secondItem="fFp-CC-F57" secondAttribute="trailing" id="cuH-gQ-b5g"/>
                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="EPw-aF-Lyg" secondAttribute="bottom" constant="8" id="dSF-Wy-nHI"/>
@@ -73,7 +73,7 @@
                 <constraint firstItem="izI-m5-Ne3" firstAttribute="width" secondItem="Wu3-FS-wwi" secondAttribute="width" multiplier="0.4" id="woP-fp-bXF"/>
                 <constraint firstItem="fFp-CC-F57" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="ygI-f0-YO1"/>
                 <constraint firstAttribute="bottom" secondItem="izI-m5-Ne3" secondAttribute="bottom" id="zZ1-gY-Bfl"/>
-                <constraint firstItem="Os5-R9-wqS" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="zhQ-IA-vPW"/>
+                <constraint firstItem="Os5-R9-wqS" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="zhQ-IA-vPW"/>
             </constraints>
         </view>
     </objects>
