@@ -95,7 +95,7 @@ def deploy_testflight_build
     })
 
     #Set "What To Test" in iTunes Connect for Testflight builds, in the future, reference tickets instead of git commits
-    ENV['DELIVER_WHAT_TO_TEST'] = git_commit_log
+    ENV['DELIVER_WHAT_TO_TEST'] = generate_git_commit_log
     #Set "App Description" in iTunes Connect for Testflight builds, in the future set a better description
     # ENV['DELIVER_BETA_DESCRIPTION'] = git_commit_log
 
