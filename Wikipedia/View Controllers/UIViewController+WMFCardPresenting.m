@@ -106,7 +106,7 @@ static CGFloat kWMFInterAnimationPause = 0.1;
     [vc.view addGestureRecognizer:tap];
 
     slideUp.contentView = vc.view;
-    
+
     [self.view addSubview:slideUp];
 
     [slideUp animateIn];
@@ -124,7 +124,7 @@ static CGFloat kWMFInterAnimationPause = 0.1;
 
 - (void)didTapWithGesture:(UITapGestureRecognizer*)tap {
     [self dismissCardAnimated:YES];
-    
+
     if ([self tapHandler]) {
         [self tapHandler]();
     }

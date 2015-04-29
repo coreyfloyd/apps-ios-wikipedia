@@ -27,7 +27,6 @@ static inline BOOL cardLoremIpsumEnabled(){
     return FBTweakValue(@"Card", @".Card", @"Lorem Ipsum", NO);
 }
 
-
 static inline CGFloat cardRadius(){
     return FBTweakValue(@"Card", @"Style", @"Corner Radius", 3.0, 0.0, 100.0);
 }
@@ -35,9 +34,6 @@ static inline CGFloat cardRadius(){
 static inline CGFloat cardPopupHeight(){
     return FBTweakValue(@"Card", @"Style", @"Height", 270.0, 50.0, 500.0);
 }
-
-
-
 
 static inline CGFloat cardAnimationDuration(){
     return FBTweakValue(@"Card", @"Pop Animation", @"Duration", 0.25, 0.1, 1.0);
@@ -50,7 +46,6 @@ static inline CGFloat cardAnimationDamping(){
 static inline CGFloat cardAnimationVelocity(){
     return FBTweakValue(@"Card", @"Pop Animation", @"Velocity", 0.4, 0.0, 5.0);
 }
-
 
 static inline UIColor* cardImageBackgroundColor(){
     return [UIColor colorFromHexString:FBTweakValue(@"Image", @"Background", @"Color", @"000000")];
@@ -75,7 +70,6 @@ static inline CGFloat cardImageFadeDuraton(){
 static inline CGFloat cardImageFadeScaleEffect(){
     return FBTweakValue(@"Image", @"Fade In Animation", @"Scale Effect", 0.95, 0.1, 1.0);
 }
-
 
 static NSString* serifFont     = @"Georgia";
 static NSString* boldSerifFont = @"Georgia-Bold";
@@ -128,6 +122,5 @@ static inline UIFont* cardDescriptionFont(){
 static inline UIFont* cardSummaryFont(){
     return (cardPopupType() == WMFCardTypePrototype1) ? card1SummaryFont() : card2SummaryFont();
 }
-
 
 #endif

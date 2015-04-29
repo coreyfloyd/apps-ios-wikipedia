@@ -826,9 +826,8 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
 //                [strSelf navigateToPage:pageTitle
 //                        discoveryMethod:MWK_DISCOVERY_METHOD_LINK
 //                   showLoadingIndicator:YES];
-                
+
                 [strSelf showPreviewForTitle:pageTitle];
-                
             } else if ([href hasPrefix:@"http:"] || [href hasPrefix:@"https:"] || [href hasPrefix:@"//"]) {
                 // A standard external link, either explicitly http(s) or left protocol-relative on web meaning http(s)
                 if ([href hasPrefix:@"//"]) {
@@ -2033,7 +2032,6 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
 #pragma mark - Article Preview
 
 - (void)showPreviewForTitle:(MWKTitle*)title {
-
     [self presentCardForArticleWithTitle:title animated:YES tapHandler:^{
         [self openPageForTitle:title];
     }];

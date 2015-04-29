@@ -3,7 +3,7 @@
 require 'git'
 
 # Set the version number for the build
-ENV['VERSION_NUMBER'] = '4.1.3'
+ENV['VERSION_NUMBER'] = '5.0'
 
 # Set the user name for dev center and iTunes connect
 ENV['APPLE_USER_NAME'] = 'ci-apps@wikimedia.org'

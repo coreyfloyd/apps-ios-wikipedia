@@ -142,8 +142,6 @@ lane :experimental do
     produce_sku: '01986',
   })
 
-  increment_build_number 7
-
   # Set variables for building and distributing
   ENV['IPA_BUILD_SCHEME'] = 'Wikipedia Experimental'
   ENV['IPA_BUILD_CONFIG'] = 'Experimental'
