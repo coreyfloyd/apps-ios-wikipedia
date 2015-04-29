@@ -24,16 +24,18 @@ Bridge.prototype.registerListener = function( messageType, callback ) {
 };
 
 Bridge.prototype.sendMessage = function( messageType, payload ) {
-    var messagePack = { type: messageType, payload: payload };
-    var url = "x-wikipedia-bridge:" + encodeURIComponent( JSON.stringify( messagePack ) );
+    setTimeout(function() { // See: https://phabricator.wikimedia.org/T96822 and http://stackoverflow.com/a/9782220/135557
+        var messagePack = { type: messageType, payload: payload };
+        var url = "x-wikipedia-bridge:" + encodeURIComponent( JSON.stringify( messagePack ) );
 
-    // quick iframe version based on http://stackoverflow.com/a/6508343/82439
-    // fixme can this be an XHR instead? check Cordova current state
-    var iframe = document.createElement('iframe');
-    iframe.setAttribute("src", url);
-    document.documentElement.appendChild(iframe);
-    iframe.parentNode.removeChild(iframe);
-    iframe = null;
+        // quick iframe version based on http://stackoverflow.com/a/6508343/82439
+        // fixme can this be an XHR instead? check Cordova current state
+        var iframe = document.createElement('iframe');
+        iframe.setAttribute("src", url);
+        document.documentElement.appendChild(iframe);
+        iframe.parentNode.removeChild(iframe);
+        iframe = null;
+    }, 0);
 };
 
 module.exports = new Bridge();
@@ -101,6 +103,8 @@ exports.getIndexOfFirstOnScreenElementWithTopGreaterThanY = function(elementPref
 var bridge = require("./bridge");
 var transformer = require("./transformer");
 var refs = require("./refs");
+var issuesAndDisambig = require("./transforms/collapsePageIssuesAndDisambig");
+
 
 // DOMContentLoaded fires before window.onload! That's good!
 // See: http://stackoverflow.com/a/3698214/135557
@@ -110,6 +114,8 @@ document.addEventListener("DOMContentLoaded", function() {
     transformer.transform( "hideRedlinks", document );
     transformer.transform( "disableFilePageEdit", document );
     transformer.transform( "addImageOverflowXContainers", document );
+    transformer.transform( "hideTables", document );
+    transformer.transform( "collapsePageIssuesAndDisambig", document.getElementById( "section_heading_and_content_block_0" ) );
 
     bridge.sendMessage( "DOMContentLoaded", {} );
 });
@@ -144,19 +150,6 @@ bridge.registerListener( "scrollToFragment", function( payload ) {
 bridge.registerListener( "setPageProtected", function() {
     document.getElementsByTagName( "html" )[0].classList.add( "page-protected" );
 } );
-
-
-bridge.registerListener( "setTableLocalization", function( payload ) {
-    window.string_table_infobox = payload.string_table_infobox;
-    window.string_table_other = payload.string_table_other;
-    window.string_table_close = payload.string_table_close;
-} );
-
-
-bridge.registerListener( "collapseTables", function() {
-    transformer.transform( "hideTables", document );
-} );
-
 
 /**
  * Quickie function to walk from the current element up to parents and match CSS-ish selectors.
@@ -268,8 +261,20 @@ function maybeSendMessageForTarget(event, hrefTarget){
         // Handle reference links with a popup view instead of scrolling about!
         refs.sendNearbyReferences( hrefTarget );
     } else if (href && href[0] === "#") {
-        // If it is a link to an anchor in the current page, just scroll to it
-        document.getElementById( href.substring( 1 ) ).scrollIntoView();
+        var targetId = href.slice(1);
+        if ( "issues" === targetId ) {
+            var issuesPayload = issuesAndDisambig.issuesClicked( hrefTarget );
+            bridge.sendMessage( 'issuesClicked', issuesPayload );
+        } else if ( "disambig" === targetId ) {
+            var disambigPayload = issuesAndDisambig.disambigClicked( hrefTarget );
+            bridge.sendMessage( 'disambigClicked', disambigPayload );
+        } else if ( "issues_container_close_button" === targetId ) {
+            issuesAndDisambig.closeClicked();
+
+        } else {
+            // If it is a link to an anchor in the current page, just scroll to it
+            document.getElementById( href.substring( 1 ) ).scrollIntoView();
+        }
     } else if (typeof hrefClass === 'string' && hrefClass.indexOf('image') !== -1) {
         bridge.sendMessage('imageClicked', { 'url': event.target.getAttribute('src') });
     } else if (href) {
@@ -290,7 +295,7 @@ bridge.registerListener( "setLeadImageDivHeight", function( payload ) {
 
 })();
 
-},{"./bridge":1,"./refs":5,"./transformer":6}],4:[function(require,module,exports){
+},{"./bridge":1,"./refs":5,"./transformer":6,"./transforms/collapsePageIssuesAndDisambig":9}],4:[function(require,module,exports){
 
 var bridge = require("./bridge");
 var elementLocation = require("./elementLocation");
@@ -442,10 +447,440 @@ Transformer.prototype.transform = function( transform, element ) {
     }
 };
 
+Transformer.prototype.httpGetSync = function (theUrl) {
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", theUrl, false );
+    xmlHttp.send( null );
+    return xmlHttp.responseText;
+};
+
 module.exports = new Transformer();
 
 },{}],7:[function(require,module,exports){
-var transformer = require("./transformer");
+
+require("./transforms/collapseTables");
+require("./transforms/relocateFirstParagraph");
+require("./transforms/hideRedLinks");
+require("./transforms/disableFilePageEdit");
+require("./transforms/addImageOverflowContainers");
+require("./transforms/collapsePageIssuesAndDisambig");
+
+},{"./transforms/addImageOverflowContainers":8,"./transforms/collapsePageIssuesAndDisambig":9,"./transforms/collapseTables":10,"./transforms/disableFilePageEdit":11,"./transforms/hideRedLinks":12,"./transforms/relocateFirstParagraph":13}],8:[function(require,module,exports){
+var transformer = require("../transformer");
+
+function firstAncestorWithMultipleChildren (el) {
+    while ((el = el.parentElement) && (el.childElementCount == 1));
+    return el;
+}
+
+function addImageOverflowXContainer() {
+    var image = this;
+    if (image.width > (window.screen.width * 0.8)){
+        var ancestor = firstAncestorWithMultipleChildren (image);
+        if(ancestor){
+            var div = document.createElement( 'div' );
+            div.className = 'image_overflow_x_container';
+            ancestor.parentElement.insertBefore( div, ancestor );
+            div.appendChild( ancestor );
+        }
+    }
+}
+
+transformer.register( "addImageOverflowXContainers", function( content ) {
+    // Wrap wide images in a <div style="overflow-x:auto">...</div> so they can scroll
+    // side to side if needed without causing the entire section to scroll side to side.
+    var images = content.getElementsByTagName('img');
+    for (var i = 0; i < images.length; ++i) {
+        // Load event used so images w/o style or inline width/height
+        // attributes can still have their size determined reliably.
+        images[i].addEventListener('load', addImageOverflowXContainer, false);
+    }
+} );
+
+},{"../transformer":6}],9:[function(require,module,exports){
+var transformer = require("../transformer");
+
+transformer.register( 'collapsePageIssuesAndDisambig', function( content ) {
+    transformer.transform( "displayDisambigLink", content);
+    transformer.transform( "displayIssuesLink", content);
+
+    var issuesContainer = document.getElementById('issues_container');
+    if(!issuesContainer){
+        return;
+    }
+    issuesContainer.setAttribute( "dir", window.directionality );
+
+    // If we have both issues and disambiguation, then insert the separator.
+    var disambigBtn = document.getElementById( "disambig_button" );
+    var issuesBtn = document.getElementById( "issues_button" );
+    if (issuesBtn !== null && disambigBtn !== null) {
+        var separator = document.createElement( 'span' );
+        separator.innerText = '|';
+        separator.className = 'issues_separator';
+        issuesContainer.insertBefore(separator, issuesBtn.parentNode);
+    }
+
+    // Hide the container if there were no page issues or disambiguation.
+    issuesContainer.style.display = (disambigBtn || issuesBtn) ? 'inherit' : 'none';
+} );
+
+transformer.register( 'displayDisambigLink', function( content ) {
+    var hatnotes = content.querySelectorAll( "div.hatnote" );
+    if ( hatnotes.length > 0 ) {
+        var container = document.getElementById( "issues_container" );
+        var wrapper = document.createElement( 'div' );
+        var link = document.createElement( 'a' );
+        link.setAttribute( 'href', '#disambig' );
+        link.className = 'disambig_button';
+        link.innerHTML = transformer.httpGetSync('wmf://localize/page-similar-titles');
+        link.id = 'disambig_button';
+        wrapper.appendChild( link );
+        var i = 0,
+            len = hatnotes.length;
+        for (; i < len; i++) {
+            wrapper.appendChild( hatnotes[i] );
+        }
+        container.appendChild( wrapper );
+    }
+} );
+
+transformer.register( 'displayIssuesLink', function( content ) {
+    var issues = content.querySelectorAll( "table.ambox:not([class*='ambox-multiple_issues']):not([class*='ambox-notice'])" );
+    if ( issues.length > 0 ) {
+        var el = issues[0];
+        var container = document.getElementById( "issues_container" );
+        var wrapper = document.createElement( 'div' );
+        var link = document.createElement( 'a' );
+        link.setAttribute( 'href', '#issues' );
+        link.className = 'issues_button';
+        link.innerHTML = transformer.httpGetSync('wmf://localize/page-issues');
+        link.id = 'issues_button';
+        wrapper.appendChild( link );
+        el.parentNode.replaceChild( wrapper, el );
+        var i = 0,
+            len = issues.length;
+        for (; i < len; i++) {
+            wrapper.appendChild( issues[i] );
+        }
+        container.appendChild( wrapper );
+    }
+} );
+
+function collectDisambig( sourceNode ) {
+    var res = [];
+    var links = sourceNode.querySelectorAll( 'div.hatnote a' );
+    var i = 0,
+        len = links.length;
+    for (; i < len; i++) {
+        // Pass the href; we'll decode it into a proper page title in Obj-C
+        if(links[i].getAttribute( 'href' ).indexOf("redlink=1") === -1){
+            res.push( links[i] );
+        }
+    }
+    return res;
+}
+
+function collectIssues( sourceNode ) {
+    var res = [];
+    var issues = sourceNode.querySelectorAll( 'table.ambox' );
+    var i = 0,
+        len = issues.length;
+    for (; i < len; i++) {
+        // .ambox- is used e.g. on eswiki
+        res.push( issues[i].querySelector( '.mbox-text, .ambox-text' ).innerHTML );
+    }
+    return res;
+}
+
+function anchorForAnchor(anchor) {
+    var url = anchor.getAttribute( 'href' );
+    var titleForDisplay = anchor.text.substring(0,1).toUpperCase() + anchor.text.substring(1);
+    return '<a class="ios-disambiguation-item-anchor" href="' + url + '" >' + titleForDisplay + '</a>';
+}
+
+function divForIssue(issue) {
+    return '<div class="ios-issue-item">' + issue + '</div>';
+}
+
+function insertAfter(newNode, referenceNode) {
+    referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+}
+
+function setIsSelected(el, isSelected) {
+    if(isSelected){
+        el.style.borderBottom = "1px dotted #bbb;";
+        el.style.color = '#000';
+    }else{
+        el.style.borderBottom = "none";
+        el.style.color = '#777';
+    }
+}
+
+function toggleSubContainerButtons( activeSubContainerId, focusButtonId, blurButtonId ){
+    var buttonToBlur = document.getElementById( blurButtonId );
+    if(buttonToBlur) {
+        setIsSelected(buttonToBlur, false);
+    }
+    var buttonToActivate = document.getElementById( focusButtonId );
+    var isActiveSubContainerPresent = document.getElementById( activeSubContainerId ) ? true : false;
+    setIsSelected(buttonToActivate, isActiveSubContainerPresent);
+}
+
+function toggleSubContainers( activeSubContainerId, inactiveSubContainerId, activeSubContainerContents ){
+    var containerToRemove = document.getElementById( inactiveSubContainerId );
+    var closeButton = document.getElementById('issues_container_close_button');
+    if(containerToRemove){
+        containerToRemove.parentNode.removeChild(containerToRemove);
+    }
+    var containerToAddOrToggle = document.getElementById( activeSubContainerId );
+    if(containerToAddOrToggle){
+        containerToAddOrToggle.parentNode.removeChild(containerToAddOrToggle);
+        closeButton.style.display = 'none';
+    }else{
+        containerToAddOrToggle = document.createElement( 'div' );
+        containerToAddOrToggle.id = activeSubContainerId;
+        containerToAddOrToggle.innerHTML = activeSubContainerContents;
+        insertAfter(containerToAddOrToggle, document.getElementById('issues_container'));
+        closeButton.style.display = 'inherit';
+    }
+}
+
+function closeClicked() {
+    if(document.getElementById( 'disambig_sub_container' )){
+        toggleSubContainers('disambig_sub_container', 'issues_sub_container', null);
+        toggleSubContainerButtons('disambig_sub_container', 'disambig_button', 'issues_button');
+    }else if(document.getElementById( 'issues_sub_container' )){
+        toggleSubContainers('issues_sub_container', 'disambig_sub_container', null);
+        toggleSubContainerButtons('issues_sub_container', 'issues_button', 'disambig_button');
+    }
+}
+
+function issuesClicked( sourceNode ) {
+    var issues = collectIssues( sourceNode.parentNode );
+    var disambig = collectDisambig( sourceNode.parentNode.parentNode ); // not clicked node
+
+    toggleSubContainers('issues_sub_container', 'disambig_sub_container',  issues.map(divForIssue).join( "" ));
+    toggleSubContainerButtons('issues_sub_container', 'issues_button', 'disambig_button');
+
+    return { "hatnotes": disambig, "issues": issues };
+}
+
+function disambigClicked( sourceNode ) {
+    var disambig = collectDisambig( sourceNode.parentNode );
+    var issues = collectIssues( sourceNode.parentNode.parentNode ); // not clicked node
+
+    toggleSubContainers('disambig_sub_container', 'issues_sub_container', disambig.map(anchorForAnchor).sort().join( "" ));
+    toggleSubContainerButtons('disambig_sub_container', 'disambig_button', 'issues_button');
+
+    return { "hatnotes": disambig, "issues": issues };
+}
+
+exports.issuesClicked = issuesClicked;
+exports.disambigClicked = disambigClicked;
+exports.closeClicked = closeClicked;
+
+},{"../transformer":6}],10:[function(require,module,exports){
+var transformer = require("../transformer");
+
+/*
+Tries to get an array of table header (TH) contents from a given table.
+If there are no TH elements in the table, an empty array is returned.
+*/
+function getTableHeader( element ) {
+    var thArray = [];
+    if (element.children === undefined || element.children === null) {
+        return thArray;
+    }
+    for (var i = 0; i < element.children.length; i++) {
+        var el = element.children[i];
+        if (el.tagName === "TH") {
+            // ok, we have a TH element!
+            // However, if it contains more than two links, then ignore it, because
+            // it will probably appear weird when rendered as plain text.
+            var aNodes = el.querySelectorAll( "a" );
+            if (aNodes.length < 3) {
+                // Also ignore it if it's identical to the page title.
+                if (el.innerText.length > 0 && el.innerText !== window.pageTitle && el.innerHTML !== window.pageTitle) {
+                    thArray.push(el.innerText);
+                }
+            }
+        }
+        //if it's a table within a table, don't worry about it
+        if (el.tagName === "TABLE") {
+            continue;
+        }
+        //recurse into children of this element
+        var ret = getTableHeader(el);
+        //did we get a list of TH from this child?
+        if (ret.length > 0) {
+            thArray = thArray.concat(ret);
+        }
+    }
+    return thArray;
+}
+
+/*
+OnClick handler function for expanding/collapsing tables and infoboxes.
+*/
+function tableCollapseClickHandler() {
+    var container = this.parentNode;
+    var divCollapsed = container.children[0];
+    var tableFull = container.children[1];
+    var divBottom = container.children[2];
+    if (tableFull.style.display !== 'none') {
+        tableFull.style.display = 'none';
+        divCollapsed.classList.remove('app_table_collapse_close');
+        divCollapsed.classList.remove('app_table_collapse_icon');
+        divCollapsed.classList.add('app_table_collapsed_open');
+        divBottom.style.display = 'none';
+        //if they clicked the bottom div, then scroll back up to the top of the table.
+        if (this === divBottom) {
+            window.scrollTo( 0, container.offsetTop - 48 );
+        }
+    } else {
+        tableFull.style.display = 'block';
+        divCollapsed.classList.remove('app_table_collapsed_open');
+        divCollapsed.classList.add('app_table_collapse_close');
+        divCollapsed.classList.add('app_table_collapse_icon');
+        divBottom.style.display = 'block';
+    }
+}
+
+// From: http://stackoverflow.com/a/22119674/135557
+function findAncestor (el, cls) {
+    while ((el = el.parentElement) && !el.classList.contains(cls));
+    return el;
+}
+
+function shouldTableBeCollapsed( table ) {
+    if (table.style.display === 'none' ||
+        table.classList.contains( 'navbox' ) ||
+        table.classList.contains( 'vertical-navbox' ) ||
+        table.classList.contains( 'navbox-inner' ) ||
+        table.classList.contains( 'metadata' ) ||
+        table.classList.contains( 'mbox-small' )) {
+        return false;
+    }
+    return true;
+}
+
+transformer.register( "hideTables", function( content ) {
+    var tables = content.querySelectorAll( "table" );
+    for (var i = 0; i < tables.length; i++) {
+        var table = tables[i];
+        if (findAncestor (table, 'app_table_container')) continue;
+
+        if (!shouldTableBeCollapsed(table)) {
+            continue;
+        }
+
+        var isInfobox = table.classList.contains( 'infobox' );
+        
+        var parent = table.parentElement;
+
+        // If parent contains only this table it's safe to reset its styling
+        if (parent.childElementCount === 1){
+            parent.removeAttribute("class");
+            parent.removeAttribute("style");
+        }
+
+        // Remove max width restriction
+        table.style.maxWidth = 'none';
+
+        var headerText = getTableHeader(table);
+
+        var caption = "<strong>" + (isInfobox ? transformer.httpGetSync('wmf://localize/info-box-title') : transformer.httpGetSync('wmf://localize/table-title-other')) + "</strong>";
+        caption += "<span class='app_span_collapse_text'>";
+        if (headerText.length > 0) {
+            caption += ": " + headerText[0];
+        }
+        if (headerText.length > 1) {
+            caption += ", " + headerText[1];
+        }
+        if (headerText.length > 0) {
+            caption += " ...";
+        }
+        caption += "</span>";
+
+        //create the container div that will contain both the original table
+        //and the collapsed version.
+        var containerDiv = document.createElement( 'div' );
+        containerDiv.className = 'app_table_container';
+        table.parentNode.insertBefore(containerDiv, table);
+        table.parentNode.removeChild(table);
+
+        //remove top and bottom margin from the table, so that it's flush with
+        //our expand/collapse buttons
+        table.style.marginTop = "0px";
+        table.style.marginBottom = "0px";
+
+        //create the collapsed div
+        var collapsedDiv = document.createElement( 'div' );
+        collapsedDiv.classList.add('app_table_collapsed_container');
+        collapsedDiv.classList.add('app_table_collapsed_open');
+        collapsedDiv.innerHTML = caption;
+
+        //create the bottom collapsed div
+        var bottomDiv = document.createElement( 'div' );
+        bottomDiv.classList.add('app_table_collapsed_bottom');
+        bottomDiv.classList.add('app_table_collapse_icon');
+        bottomDiv.innerHTML = transformer.httpGetSync('wmf://localize/info-box-close-text');
+
+        //add our stuff to the container
+        containerDiv.appendChild(collapsedDiv);
+        containerDiv.appendChild(table);
+        containerDiv.appendChild(bottomDiv);
+
+        //set initial visibility
+        table.style.display = 'none';
+        collapsedDiv.style.display = 'block';
+        bottomDiv.style.display = 'none';
+
+        //assign click handler to the collapsed divs
+        collapsedDiv.onclick = tableCollapseClickHandler;
+        bottomDiv.onclick = tableCollapseClickHandler;
+    }
+} );
+
+},{"../transformer":6}],11:[function(require,module,exports){
+var transformer = require("../transformer");
+
+transformer.register( "disableFilePageEdit", function( content ) {
+    var filetoc = content.querySelector( '#filetoc' );
+    if (filetoc) {
+        // We're on a File: page! Do some quick hacks.
+        // In future, replace entire thing with a custom view most of the time.
+        // Hide edit sections
+        var editSections = content.querySelectorAll('.edit_section_button');
+        for (var i = 0; i < editSections.length; i++) {
+            editSections[i].style.display = 'none';
+        }
+        var fullImageLink = content.querySelector('.fullImageLink a');
+        if (fullImageLink) {
+            // Don't replace the a with a span, as it will break styles.
+            // Just disable clicking.
+            // Don't disable touchstart as this breaks scrolling!
+            fullImageLink.href = '';
+            fullImageLink.addEventListener( 'click', function( event ) {
+                event.preventDefault();
+            } );
+        }
+    }
+} );
+
+},{"../transformer":6}],12:[function(require,module,exports){
+var transformer = require("../transformer");
+
+transformer.register( "hideRedlinks", function( content ) {
+	var redLinks = content.querySelectorAll( 'a.new' );
+	for ( var i = 0; i < redLinks.length; i++ ) {
+		var redLink = redLinks[i];
+        redLink.style.color = 'inherit';
+	}
+} );
+
+},{"../transformer":6}],13:[function(require,module,exports){
+var transformer = require("../transformer");
 
 transformer.register( "moveFirstGoodParagraphUp", function( content ) {
     /*
@@ -520,209 +955,4 @@ transformer.register( "moveFirstGoodParagraphUp", function( content ) {
     }
 });
 
-/*
-Tries to get an array of table header (TH) contents from a given table.
-If there are no TH elements in the table, an empty array is returned.
-*/
-function getTableHeader( element ) {
-    var thArray = [];
-    if (element.children === undefined || element.children === null) {
-        return thArray;
-    }
-    for (var i = 0; i < element.children.length; i++) {
-        var el = element.children[i];
-        if (el.tagName === "TH") {
-            // ok, we have a TH element!
-            // However, if it contains more than two links, then ignore it, because
-            // it will probably appear weird when rendered as plain text.
-            var aNodes = el.querySelectorAll( "a" );
-            if (aNodes.length < 3) {
-                // Also ignore it if it's identical to the page title.
-                if (el.innerText.length > 0 && el.innerText !== window.pageTitle && el.innerHTML !== window.pageTitle) {
-                    thArray.push(el.innerText);
-                }
-            }
-        }
-        //if it's a table within a table, don't worry about it
-        if (el.tagName === "TABLE") {
-            continue;
-        }
-        //recurse into children of this element
-        var ret = getTableHeader(el);
-        //did we get a list of TH from this child?
-        if (ret.length > 0) {
-            thArray = thArray.concat(ret);
-        }
-    }
-    return thArray;
-}
-
-/*
-OnClick handler function for expanding/collapsing tables and infoboxes.
-*/
-function tableCollapseClickHandler() {
-    var container = this.parentNode;
-    var divCollapsed = container.children[0];
-    var tableFull = container.children[1];
-    var divBottom = container.children[2];
-    if (tableFull.style.display !== 'none') {
-        tableFull.style.display = 'none';
-        divCollapsed.classList.remove('app_table_collapse_close');
-        divCollapsed.classList.remove('app_table_collapse_icon');
-        divCollapsed.classList.add('app_table_collapsed_open');
-        divBottom.style.display = 'none';
-        //if they clicked the bottom div, then scroll back up to the top of the table.
-        if (this === divBottom) {
-            window.scrollTo( 0, container.offsetTop - 48 );
-        }
-    } else {
-        tableFull.style.display = 'block';
-        divCollapsed.classList.remove('app_table_collapsed_open');
-        divCollapsed.classList.add('app_table_collapse_close');
-        divCollapsed.classList.add('app_table_collapse_icon');
-        divBottom.style.display = 'block';
-    }
-}
-
-// From: http://stackoverflow.com/a/22119674/135557
-function findAncestor (el, cls) {
-    while ((el = el.parentElement) && !el.classList.contains(cls));
-    return el;
-}
-
-transformer.register( "hideTables", function( content ) {
-    var tables = content.querySelectorAll( "table" );
-    for (var i = 0; i < tables.length; i++) {
-
-        if (findAncestor (tables[i], 'app_table_container')) continue;
-
-        //is the table already hidden? if so, don't worry about it
-        if (tables[i].style.display === 'none' || tables[i].classList.contains( 'navbox' ) || tables[i].classList.contains( 'vertical-navbox' ) || tables[i].classList.contains( 'navbox-inner' ) || tables[i].classList.contains( 'metadata' )) {
-            continue;
-        }
-
-        var isInfobox = tables[i].classList.contains( 'infobox' );
-        
-        var parent = tables[i].parentElement;
-
-        // If parent contains only this table it's safe to reset its styling
-        if (parent.childElementCount === 1){
-            parent.removeAttribute("class");
-            parent.removeAttribute("style");
-        }
-
-        // Remove max width restriction
-        tables[i].style.maxWidth = 'none';
-
-        var headerText = getTableHeader(tables[i]);
-
-        var caption = "<strong>" + (isInfobox ? window.string_table_infobox : window.string_table_other) + "</strong>";
-        caption += "<span class='app_span_collapse_text'>";
-        if (headerText.length > 0) {
-            caption += ": " + headerText[0];
-        }
-        if (headerText.length > 1) {
-            caption += ", " + headerText[1];
-        }
-        if (headerText.length > 0) {
-            caption += ", ...";
-        }
-        caption += "</span>";
-
-        //create the container div that will contain both the original table
-        //and the collapsed version.
-        var containerDiv = document.createElement( 'div' );
-        containerDiv.className = 'app_table_container';
-        tables[i].parentNode.insertBefore(containerDiv, tables[i]);
-        tables[i].parentNode.removeChild(tables[i]);
-
-        //remove top and bottom margin from the table, so that it's flush with
-        //our expand/collapse buttons
-        tables[i].style.marginTop = "0px";
-        tables[i].style.marginBottom = "0px";
-
-        //create the collapsed div
-        var collapsedDiv = document.createElement( 'div' );
-        collapsedDiv.classList.add('app_table_collapsed_container');
-        collapsedDiv.classList.add('app_table_collapsed_open');
-        collapsedDiv.innerHTML = caption;
-
-        //create the bottom collapsed div
-        var bottomDiv = document.createElement( 'div' );
-        bottomDiv.classList.add('app_table_collapsed_bottom');
-        bottomDiv.classList.add('app_table_collapse_icon');
-        bottomDiv.innerHTML = window.string_table_close;
-
-        //add our stuff to the container
-        containerDiv.appendChild(collapsedDiv);
-        containerDiv.appendChild(tables[i]);
-        containerDiv.appendChild(bottomDiv);
-
-        //set initial visibility
-        tables[i].style.display = 'none';
-        collapsedDiv.style.display = 'block';
-        bottomDiv.style.display = 'none';
-
-        //assign click handler to the collapsed divs
-        collapsedDiv.onclick = tableCollapseClickHandler;
-        bottomDiv.onclick = tableCollapseClickHandler;
-    }
-} );
-
-
-transformer.register( "hideRedlinks", function( content ) {
-	var redLinks = content.querySelectorAll( 'a.new' );
-	for ( var i = 0; i < redLinks.length; i++ ) {
-		var redLink = redLinks[i];
-        redLink.style.color = 'inherit';
-	}
-} );
-
-transformer.register( "disableFilePageEdit", function( content ) {
-    var filetoc = content.querySelector( '#filetoc' );
-    if (filetoc) {
-        // We're on a File: page! Do some quick hacks.
-        // In future, replace entire thing with a custom view most of the time.
-        // Hide edit sections
-        var editSections = content.querySelectorAll('.edit_section_button');
-        for (var i = 0; i < editSections.length; i++) {
-            editSections[i].style.display = 'none';
-        }
-        var fullImageLink = content.querySelector('.fullImageLink a');
-        if (fullImageLink) {
-            // Don't replace the a with a span, as it will break styles.
-            // Just disable clicking.
-            // Don't disable touchstart as this breaks scrolling!
-            fullImageLink.href = '';
-            fullImageLink.addEventListener( 'click', function( event ) {
-                event.preventDefault();
-            } );
-        }
-    }
-} );
-
-function addImageOverflowXContainer() {
-    var image = this;
-    if (image.width > (window.screen.width * 0.8)){
-        var div = document.createElement( 'div' );
-        div.className = 'image_overflow_x_container';
-        image.parentElement.insertBefore( div, image );
-        // Reminder: appendChild removes "image" from its previous location
-        // so no need to do so explicitly.
-        // See: https://developer.mozilla.org/en-US/docs/Web/API/Node/appendChild
-        div.appendChild( image );
-    }
-}
-
-transformer.register( "addImageOverflowXContainers", function( content ) {
-    // Wrap wide images in a <div style="overflow-x:auto">...</div> so they can scroll
-    // side to side if needed without causing the entire section to scroll side to side.
-    var images = content.getElementsByTagName('img');
-    for (var i = 0; i < images.length; ++i) {
-        // Load event used so images w/o style or inline width/height
-        // attributes can still have their size determined reliably.
-        images[i].addEventListener('load', addImageOverflowXContainer, false);
-    }
-} );
-
-},{"./transformer":6}]},{},[1,2,3,4,5,6,7])
+},{"../transformer":6}]},{},[1,2,3,4,5,6,7,8,9,10,11,12,13])
