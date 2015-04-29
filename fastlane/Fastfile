@@ -86,43 +86,6 @@ lane :beta do
 
 end
 
-lane :experimental do
-  # Download the Certificate for signing
-  cert
-
-  # Create and/or download the right provisioning profile
-  sigh({
-    force: true,
-    provisioning_name: 'TF Experimental',
-    app_identifier: 'org.wikimedia.wikipedia.tfexperiment',
-  })
-
-  # Create the app in iTunes Connect if needed
-  produce({
-    produce_username: 'cfloyd@wikimedia.org',
-    produce_app_identifier: 'org.wikimedia.wikipedia.tfexperiment',
-    produce_app_name: 'Wikipedia Experimental',
-    produce_language: 'English',
-    produce_version: '5.0',
-    produce_sku: '01986',
-  })
-
-  increment_build_number 6
-
-  # Create and sign the IPA (and DSYM)
-  ipa({
-    scheme: 'Wikipedia Experimental',
-    configuration: 'Experimental', #Prevents fastlane from passing --configuration "Release" - bug?
-    clean: nil, # this means 'Do Clean'. Clean project before building.
-    archive: nil, # this means 'Do Archive'. Archive project to the Xcode organizer after building.
-    # verbose: nil, # this means 'Do Verbose'.
-  })
-
-  # Upload the IPA and DSYM to iTunes Connect
-  deliver :testflight, :beta, :skip_deploy, :force
-
-end
-
 lane :appstore do
   ensure_git_status_clean
 
@@ -156,6 +119,40 @@ lane :appstore do
   deploy_appstore_build
 
 end
+
+lane :experimental do
+  # Download the Certificate for signing
+  cert
+
+  # Create and/or download the right provisioning profile
+  sigh({
+    force: true,
+    provisioning_name: 'TF Experimental',
+    app_identifier: 'org.wikimedia.wikipedia.tfexperiment',
+  })
+
+  # Create the app in iTunes Connect if needed
+  produce({
+    produce_username: ENV['APPLE_USER_NAME'],
+    produce_app_identifier: 'org.wikimedia.wikipedia.tfexperiment',
+    produce_app_identifier_suffix: '', #work around for: https://github.com/KrauseFx/produce/issues/27
+    produce_app_name: 'Wikipedia Experimental',
+    produce_language: 'English',
+    produce_version: '5.0',
+    produce_sku: '01986',
+  })
+
+  increment_build_number 7
+
+  # Set variables for building and distributing
+  ENV['IPA_BUILD_SCHEME'] = 'Wikipedia Experimental'
+  ENV['IPA_BUILD_CONFIG'] = 'Experimental'
+  ENV['APP_APPLE_ID'] = '986242662'
+
+  deploy_testflight_build
+
+end
+
 # after_all do |lane|
 # end
 
