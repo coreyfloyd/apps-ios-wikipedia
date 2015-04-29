@@ -5,7 +5,7 @@
 
 @interface UIViewController (WMFCardPresenting)
 
-- (void)presentCardForArticleWithTitle:(MWKTitle*)title animated:(BOOL)animated completion:(dispatch_block_t)completion;
+- (void)presentCardForArticleWithTitle:(MWKTitle*)title animated:(BOOL)animated tapHandler:(dispatch_block_t)tapHandler;
 
 - (void)dismissCardAnimated:(BOOL)animated;
 

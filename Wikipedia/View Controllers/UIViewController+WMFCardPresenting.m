@@ -32,11 +32,11 @@ static NSString* kWMFSlideUpViewKey = @"kWMFSlideUpViewKey";
 
 static NSString* kWMFCompletionBlockKey = @"kWMFCompletionBlockKey";
 
-- (void)setCompletionBlock:(dispatch_block_t)completion {
+- (void)setTapHandler:(dispatch_block_t)completion {
     [self bk_associateValue:completion withKey:(__bridge const void*)(kWMFCompletionBlockKey)];
 }
 
-- (dispatch_block_t)completion {
+- (dispatch_block_t)tapHandler {
     return [self bk_associatedValueForKey:(__bridge const void*)(kWMFCompletionBlockKey)];
 }
 
@@ -69,10 +69,6 @@ static NSString* kWMFCompletionBlockKey = @"kWMFCompletionBlockKey";
 
 - (void)slideUpViewDidAnimateIn:(UIView*)slideUpView {
     [[self cardController] didMoveToParentViewController:self];
-
-    if ([self completion]) {
-        [self completion]();
-    }
 }
 
 @end
@@ -84,18 +80,18 @@ static NSString* kWMFCompletionBlockKey = @"kWMFCompletionBlockKey";
 
 static CGFloat kWMFInterAnimationPause = 0.1;
 
-- (void)presentCardForArticleWithTitle:(MWKTitle*)title animated:(BOOL)animated completion:(dispatch_block_t)completion {
+- (void)presentCardForArticleWithTitle:(MWKTitle*)title animated:(BOOL)animated tapHandler:(dispatch_block_t)tapHandler {
     if ([self slideUpView]) {
         [[self slideUpView] animateOut];
 
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(([[self slideUpView] animateInOutTime] + kWMFInterAnimationPause) * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self presentCardForArticleWithTitle:title animated:animated completion:completion];
+            [self presentCardForArticleWithTitle:title animated:animated tapHandler:tapHandler];
         });
 
         return;
     }
 
-    [self setCompletionBlock:completion];
+    [self setTapHandler:tapHandler];
 
     NBSlideUpView* slideUp = [[NBSlideUpView alloc] init];
     slideUp.viewablePixels = cardPopupHeight();
@@ -106,15 +102,18 @@ static CGFloat kWMFInterAnimationPause = 0.1;
     [self setCardController:vc];
     [self addChildViewController:vc];
 
-    slideUp.contentView = vc.view;
+    UITapGestureRecognizer* tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didTapWithGesture:)];
+    [vc.view addGestureRecognizer:tap];
 
+    slideUp.contentView = vc.view;
+    
     [self.view addSubview:slideUp];
 
     [slideUp animateIn];
 }
 
 - (void)dismissCardAnimated:(BOOL)animated {
-    if (animated) {
+    if (!animated) {
         [self slideUpView].animateInOutTime = 0.0;
     } else {
         [self slideUpView].animateInOutTime = cardAnimationDuration();
@@ -125,6 +124,10 @@ static CGFloat kWMFInterAnimationPause = 0.1;
 
 - (void)didTapWithGesture:(UITapGestureRecognizer*)tap {
     [self dismissCardAnimated:YES];
+    
+    if ([self tapHandler]) {
+        [self tapHandler]();
+    }
 }
 
 @end
