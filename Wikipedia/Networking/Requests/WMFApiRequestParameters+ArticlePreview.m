@@ -19,7 +19,7 @@
                 @"titles": titles,
                 @"prop": @[@"extracts", @"pageimages", @"pageterms"],
                 @"redirects": @"true",
-                @"exsentences": @"2",
+                @"exsentences": @"3",
                 @"explaintext": @"true",
                 @"piprop": @"thumbnail",
                 @"pithumbsize": @(thumbSize).stringValue,
