@@ -13,9 +13,11 @@ pod 'blockskit/Core', '~> 2.2'
 pod 'AFNetworking/NSURLConnection', '~> 2.5'
 pod 'hpple', '~> 0.2'
 
-
 # Autolayout Helper
 pod 'Masonry', '~> 0.6'
+
+# Images
+pod 'NYXImagesKit'
 
 # Color
 pod 'UIImage+AverageColor'

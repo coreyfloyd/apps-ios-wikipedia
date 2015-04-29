@@ -13,6 +13,7 @@ PODS:
   - hpple (0.2.0)
   - LoremIpsum (1.0.0)
   - Masonry (0.6.1)
+  - NYXImagesKit (2.3)
   - OCHamcrest (4.1.1)
   - OCMockito (1.4.0):
     - OCHamcrest (~> 4.0)
@@ -28,6 +29,7 @@ DEPENDENCIES:
   - hpple (~> 0.2)
   - LoremIpsum
   - Masonry (~> 0.6)
+  - NYXImagesKit
   - OCHamcrest (~> 4.1)
   - OCMockito (~> 1.4)
   - Tweaks
@@ -42,6 +44,7 @@ SPEC CHECKSUMS:
   hpple: 3b765f96fc2cd56ad1a49aef6f7be5cb2aa64b57
   LoremIpsum: 9029c55d36501b2ee0b05cc9ecda11d3a0479160
   Masonry: 4972309f2f134de9dd312f4dc4a21359b50e6caa
+  NYXImagesKit: 8163e3335a40eaa173ca5bbbf81fafb57d3947eb
   OCHamcrest: 6f03ffa81d12feab872638490a44ab0a6d3aca10
   OCMockito: 4981140c9a9ec06c31af40f636e3c0f25f27e6b2
   Tweaks: 524fa47636cce3bf3a4d9156e980f10ae9480e81
