@@ -43,12 +43,11 @@
 @end
 
 CGSize proportionalSizeByChangingHeight(CGSize originalSize, CGFloat newHeight){
-    
     CGFloat newWidth = (originalSize.width / originalSize.height) * newHeight;
     return CGSizeMake(newWidth, newHeight);
 }
+
 CGSize proportionalSizeByChangingWidth(CGSize originalSize, CGFloat newWidth){
-    
     CGFloat newHeight = (originalSize.width / originalSize.height) / newWidth;
     return CGSizeMake(newWidth, newHeight);
 }
@@ -127,8 +126,6 @@ CGSize proportionalSizeByChangingWidth(CGSize originalSize, CGFloat newWidth){
 
             //I know this is the big image
             if (self.wikidataDescription) {
-                
-                
                 self.imageView.layer.transform = CATransform3DMakeScale(cardImageFadeScaleEffect(), cardImageFadeScaleEffect(), 1.0);
 
 //                UIColor* imageColor = [image averageColor];
@@ -140,16 +137,16 @@ CGSize proportionalSizeByChangingWidth(CGSize originalSize, CGFloat newWidth){
 //                CGFloat maxDistanceFromWhite = cardImageDistanceFromWhite();
 //
 //                if(distanceFromWhite <= maxDistanceFromWhite){
-                
-                    textColor = [UIColor blackColor];
-                    imageTintColor = cardImageLightTintColor();
+
+                textColor = [UIColor blackColor];
+                imageTintColor = cardImageLightTintColor();
 
 //                }else{
-//                    
+//
 //                    textColor = [UIColor whiteColor];
 //                    imageTintColor = cardImageDarkTintColor();
 //                }
-                
+
                 self.imageTIntView.backgroundColor = imageTintColor;
 
                 [UIView transitionWithView:self.articleTitle
@@ -208,7 +205,7 @@ CGSize proportionalSizeByChangingWidth(CGSize originalSize, CGFloat newWidth){
 
             UIColor* imageColor = [image averageColor];
             CGFloat distanceFromWhite = [imageColor distanceFromColor:[UIColor whiteColor]];
-            
+
             UIColor* textColor = nil;
             UIColor* imageTintColor = nil;
 

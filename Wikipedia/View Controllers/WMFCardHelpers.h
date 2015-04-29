@@ -63,8 +63,6 @@ static inline UIColor* cardImageTintColor(){
     return [[UIColor colorFromHexString:FBTweakValue(@"Prototype1", @"Image", @"Overlay Color", @"000000")] colorWithAlphaComponent:FBTweakValue(@"Prototype1", @"Image", @"Overlay Alpha", 0.586, 0.01, 1.0)];
 }
 
-
-
 //static inline CGFloat cardImageDistanceFromWhite(){
 //    return FBTweakValue(@"Prototype2", @"Image", @"Max Distance From White", 20.0, 0.0, 100.0);
 //}
@@ -76,7 +74,6 @@ static inline UIColor* cardImageDarkTintColor(){
 static inline UIColor* cardImageLightTintColor(){
     return [[UIColor colorFromHexString:FBTweakValue(@"Prototype2", @"Image", @"Light Image Overlay Color", @"FFFFFF")] colorWithAlphaComponent:FBTweakValue(@"Prototype2", @"Image", @"Dark Image Overlay Alpha", 0.586, 0.01, 1.0)];
 }
-
 
 static inline CGFloat cardImageFadeDuraton(){
     return FBTweakValue(@"Image", @"Fade In Animation", @"Duration", 0.3, 0.0, 1.0);
