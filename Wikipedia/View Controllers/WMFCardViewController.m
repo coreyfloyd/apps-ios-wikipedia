@@ -18,6 +18,8 @@
 #import <UIImage+AverageColor/UIImage+AverageColor.h>
 #import "UIImage+ImageEffects.h"
 #import "UIView+SnapShot.h"
+#import <Masonry/Masonry.h>
+#import <NYXImagesKit/NYXImagesKit.h>
 
 
 @interface WMFCardViewController ()
@@ -39,6 +41,17 @@
 
 
 @end
+
+CGSize proportionalSizeByChangingHeight(CGSize originalSize, CGFloat newHeight){
+    
+    CGFloat newWidth = (originalSize.width / originalSize.height) * newHeight;
+    return CGSizeMake(newWidth, newHeight);
+}
+CGSize proportionalSizeByChangingWidth(CGSize originalSize, CGFloat newWidth){
+    
+    CGFloat newHeight = (originalSize.width / originalSize.height) / newWidth;
+    return CGSizeMake(newWidth, newHeight);
+}
 
 @implementation WMFCardViewController
 
@@ -107,17 +120,36 @@
 
         [self getImageWithURL:imageURL completion:^(UIImage* image) {
             if (cardImageBlur()) {
-                image = [image applyBlurWithRadius:cardbackgroundBlurRadius() tintColor:nil saturationDeltaFactor:1.8 maskImage:nil];
+                image = [image applyBlurWithRadius:cardImageBlurRadius() tintColor:nil saturationDeltaFactor:1.8 maskImage:nil];
             }
+
+            image = [image scaleToSize:self.imageView.bounds.size usingMode:NYXResizeModeAspectFill];
 
             //I know this is the big image
             if (self.wikidataDescription) {
+                
+                
                 self.imageView.layer.transform = CATransform3DMakeScale(cardImageFadeScaleEffect(), cardImageFadeScaleEffect(), 1.0);
 
 //                UIColor* imageColor = [image averageColor];
-//                UIColor* textColor = [imageColor blackOrWhiteContrastingColor];
-                UIColor* textColor = [UIColor whiteColor];
-                UIColor* imageTintColor = [[UIColor blackColor] colorWithAlphaComponent:[self.imageTIntView.backgroundColor alpha]];
+//                CGFloat distanceFromWhite = [[UIColor whiteColor] distanceFromColor:imageColor type:ColorDistanceCIE2000];
+
+                UIColor* textColor = nil;
+                UIColor* imageTintColor = nil;
+
+//                CGFloat maxDistanceFromWhite = cardImageDistanceFromWhite();
+//
+//                if(distanceFromWhite <= maxDistanceFromWhite){
+                
+                    textColor = [UIColor blackColor];
+                    imageTintColor = cardImageLightTintColor();
+
+//                }else{
+//                    
+//                    textColor = [UIColor whiteColor];
+//                    imageTintColor = cardImageDarkTintColor();
+//                }
+                
                 self.imageTIntView.backgroundColor = imageTintColor;
 
                 [UIView transitionWithView:self.articleTitle
@@ -167,7 +199,7 @@
 
     [LoremIpsum asyncPlaceholderImageFromService:LIPlaceholderImageServiceLoremPixel withSize:CGSizeMake(self.imageView.bounds.size.width, self.imageView.bounds.size.height)  completion:^(UIImage* image) {
         if (cardImageBlur()) {
-            image = [image applyBlurWithRadius:cardbackgroundBlurRadius() tintColor:nil saturationDeltaFactor:1.8 maskImage:nil];
+            image = [image applyBlurWithRadius:cardImageBlurRadius() tintColor:nil saturationDeltaFactor:1.8 maskImage:nil];
         }
 
         //I know this is the big image
@@ -175,8 +207,14 @@
             self.imageView.layer.transform = CATransform3DMakeScale(cardImageFadeScaleEffect(), cardImageFadeScaleEffect(), 1.0);
 
             UIColor* imageColor = [image averageColor];
-            UIColor* textColor = [imageColor blackOrWhiteContrastingColor];
-            UIColor* imageTintColor = [[textColor blackOrWhiteContrastingColor] colorWithAlphaComponent:[self.imageTIntView.backgroundColor alpha]];
+            CGFloat distanceFromWhite = [imageColor distanceFromColor:[UIColor whiteColor]];
+            
+            UIColor* textColor = nil;
+            UIColor* imageTintColor = nil;
+
+            textColor = [UIColor blackColor];
+            imageTintColor = cardImageLightTintColor();
+
             self.imageTIntView.backgroundColor = imageTintColor;
 
             [UIView transitionWithView:self.articleTitle
