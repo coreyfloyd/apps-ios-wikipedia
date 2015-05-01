@@ -138,13 +138,13 @@ CGSize proportionalSizeByChangingWidth(CGSize originalSize, CGFloat newWidth){
 //
 //                if(distanceFromWhite <= maxDistanceFromWhite){
 
-                textColor = [UIColor blackColor];
-                imageTintColor = cardImageLightTintColor();
+//                textColor = [UIColor blackColor];
+//                imageTintColor = cardImageLightTintColor();
 
 //                }else{
 //
-//                    textColor = [UIColor whiteColor];
-//                    imageTintColor = cardImageDarkTintColor();
+                textColor = [UIColor whiteColor];
+                imageTintColor = cardImageDarkTintColor();
 //                }
 
                 self.imageTIntView.backgroundColor = imageTintColor;
@@ -203,14 +203,14 @@ CGSize proportionalSizeByChangingWidth(CGSize originalSize, CGFloat newWidth){
         if (self.wikidataDescription) {
             self.imageView.layer.transform = CATransform3DMakeScale(cardImageFadeScaleEffect(), cardImageFadeScaleEffect(), 1.0);
 
-            UIColor* imageColor = [image averageColor];
-            CGFloat distanceFromWhite = [imageColor distanceFromColor:[UIColor whiteColor]];
+//            UIColor* imageColor = [image averageColor];
+//            CGFloat distanceFromWhite = [imageColor distanceFromColor:[UIColor whiteColor]];
 
             UIColor* textColor = nil;
             UIColor* imageTintColor = nil;
 
-            textColor = [UIColor blackColor];
-            imageTintColor = cardImageLightTintColor();
+            textColor = [UIColor whiteColor];
+            imageTintColor = cardImageDarkTintColor();
 
             self.imageTIntView.backgroundColor = imageTintColor;
 
