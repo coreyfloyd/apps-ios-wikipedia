@@ -90,6 +90,26 @@ platform :ios do
     deliver skip_deploy: true, beta: true
   end
 
+  desc "Submit a new **Wikipedia Beta** build to Hockey App for TSG"
+  lane :tsg do
+    # snapshot
+    sigh(
+      adhoc: true,
+      force: true,
+      filename: "tsg.mobileprovision"
+    )
+    ipa(
+      configuration: "Beta",
+      scheme: "Wikipedia Beta",
+      embed: "tsg.mobileprovision",
+    )
+    hockey(
+      notes: '',
+      notify: '0', # Means do not notify
+      status: '1', # Means do not make available for download
+    )
+  end
+
   desc "Deploy a new version to the App Store"
   lane :store do
     # snapshot
@@ -107,10 +127,10 @@ platform :ios do
   end
 
   after_all do |lane|
-  
+
   end
 
   error do |lane, exception|
-  
+
   end
 end
