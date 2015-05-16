@@ -9,31 +9,43 @@
 #import "MWKSectionList_Private.h"
 #import "MediaWikiKit.h"
 
-@implementation MWKSectionList {
-    NSMutableArray* _sections;
-    unsigned long mutationState;
-}
+@interface MWKSectionList ()
+
+@property (readwrite, weak, nonatomic) MWKArticle* article;
+@property (strong, nonatomic) NSMutableArray* sections;
+@property (assign, nonatomic) unsigned long mutationState;
+
+@end
+
+@implementation MWKSectionList
 
 - (NSUInteger)count {
-    return [_sections count];
+    return [self.sections count];
 }
 
 - (MWKSection*)objectAtIndexedSubscript:(NSUInteger)idx {
-    return _sections[idx];
+    return self.sections[idx];
 }
 
-- (instancetype)initWithArticle:(MWKArticle*)article {
-    self = [self init];
+- (instancetype)initWithArticle:(MWKArticle*)article sections:(NSArray*)sections {
+    self = [self initWithArticle:article];
     if (self) {
-        _article      = article;
-        mutationState = 0;
-        if (_sections == nil) {
-            _sections = [NSMutableArray array];
-            [self importSectionsFromDisk];
-        }
+        self.sections = [sections mutableCopy];
     }
     return self;
 }
+
+- (instancetype)initWithArticle:(MWKArticle*)article{
+    self = [self init];
+    if (self) {
+        self.article       = article;
+        self.mutationState = 0;
+        self.sections = [NSMutableArray array];
+        [self importSectionsFromDisk];
+    }
+    return self;
+}
+
 
 - (void)importSectionsFromDisk {
     NSFileManager* fm = [NSFileManager defaultManager];
@@ -63,12 +75,12 @@
         }
     }@catch (NSException* e) {
         NSLog(@"Failed to import sections at path %@, leaving list empty.", path);
-        [_sections removeAllObjects];
+        [self.sections removeAllObjects];
     }
 }
 
 - (void)readAndInsertSection:(int)sectionId {
-    _sections[sectionId] = [self.article.dataStore sectionWithId:sectionId article:self.article];
+    self.sections[sectionId] = [self.article.dataStore sectionWithId:sectionId article:self.article];
 }
 
 - (NSUInteger)countByEnumeratingWithState:(NSFastEnumerationState*)state
@@ -84,14 +96,9 @@
     state->state += count;
 
     state->itemsPtr     = stackbuf;
-    state->mutationsPtr = &mutationState;
+    state->mutationsPtr = &_mutationState;
 
     return count;
-}
-
-- (void)setSections:(NSArray*)sections;
-{
-    _sections = [sections mutableCopy];
 }
 
 - (void)save {
