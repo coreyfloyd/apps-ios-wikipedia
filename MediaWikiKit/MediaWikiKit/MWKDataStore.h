@@ -61,8 +61,8 @@ extern NSString* MWKCreateImageURLWithPath(NSString* path);
 - (void)saveImage:(MWKImage*)image;
 - (void)saveImageData:(NSData*)data image:(MWKImage*)image;
 - (BOOL)saveHistoryList:(MWKHistoryList*)list error:(NSError**)error;
-- (void)saveSavedPageList:(MWKSavedPageList*)list;
-- (void)saveRecentSearchList:(MWKRecentSearchList*)list;
+- (BOOL)saveSavedPageList:(MWKSavedPageList*)list error:(NSError**)error;
+- (BOOL)saveRecentSearchList:(MWKRecentSearchList*)list error:(NSError**)error;
 - (void)saveImageList:(MWKImageList*)imageList;
 
 /**
@@ -80,10 +80,14 @@ extern NSString* MWKCreateImageURLWithPath(NSString* path);
 - (NSString*)sectionTextWithId:(NSUInteger)sectionId article:(MWKArticle*)article;
 - (MWKImage*)imageWithURL:(NSString*)url article:(MWKArticle*)article;
 - (NSData*)imageDataWithImage:(MWKImage*)image;
-- (MWKHistoryList*)     historyList;
-- (MWKSavedPageList*)   savedPageList;
-- (MWKRecentSearchList*)recentSearchList;
 - (NSArray*)imageInfoForArticle:(MWKArticle*)article;
+
+
+- (NSDictionary*)historyListData;
+- (NSDictionary*)savedPageListData;
+- (NSDictionary*)recentSearchListData;
+
+
 
 // Storage helper methods
 

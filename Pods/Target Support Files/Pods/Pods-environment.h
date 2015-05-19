@@ -36,6 +36,12 @@
 #define COCOAPODS_VERSION_MINOR_BlocksKit_Core 2
 #define COCOAPODS_VERSION_PATCH_BlocksKit_Core 5
 
+// Bolts/Tasks
+#define COCOAPODS_POD_AVAILABLE_Bolts_Tasks
+#define COCOAPODS_VERSION_MAJOR_Bolts_Tasks 1
+#define COCOAPODS_VERSION_MINOR_Bolts_Tasks 1
+#define COCOAPODS_VERSION_PATCH_Bolts_Tasks 5
+
 // HockeySDK
 #define COCOAPODS_POD_AVAILABLE_HockeySDK
 #define COCOAPODS_VERSION_MAJOR_HockeySDK 3

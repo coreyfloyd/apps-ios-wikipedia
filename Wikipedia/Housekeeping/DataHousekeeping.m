@@ -49,20 +49,22 @@
             [historyEntriesToPrune addObject:entry];
         }
     }
-    for (MWKHistoryEntry* entry in historyEntriesToPrune) {
-        [historyList removeEntry:entry];
-    }
-    [userDataStore save];
 
-    // Iterate through all articles and de-cache the ones that aren't on the keep list
-    // Cached metadata, section text, and images will be removed along with their articles.
-    [dataStore iterateOverArticles:^(MWKArticle* article) {
-        if (articlesToSave[article.title]) {
-            // don't kill it!
-        } else {
-            NSLog(@"Pruning unsaved article %@ %@", article.title.site.language, article.title.prefixedText);
-            [article remove];
-        }
+    [[[historyList removeEntriesFromHistory:historyEntriesToPrune] continueWithSuccessBlock:^id (BFTask* task) {
+        return [historyList save];
+    }] continueWithSuccessBlock:^id (BFTask* task) {
+        // Iterate through all articles and de-cache the ones that aren't on the keep list
+        // Cached metadata, section text, and images will be removed along with their articles.
+        [dataStore iterateOverArticles:^(MWKArticle* article) {
+            if (articlesToSave[article.title]) {
+                // don't kill it!
+            } else {
+                NSLog(@"Pruning unsaved article %@ %@", article.title.site.language, article.title.prefixedText);
+                [article remove];
+            }
+        }];
+
+        return nil;
     }];
 }
 

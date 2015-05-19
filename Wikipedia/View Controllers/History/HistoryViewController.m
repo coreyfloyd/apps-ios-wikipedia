@@ -30,10 +30,6 @@
 #define HISTORY_DATE_HEADER_LEFT_PADDING (37.0f * MENUS_SCALE_MULTIPLIER)
 
 @interface HistoryViewController ()
-{
-    MWKUserDataStore* userDataStore;
-    MWKHistoryList* historyList;
-}
 
 @property (strong, atomic) NSMutableArray* historyDataArray;
 @property (strong, nonatomic) NSDateFormatter* dateFormatter;
@@ -47,9 +43,20 @@
 
 @property (strong, nonatomic) UIImage* placeholderThumbnailImage;
 
+@property (strong, nonatomic) MWKUserDataStore* userDataStore;
+@property (strong, nonatomic, readonly) MWKHistoryList* historyList;
+
 @end
 
 @implementation HistoryViewController
+
+#pragma mark - Accessors
+
+- (MWKHistoryList*)historyList {
+    return self.userDataStore.historyList;
+}
+
+#pragma mark - Title
 
 - (NavBarMode)navBarMode {
     return NAVBAR_MODE_PAGES_HISTORY;
@@ -119,8 +126,7 @@
     [self.dateFormatter setLocale:[NSLocale currentLocale]];
     [self.dateFormatter setTimeZone:[NSTimeZone localTimeZone]];
 
-    userDataStore = [SessionSingleton sharedInstance].userDataStore;
-    historyList   = userDataStore.historyList;
+    self.userDataStore = [SessionSingleton sharedInstance].userDataStore;
 
     self.navigationItem.hidesBackButton = YES;
 
@@ -165,8 +171,8 @@
     NSMutableArray* lastMonth = [@[] mutableCopy];
     NSMutableArray* garbage   = [@[] mutableCopy];
 
-    for (int i = 0; i < historyList.length; i++) {
-        MWKHistoryEntry* history = [historyList entryAtIndex:i];
+    for (int i = 0; i < self.historyList.length; i++) {
+        MWKHistoryEntry* history = [self.historyList entryAtIndex:i];
         /*
            NSLog(@"HISTORY:\n\t\
             article: %@\n\t\
@@ -236,22 +242,15 @@
 #pragma mark - History garbage removal
 
 - (void)removeGarbage:(NSMutableArray*)garbage {
-    //NSLog(@"GARBAGE COUNT = %lu", (unsigned long)garbage.count);
-    //NSLog(@"GARBAGE = %@", garbage);
-    if (garbage.count == 0) {
-        return;
-    }
+    [[[self.userDataStore.historyList removeEntriesFromHistory:garbage] continueWithSuccessBlock:^id (BFTask* task) {
+        return [self.userDataStore.historyList save];
+    }] continueWithSuccessBlock:^id (BFTask* task) {
+        // Remove any orphaned images.
+        DataHousekeeping* dataHouseKeeping = [[DataHousekeeping alloc] init];
+        [dataHouseKeeping performHouseKeeping];
 
-    for (MWKHistoryEntry* entry in garbage) {
-        [historyList removeEntry:entry];
-    }
-    [userDataStore save];
-
-    // Remove any orphaned images.
-    DataHousekeeping* dataHouseKeeping = [[DataHousekeeping alloc] init];
-    [dataHouseKeeping performHouseKeeping];
-
-    [NAV loadTodaysArticleIfNoCoreDataForCurrentArticle];
+        return nil;
+    }];
 }
 
 #pragma mark - History section titles
@@ -435,31 +434,35 @@
 - (void)deleteHistoryForIndexPath:(NSIndexPath*)indexPath {
     MWKHistoryEntry* historyEntry = self.historyDataArray[indexPath.section][@"data"][indexPath.row];
     if (historyEntry) {
-        [self.tableView beginUpdates];
+        [[[[self.userDataStore.historyList removePageFromHistoryWithTitle:historyEntry.title] continueWithSuccessBlock:^id (BFTask* task) {
+            return [self.userDataStore.historyList save];
+        }] continueWithSuccessBlock:^id (BFTask* task) {
+            [self.tableView beginUpdates];
 
-        NSUInteger itemsInSection = [(NSArray*)self.historyDataArray[indexPath.section][@"data"] count];
+            NSUInteger itemsInSection = [(NSArray*)self.historyDataArray[indexPath.section][@"data"] count];
 
-        if (itemsInSection == 1) {
-            [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationFade];
-            [self.historyDataArray removeObjectAtIndex:indexPath.section];
-        } else {
-            [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-            [self.historyDataArray[indexPath.section][@"data"] removeObjectAtIndex:indexPath.row];
-        }
+            if (itemsInSection == 1) {
+                [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationFade];
+                [self.historyDataArray removeObjectAtIndex:indexPath.section];
+            } else {
+                [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+                [self.historyDataArray[indexPath.section][@"data"] removeObjectAtIndex:indexPath.row];
+            }
 
-        [historyList removeEntry:historyEntry];
-        [userDataStore save];
+            [self.tableView endUpdates];
 
-        [self.tableView endUpdates];
+            // Remove any orphaned images.
+            DataHousekeeping* dataHouseKeeping = [[DataHousekeeping alloc] init];
+            [dataHouseKeeping performHouseKeeping];
 
-        [self setEmptyOverlayAndTrashIconVisibility];
+
+            return nil;
+        }] continueWithBlock:^id (BFTask* task) {
+            [self setEmptyOverlayAndTrashIconVisibility];
+
+            return nil;
+        }];
     }
-
-    // Remove any orphaned images.
-    DataHousekeeping* dataHouseKeeping = [[DataHousekeeping alloc] init];
-    [dataHouseKeeping performHouseKeeping];
-
-    [NAV loadTodaysArticleIfNoCoreDataForCurrentArticle];
 }
 
 #pragma mark - Discovery method icons
@@ -492,19 +495,22 @@
 }
 
 - (void)deleteAllHistoryItems {
-    [historyList removeAllEntries];
-    [userDataStore save];
+    [[[[self.userDataStore.historyList removeAllEntriesFromHistory] continueWithSuccessBlock:^id (BFTask* task) {
+        return [self.userDataStore.historyList save];
+    }] continueWithSuccessBlock:^id (BFTask* task) {
+        // Remove any orphaned images.
+        DataHousekeeping* dataHouseKeeping = [[DataHousekeeping alloc] init];
+        [dataHouseKeeping performHouseKeeping];
 
-    // Remove any orphaned images.
-    DataHousekeeping* dataHouseKeeping = [[DataHousekeeping alloc] init];
-    [dataHouseKeeping performHouseKeeping];
+        [self.historyDataArray removeAllObjects];
+        [self.tableView reloadData];
 
-    [self.historyDataArray removeAllObjects];
-    [self.tableView reloadData];
+        return nil;
+    }] continueWithBlock:^id (BFTask* task) {
+        [self setEmptyOverlayAndTrashIconVisibility];
 
-    [self setEmptyOverlayAndTrashIconVisibility];
-
-    [NAV loadTodaysArticleIfNoCoreDataForCurrentArticle];
+        return nil;
+    }];
 }
 
 - (void)setEmptyOverlayAndTrashIconVisibility {

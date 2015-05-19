@@ -30,10 +30,6 @@ static NSString* const kSavedPagesDidShowCancelRefreshAlert = @"WMFSavedPagesDid
 static NSString* const kSavedPagesCellID                    = @"SavedPagesResultCell";
 
 @interface SavedPagesViewController ()<SavedArticlesFetcherDelegate>
-{
-    MWKSavedPageList* savedPageList;
-    MWKUserDataStore* userDataStore;
-}
 
 @property (strong, nonatomic) IBOutlet UITableView* tableView;
 
@@ -48,6 +44,9 @@ static NSString* const kSavedPagesCellID                    = @"SavedPagesResult
 @property (strong, nonatomic) WMFProgressLineView* progressView;
 @property (strong, nonatomic) WMFBorderButton* cancelButton;
 
+@property (strong, nonatomic) MWKUserDataStore* userDataStore;
+@property (strong, nonatomic, readonly) MWKSavedPageList* savedPageList;
+
 @property (strong, nonatomic) SavedPagesResultCell* offScreenSizingCell;
 
 @property (strong, nonatomic) UIImage* placeholderThumbnailImage;
@@ -55,6 +54,12 @@ static NSString* const kSavedPagesCellID                    = @"SavedPagesResult
 @end
 
 @implementation SavedPagesViewController
+
+#pragma mark - Accessors
+
+- (MWKSavedPageList*)savedPageList {
+    return self.userDataStore.savedPageList;
+}
 
 #pragma mark - NavBar
 
@@ -155,8 +160,7 @@ static NSString* const kSavedPagesCellID                    = @"SavedPagesResult
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    userDataStore = [SessionSingleton sharedInstance].userDataStore;
-    savedPageList = userDataStore.savedPageList;
+    self.userDataStore = [SessionSingleton sharedInstance].userDataStore;
 
     self.funnel = [[SavedPagesFunnel alloc] init];
 
@@ -187,7 +191,7 @@ static NSString* const kSavedPagesCellID                    = @"SavedPagesResult
 }
 
 - (NSInteger)tableView:(UITableView*)tableView numberOfRowsInSection:(NSInteger)section {
-    return savedPageList.length;
+    return self.savedPageList.length;
 }
 
 - (UITableViewCell*)tableView:(UITableView*)tableView cellForRowAtIndexPath:(NSIndexPath*)indexPath {
@@ -224,8 +228,8 @@ static NSString* const kSavedPagesCellID                    = @"SavedPagesResult
 }
 
 - (MWKArticle*)articleForIndexPath:(NSIndexPath*)indexPath {
-    MWKSavedPageEntry* savedEntry = [savedPageList entryAtIndex:indexPath.row];
-    return [userDataStore.dataStore articleWithTitle:savedEntry.title];
+    MWKSavedPageEntry* savedEntry = [self.savedPageList entryAtIndex:indexPath.row];
+    return [self.userDataStore.dataStore articleWithTitle:savedEntry.title];
 }
 
 - (CGFloat)tableView:(UITableView*)tableView heightForRowAtIndexPath:(NSIndexPath*)indexPath {
@@ -260,7 +264,7 @@ static NSString* const kSavedPagesCellID                    = @"SavedPagesResult
 #pragma mark - UITableViewDelegate
 
 - (void)tableView:(UITableView*)tableView didSelectRowAtIndexPath:(NSIndexPath*)indexPath {
-    MWKSavedPageEntry* savedEntry = [savedPageList entryAtIndex:indexPath.row];
+    MWKSavedPageEntry* savedEntry = [self.savedPageList entryAtIndex:indexPath.row];
 
     [NAV loadArticleWithTitle:savedEntry.title
                      animated:YES
@@ -336,7 +340,7 @@ static NSString* const kSavedPagesCellID                    = @"SavedPagesResult
 }
 
 - (void)setEmptyOverlayAndTrashIconVisibility {
-    BOOL savedPageFound = (savedPageList.length > 0);
+    BOOL savedPageFound = (self.savedPageList.length > 0);
 
     self.emptyOverlay.hidden = savedPageFound;
 
@@ -367,43 +371,44 @@ static NSString* const kSavedPagesCellID                    = @"SavedPagesResult
 #pragma mark - Delete
 
 - (void)deleteSavedPageForIndexPath:(NSIndexPath*)indexPath {
-    MWKSavedPageEntry* savedEntry = [savedPageList entryAtIndex:indexPath.row];
+    MWKSavedPageEntry* savedEntry = [self.savedPageList entryAtIndex:indexPath.row];
     if (savedEntry) {
-        [self.tableView beginUpdates];
+        [[[self.userDataStore.savedPageList removeSavedPageWithTitle:savedEntry.title] continueWithSuccessBlock:^id (BFTask* task) {
+            return [self.userDataStore.savedPageList save];
+        }] continueWithSuccessBlock:^id (BFTask* task) {
+            // Remove any orphaned images.
+            DataHousekeeping* dataHouseKeeping = [[DataHousekeeping alloc] init];
+            [dataHouseKeeping performHouseKeeping];
 
-        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+            [self.tableView beginUpdates];
 
-        // Delete the saved record.
-        [savedPageList removeEntry:savedEntry];
-        [userDataStore save];
+            [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
 
-        [self.tableView endUpdates];
+            [self.tableView endUpdates];
 
-        [self setEmptyOverlayAndTrashIconVisibility];
+            [self setEmptyOverlayAndTrashIconVisibility];
 
-        [self.funnel logDelete];
+            [self.funnel logDelete];
+
+            return nil;
+        }];
     }
-
-    // Remove any orphaned images.
-    DataHousekeeping* dataHouseKeeping = [[DataHousekeeping alloc] init];
-    [dataHouseKeeping performHouseKeeping];
-
-    [NAV loadTodaysArticleIfNoCoreDataForCurrentArticle];
 }
 
 - (void)deleteAllSavedPages {
-    [savedPageList removeAllEntries];
-    [userDataStore save];
+    [[[self.userDataStore.savedPageList removeAllSavedPages] continueWithSuccessBlock:^id (BFTask* task) {
+        return [self.userDataStore.savedPageList save];
+    }] continueWithSuccessBlock:^id (BFTask* task) {
+        [self.tableView reloadData];
 
-    // Remove any orphaned images.
-    DataHousekeeping* dataHouseKeeping = [[DataHousekeeping alloc] init];
-    [dataHouseKeeping performHouseKeeping];
+        [self setEmptyOverlayAndTrashIconVisibility];
 
-    [self.tableView reloadData];
+        // Remove any orphaned images.
+        DataHousekeeping* dataHouseKeeping = [[DataHousekeeping alloc] init];
+        [dataHouseKeeping performHouseKeeping];
 
-    [self setEmptyOverlayAndTrashIconVisibility];
-
-    [NAV loadTodaysArticleIfNoCoreDataForCurrentArticle];
+        return nil;
+    }];
 }
 
 - (void)alertView:(UIAlertView*)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
@@ -427,7 +432,7 @@ static NSString* const kSavedPagesCellID                    = @"SavedPagesResult
 - (void)startRefresh {
     [[QueuesSingleton sharedInstance].savedPagesFetchManager.operationQueue cancelAllOperations];
 
-    SavedArticlesFetcher* fetcher = [[SavedArticlesFetcher alloc] initAndFetchArticlesForSavedPageList:savedPageList inDataStore:userDataStore.dataStore withManager:[QueuesSingleton sharedInstance].savedPagesFetchManager thenNotifyDelegate:self];
+    SavedArticlesFetcher* fetcher = [[SavedArticlesFetcher alloc] initAndFetchArticlesForSavedPageList:self.savedPageList inDataStore:self.userDataStore.dataStore withManager:[QueuesSingleton sharedInstance].savedPagesFetchManager thenNotifyDelegate:self];
 
     [SavedArticlesFetcher setSharedInstance:fetcher];
 
@@ -471,7 +476,7 @@ static NSString* const kSavedPagesCellID                    = @"SavedPagesResult
     } completion:^(BOOL finished) {
         [UIView animateWithDuration:0.25 animations:^{
             [self showRefreshButton];
-            if (self->savedPageList.length > 0) {
+            if (self.savedPageList.length > 0) {
                 [self showTrashButton];
             }
         }];

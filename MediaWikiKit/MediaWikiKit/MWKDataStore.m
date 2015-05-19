@@ -224,16 +224,16 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
     return [self saveDictionary:export path:path name:@"History.plist" error:error];
 }
 
-- (void)saveSavedPageList:(MWKSavedPageList*)list {
+- (BOOL)saveSavedPageList:(MWKSavedPageList*)list error:(NSError**)error {
     NSString* path       = self.basePath;
     NSDictionary* export = [list dataExport];
-    [self saveDictionary:export path:path name:@"SavedPages.plist"];
+    return [self saveDictionary:export path:path name:@"SavedPages.plist" error:error];
 }
 
-- (void)saveRecentSearchList:(MWKRecentSearchList*)list {
+- (BOOL)saveRecentSearchList:(MWKRecentSearchList*)list error:(NSError**)error {
     NSString* path       = self.basePath;
     NSDictionary* export = [list dataExport];
-    [self saveDictionary:export path:path name:@"RecentSearches.plist"];
+    return [self saveDictionary:export path:path name:@"RecentSearches.plist" error:error];
 }
 
 - (void)saveImageList:(MWKImageList*)imageList {
@@ -321,40 +321,25 @@ static NSString* const MWKImageInfoFilename = @"ImageInfo.plist";
     return data;
 }
 
-- (MWKHistoryList*)historyList {
+- (NSDictionary*)historyListData {
     NSString* path     = self.basePath;
     NSString* filePath = [path stringByAppendingPathComponent:@"History.plist"];
-
     NSDictionary* dict = [NSDictionary dictionaryWithContentsOfFile:filePath];
-    if (dict) {
-        return [[MWKHistoryList alloc] initWithDict:dict];
-    } else {
-        return nil;
-    }
+    return dict;
 }
 
-- (MWKSavedPageList*)savedPageList {
+- (NSDictionary*)savedPageListData {
     NSString* path     = self.basePath;
     NSString* filePath = [path stringByAppendingPathComponent:@"SavedPages.plist"];
-
     NSDictionary* dict = [NSDictionary dictionaryWithContentsOfFile:filePath];
-    if (dict) {
-        return [[MWKSavedPageList alloc] initWithDict:dict];
-    } else {
-        return nil;
-    }
+    return dict;
 }
 
-- (MWKRecentSearchList*)recentSearchList {
+- (NSDictionary*)recentSearchListData {
     NSString* path     = self.basePath;
     NSString* filePath = [path stringByAppendingPathComponent:@"RecentSearches.plist"];
-
     NSDictionary* dict = [NSDictionary dictionaryWithContentsOfFile:filePath];
-    if (dict) {
-        return [[MWKRecentSearchList alloc] initWithDict:dict];
-    } else {
-        return nil;
-    }
+    return dict;
 }
 
 - (NSArray*)imageInfoForArticle:(MWKArticle*)article;

@@ -93,7 +93,7 @@ NSString* const kSelectedStringJS                      = @"window.getSelection()
     self.lastScrollOffset  = CGPointZero;
 
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(saveCurrentPage)
+                                             selector:@selector(toggleSavedPage)
                                                  name:@"SavePage"
                                                object:nil];
 
@@ -966,31 +966,28 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
 
 #pragma Saved Pages
 
-- (void)saveCurrentPage {
-    MWKTitle* title          = session.currentArticle.title;
-    MWKUserDataStore* store  = session.userDataStore;
-    MWKSavedPageList* list   = store.savedPageList;
-    MWKSavedPageEntry* entry = [list entryForTitle:title];
-
+- (void)toggleSavedPage {
     SavedPagesFunnel* funnel = [[SavedPagesFunnel alloc] init];
+    MWKUserDataStore* store  = session.userDataStore;
+    MWKTitle* title          = session.currentArticle.title;
+    BOOL isSaved             = [store.savedPageList isSaved:session.currentArticle.title];
 
-    if (entry == nil) {
-        // Show alert.
-        [self showPageSavedAlertMessageForTitle:title.prefixedText];
-
-        // Actually perform the save.
-        entry = [[MWKSavedPageEntry alloc] initWithTitle:title];
-        [list addEntry:entry];
-
-        [store save];
-        [funnel logSaveNew];
+    if (!isSaved) {
+        [[[store.savedPageList savePageWithTitle:title] continueWithBlock:^id (BFTask* task) {
+            return [store.savedPageList save];
+        }] continueWithSuccessBlock:^id (BFTask* task) {
+            [self showPageSavedAlertMessageForTitle:title.prefixedText];
+            [funnel logSaveNew];
+            return nil;
+        }];
     } else {
-        // Unsave!
-        [list removeEntry:entry];
-        [store save];
-
-        [self fadeAlert];
-        [funnel logDelete];
+        [[[store.savedPageList removeSavedPageWithTitle:title] continueWithBlock:^id (BFTask* task) {
+            return [store.savedPageList save];
+        }] continueWithSuccessBlock:^id (BFTask* task) {
+            [self fadeAlert];
+            [funnel logDelete];
+            return nil;
+        }];
     }
 }
 
@@ -1005,8 +1002,6 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
 
     CGFloat duration                  = 2.0;
     BOOL AccessSavedPagesMessageShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"AccessSavedPagesMessageShown"];
-
-    //AccessSavedPagesMessageShown = NO;
 
     if (!AccessSavedPagesMessageShown) {
         duration = 5;
@@ -1075,12 +1070,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
         return;
     }
 
-    MWKHistoryEntry* entry = [session.userDataStore.historyList entryForTitle:session.currentArticle.title];
-    if (entry) {
-        entry.scrollPosition                    = self.webView.scrollView.contentOffset.y;
-        session.userDataStore.historyList.dirty = YES;         // hack to force
-        [session.userDataStore save];
-    }
+    [session.userDataStore.historyList savePageScrollPosition:self.webView.scrollView.contentOffset.y toPageInHistoryWithTitle:session.currentArticle.title];
 }
 
 #pragma mark Web view html content live location retrieval
@@ -1319,13 +1309,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
     MWKHistoryList* historyList = session.userDataStore.historyList;
     //NSLog(@"XXX %d", (int)historyList.length);
     if (historyList.length > 0) {
-        // Grab the latest
-        MWKHistoryEntry* historyEntry = [historyList entryForTitle:session.currentArticle.title];
-        if (historyEntry) {
-            historyEntry.date = [NSDate date];
-            [historyList addEntry:historyEntry];
-            [session.userDataStore save];
-        }
+        [session.userDataStore.historyList addPageToHistoryWithTitle:session.currentArticle.title discoveryMethod:MWKHistoryDiscoveryMethodUnknown];
     }
 }
 
@@ -1670,7 +1654,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
         case MWKHistoryDiscoveryMethodLink:
         case MWKHistoryDiscoveryMethodUnknown: {
             // Update the history so the most recently viewed article appears at the top.
-            [session.userDataStore updateHistory:title discoveryMethod:session.currentArticleDiscoveryMethod];
+            [session.userDataStore.historyList addPageToHistoryWithTitle:title discoveryMethod:session.currentArticleDiscoveryMethod];
             break;
         }
 

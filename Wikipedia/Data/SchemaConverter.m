@@ -75,8 +75,9 @@
         MWKHistoryEntry* entry = [[MWKHistoryEntry alloc] initWithDict:dict];
 
         MWKHistoryList* historyList = self.userDataStore.historyList;
-        [historyList addEntry:entry];
-        [self.userDataStore save];
+        [[historyList addEntry:entry] continueWithSuccessBlock:^id (BFTask* task) {
+            return [historyList save];
+        }];
     }@catch (NSException* ex) {
         NSLog(@"IMPORT ERROR on history entry %@:%@: %@", language, titleStr, ex);
     }
@@ -95,8 +96,9 @@
         MWKSavedPageEntry* entry = [[MWKSavedPageEntry alloc] initWithDict:dict];
 
         MWKSavedPageList* savedPageList = self.userDataStore.savedPageList;
-        [savedPageList addEntry:entry];
-        [self.userDataStore save];
+        [[savedPageList addEntry:entry] continueWithSuccessBlock:^id (BFTask* task) {
+            return [savedPageList save];
+        }];
     }@catch (NSException* ex) {
         NSLog(@"IMPORT ERROR on saved entry %@:%@: %@", language, titleStr, ex);
     }

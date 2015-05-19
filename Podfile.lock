@@ -7,6 +7,7 @@ PODS:
   - AFNetworking/Security (2.5.2)
   - AFNetworking/Serialization (2.5.2)
   - BlocksKit/Core (2.2.5)
+  - Bolts/Tasks (1.1.5)
   - HockeySDK (3.6.2)
   - hpple (0.2.0)
   - Masonry (0.6.1)
@@ -17,6 +18,7 @@ PODS:
 DEPENDENCIES:
   - AFNetworking/NSURLConnection (~> 2.5)
   - blockskit/Core (~> 2.2)
+  - Bolts/Tasks
   - HockeySDK (= 3.6.2)
   - hpple (~> 0.2)
   - Masonry (~> 0.6)
@@ -26,6 +28,7 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   AFNetworking: fefbce9660acb17f48ae0011292d4da0f457bf36
   BlocksKit: 7f422b971407001178d181a43b99014ea2591fe6
+  Bolts: aac24961496d504aa56fc267cde95162a71bac39
   HockeySDK: 51ade1aff04463137e852797d2eb4dfb2511d6a9
   hpple: 3b765f96fc2cd56ad1a49aef6f7be5cb2aa64b57
   Masonry: 4972309f2f134de9dd312f4dc4a21359b50e6caa
