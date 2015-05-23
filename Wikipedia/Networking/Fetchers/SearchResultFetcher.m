@@ -138,7 +138,7 @@
                        @"srnamespace": @0,
                        @"srwhat": @"text",
                        @"srinfo": @"suggestion",
-                       @"srprop": @"",
+                       @"srprop": @"snippet",
                        @"sroffset": @0,
                        @"srlimit": @1,
                        // --

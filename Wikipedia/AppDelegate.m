@@ -21,7 +21,7 @@
 
 @property (nonatomic, strong) DataMigrationProgressViewController* migrationViewController;
 
-@property (nonatomic, copy) void (^watchReplyBlock)(NSDictionary*);
+@property (nonatomic, copy) void (^ watchReplyBlock)(NSDictionary*);
 @property (nonatomic, assign) UIBackgroundTaskIdentifier watchTask;
 
 @end
@@ -64,13 +64,12 @@
     return YES;
 }
 
-- (void)application:(UIApplication *)application handleWatchKitExtensionRequest:(NSDictionary *)userInfo reply:(void (^)(NSDictionary *))reply{
-    
+- (void)application:(UIApplication*)application handleWatchKitExtensionRequest:(NSDictionary*)userInfo reply:(void (^)(NSDictionary*))reply {
     UIBackgroundTaskIdentifier task = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:NULL];
-    
-    self.watchTask = task;
+
+    self.watchTask       = task;
     self.watchReplyBlock = reply;
-    
+
     [[QueuesSingleton sharedInstance].searchResultsFetchManager.operationQueue cancelAllOperations];
 
     (void)[[SearchResultFetcher alloc] initAndSearchForTerm:userInfo[@"searchTerm"]
@@ -80,27 +79,21 @@
                                                  maxResults:5
                                                 withManager:[QueuesSingleton sharedInstance].searchResultsFetchManager
                                          thenNotifyDelegate:self];
-           
-    
 }
-
 
 - (void)fetchFinished:(id)sender
           fetchedData:(id)fetchedData
                status:(FetchFinalStatus)status
                 error:(NSError*)error;
 {
-
     SearchResultFetcher* searchResultFetcher = (SearchResultFetcher*)sender;
-    
+
     self.watchReplyBlock(@{@"searchResults": searchResultFetcher.searchResults});
-    
+
     [[UIApplication sharedApplication] endBackgroundTask:self.watchTask];
-    
-    
 }
-    
-    
+
+
 
 - (void)transitionToRootViewController:(UIViewController*)viewController animated:(BOOL)animated {
     if (!animated || !self.window.rootViewController) {

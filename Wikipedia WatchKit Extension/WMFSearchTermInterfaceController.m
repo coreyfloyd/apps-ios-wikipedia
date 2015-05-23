@@ -7,11 +7,9 @@
 //
 
 #import "WMFSearchTermInterfaceController.h"
-#import "WMFWatchSearchResultsRow.h"
-
+#import "WMFWatchArticleInterfaceController.h"
 @interface WMFSearchTermInterfaceController ()
 @property (weak, nonatomic) IBOutlet WKInterfaceLabel *searchTermLabel;
-@property (weak, nonatomic) IBOutlet WKInterfaceTable *resultsTable;
 
 @end
 
@@ -20,23 +18,21 @@
 - (void)awakeWithContext:(id)context {
     [super awakeWithContext:context];
     
-    [self.searchTermLabel setText:context];
+    [self.searchTermLabel setText:[NSString stringWithFormat:@"Searching for %@", context]];
     
     [WKInterfaceController openParentApplication:@{@"searchTerm":context} reply:^(NSDictionary *replyInfo, NSError *error) {
         
         NSArray* results = replyInfo[@"searchResults"];
         
-        [self.resultsTable setNumberOfRows:(NSInteger)[results count] withRowType:@"SearchRow"];
+        NSMutableArray* names = [NSMutableArray new];
         
         [results enumerateObjectsUsingBlock:^(NSDictionary* obj, NSUInteger idx, BOOL *stop) {
             
-            WMFWatchSearchResultsRow* row = [self.resultsTable rowControllerAtIndex:idx];
-            [row.resultTitleLabel setText:obj[@"title"]];
-            
+            [names addObject:@"WMFWatchArticleInterfaceController"];
         }];
         
-        
-        
+        [self presentControllerWithNames:names contexts:results];
+
     }];
     
 }

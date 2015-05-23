@@ -20,34 +20,51 @@
             </objects>
             <point key="canvasLocation" x="235" y="347"/>
         </scene>
-        <!--Search Term-->
+        <!--Back-->
         <scene sceneID="aao-Oa-aPf">
             <objects>
-                <controller identifier="WMFSearchTermInterfaceController" title="Search Term" id="JPY-Wf-iwv" customClass="WMFSearchTermInterfaceController">
+                <controller identifier="WMFSearchTermInterfaceController" title="Back" id="JPY-Wf-iwv" customClass="WMFSearchTermInterfaceController">
                     <items>
                         <label width="1" alignment="left" verticalAlignment="center" text="Label" textAlignment="center" id="Y98-oI-7Sh"/>
-                        <table alignment="left" id="ODC-dv-rKB">
-                            <items>
-                                <tableRow identifier="SearchRow" id="wHk-Rw-1tP" customClass="WMFWatchSearchResultsRow">
-                                    <group key="rootItem" width="1" alignment="left" id="YWh-WF-eDZ">
-                                        <items>
-                                            <label width="1" alignment="left" verticalAlignment="center" text="Label" textAlignment="center" id="jWn-69-yfq"/>
-                                        </items>
-                                    </group>
-                                    <connections>
-                                        <outlet property="resultTitleLabel" destination="jWn-69-yfq" id="VPr-cU-T3W"/>
-                                    </connections>
-                                </tableRow>
-                            </items>
-                        </table>
                     </items>
                     <connections>
-                        <outlet property="resultsTable" destination="ODC-dv-rKB" id="TIW-sS-qqg"/>
                         <outlet property="searchTermLabel" destination="Y98-oI-7Sh" id="O2D-He-aSh"/>
                     </connections>
                 </controller>
             </objects>
             <point key="canvasLocation" x="534" y="347"/>
+        </scene>
+        <!--WMFWatchArticleInterfaceController-->
+        <scene sceneID="BhX-BP-8aq">
+            <objects>
+                <controller identifier="WMFWatchArticleInterfaceController" id="hiY-EO-lZw" customClass="WMFWatchArticleInterfaceController">
+                    <items>
+                        <group width="1" alignment="left" layout="vertical" id="TKb-qI-qLN">
+                            <items>
+                                <label width="1" alignment="left" text="Label" textAlignment="center" id="JE6-1P-PEX">
+                                    <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
+                                </label>
+                                <label width="1" alignment="left" text="Label" id="CbO-NF-eol"/>
+                            </items>
+                        </group>
+                        <button width="1" alignment="left" title="Save for Later" id="NqZ-uq-Pbx">
+                            <connections>
+                                <action selector="saveArticle" destination="hiY-EO-lZw" id="PS3-Sw-kTM"/>
+                            </connections>
+                        </button>
+                        <button width="1" alignment="left" title="Open on iPhone" id="nIj-SN-SKe">
+                            <connections>
+                                <action selector="openOnPhone" destination="hiY-EO-lZw" id="Ul6-Yj-c6m"/>
+                            </connections>
+                        </button>
+                    </items>
+                    <connections>
+                        <outlet property="textLabel" destination="CbO-NF-eol" id="rLi-8G-PjA"/>
+                        <outlet property="titleLabel" destination="JE6-1P-PEX" id="xgt-uf-QBg"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="738" y="347"/>
         </scene>
         <!--Glance Interface Controller-->
         <scene sceneID="BOz-TT-tkC">
