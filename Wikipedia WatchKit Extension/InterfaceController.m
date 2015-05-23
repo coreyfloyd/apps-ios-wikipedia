@@ -10,6 +10,7 @@
 
 
 @interface InterfaceController()
+- (IBAction)search;
 
 @end
 
@@ -32,6 +33,22 @@
     [super didDeactivate];
 }
 
+- (IBAction)search {
+    
+    [self presentTextInputControllerWithSuggestions:nil allowedInputMode:WKTextInputModePlain completion:^(NSArray *results) {
+        
+        NSString* searchTerm = [results firstObject];
+        
+        if(searchTerm){
+            
+            [self pushControllerWithName:@"WMFSearchTermInterfaceController" context:searchTerm];
+        }
+       
+        
+        
+        
+    }];
+}
 @end
 
 
