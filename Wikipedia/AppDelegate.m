@@ -65,7 +65,22 @@
 }
 
 - (void)application:(UIApplication*)application handleWatchKitExtensionRequest:(NSDictionary*)userInfo reply:(void (^)(NSDictionary*))reply {
-    UIBackgroundTaskIdentifier task = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:NULL];
+    
+    // Reference: http://www.fiveminutewatchkit.com/blog/2015/3/11/one-weird-trick-to-fix-openparentapplicationreply
+    // --------------------
+    __block UIBackgroundTaskIdentifier bogusWorkaroundTask;
+    bogusWorkaroundTask = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
+        [[UIApplication sharedApplication] endBackgroundTask:bogusWorkaroundTask];
+    }];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [[UIApplication sharedApplication] endBackgroundTask:bogusWorkaroundTask];
+    });
+
+    // --------------------
+    
+    UIBackgroundTaskIdentifier task = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
+        reply(@{@"error" : @"expired"});
+    }];
 
     self.watchTask       = task;
     self.watchReplyBlock = reply;
