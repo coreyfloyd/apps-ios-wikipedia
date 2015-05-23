@@ -183,6 +183,14 @@
 		04F39590186CF80100B0D6FC /* TOCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F3958F186CF80100B0D6FC /* TOCViewController.m */; };
 		08D631F71A69B1AB00D87AD0 /* WMFImageGalleryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08D631F61A69B1AB00D87AD0 /* WMFImageGalleryViewController.m */; };
 		0E36C2271AE0B59D00C58CFF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4991453181D51DE00E6073C /* Images.xcassets */; };
+		0E587C6F1B1072150067ACDA /* InterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E587C6E1B1072150067ACDA /* InterfaceController.m */; };
+		0E587C721B1072150067ACDA /* NotificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E587C711B1072150067ACDA /* NotificationController.m */; };
+		0E587C751B1072150067ACDA /* GlanceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E587C741B1072150067ACDA /* GlanceController.m */; };
+		0E587C771B1072150067ACDA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0E587C761B1072150067ACDA /* Images.xcassets */; };
+		0E587C7B1B1072150067ACDA /* Wikipedia WatchKit App.app in Resources */ = {isa = PBXBuildFile; fileRef = 0E587C7A1B1072150067ACDA /* Wikipedia WatchKit App.app */; };
+		0E587C831B1072160067ACDA /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0E587C811B1072160067ACDA /* Interface.storyboard */; };
+		0E587C851B1072160067ACDA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0E587C841B1072160067ACDA /* Images.xcassets */; };
+		0E587C881B1072160067ACDA /* Wikipedia WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 0E587C681B1072150067ACDA /* Wikipedia WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		0EA4402E1AA6281200B09DBA /* NSDateFormatter+WMFExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EA4402D1AA6281200B09DBA /* NSDateFormatter+WMFExtensions.m */; };
 		0EBC56681AD3656900E82CDD /* WMFAsyncTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = BC7ACB631AB34C9C00791497 /* WMFAsyncTestCase.m */; };
 		0EBC567F1AD442CC00E82CDD /* BITHockeyManager+WMFExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EBC567E1AD442CC00E82CDD /* BITHockeyManager+WMFExtensions.m */; };
@@ -347,6 +355,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		0E587C7C1B1072150067ACDA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D499142D181D51DE00E6073C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0E587C791B1072150067ACDA;
+			remoteInfo = "Wikipedia WatchKit App";
+		};
+		0E587C861B1072160067ACDA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D499142D181D51DE00E6073C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0E587C671B1072150067ACDA;
+			remoteInfo = "Wikipedia WatchKit Extension";
+		};
 		BCBDE0AD1AA76F19006BD29A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = D499142D181D51DE00E6073C /* Project object */;
@@ -383,6 +405,20 @@
 			remoteInfo = OldDataSchema;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		0E587C931B1072160067ACDA /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				0E587C881B1072160067ACDA /* Wikipedia WatchKit Extension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		0400EB0118AAEEC60043ECE2 /* UINavigationController+SearchNavStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+SearchNavStack.h"; sourceTree = "<group>"; };
@@ -718,6 +754,20 @@
 		08D631F91A69B8CD00D87AD0 /* WMFImageGalleryCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFImageGalleryCollectionViewCell.m; path = "Image Gallery/WMFImageGalleryCollectionViewCell.m"; sourceTree = "<group>"; };
 		08F646F7D0488CE3C6D6A763 /* Pods.beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.beta.xcconfig; path = "Pods/Target Support Files/Pods/Pods.beta.xcconfig"; sourceTree = "<group>"; };
 		0E36C2281AE0B5BD00C58CFF /* SourceIcons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = SourceIcons.xcassets; path = Wikipedia/SourceIcons.xcassets; sourceTree = "<group>"; };
+		0E587C681B1072150067ACDA /* Wikipedia WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Wikipedia WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0E587C6B1B1072150067ACDA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0E587C6C1B1072150067ACDA /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
+		0E587C6D1B1072150067ACDA /* InterfaceController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InterfaceController.h; sourceTree = "<group>"; };
+		0E587C6E1B1072150067ACDA /* InterfaceController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InterfaceController.m; sourceTree = "<group>"; };
+		0E587C701B1072150067ACDA /* NotificationController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationController.h; sourceTree = "<group>"; };
+		0E587C711B1072150067ACDA /* NotificationController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationController.m; sourceTree = "<group>"; };
+		0E587C731B1072150067ACDA /* GlanceController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GlanceController.h; sourceTree = "<group>"; };
+		0E587C741B1072150067ACDA /* GlanceController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GlanceController.m; sourceTree = "<group>"; };
+		0E587C761B1072150067ACDA /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		0E587C7A1B1072150067ACDA /* Wikipedia WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Wikipedia WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0E587C801B1072160067ACDA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0E587C821B1072160067ACDA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
+		0E587C841B1072160067ACDA /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		0EA4402C1AA6281200B09DBA /* NSDateFormatter+WMFExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDateFormatter+WMFExtensions.h"; path = "Wikipedia/Categories/NSDateFormatter+WMFExtensions.h"; sourceTree = SOURCE_ROOT; };
 		0EA4402D1AA6281200B09DBA /* NSDateFormatter+WMFExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDateFormatter+WMFExtensions.m"; path = "Wikipedia/Categories/NSDateFormatter+WMFExtensions.m"; sourceTree = SOURCE_ROOT; };
 		0EBC567D1AD442CC00E82CDD /* BITHockeyManager+WMFExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "BITHockeyManager+WMFExtensions.h"; path = "Wikipedia/Categories/BITHockeyManager+WMFExtensions.h"; sourceTree = SOURCE_ROOT; };
@@ -1181,6 +1231,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		0E587C651B1072150067ACDA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BC42734F1A7C736800068882 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -2031,6 +2088,48 @@
 			name = "Image Gallery";
 			sourceTree = "<group>";
 		};
+		0E587C691B1072150067ACDA /* Wikipedia WatchKit Extension */ = {
+			isa = PBXGroup;
+			children = (
+				0E587C6D1B1072150067ACDA /* InterfaceController.h */,
+				0E587C6E1B1072150067ACDA /* InterfaceController.m */,
+				0E587C701B1072150067ACDA /* NotificationController.h */,
+				0E587C711B1072150067ACDA /* NotificationController.m */,
+				0E587C731B1072150067ACDA /* GlanceController.h */,
+				0E587C741B1072150067ACDA /* GlanceController.m */,
+				0E587C761B1072150067ACDA /* Images.xcassets */,
+				0E587C6A1B1072150067ACDA /* Supporting Files */,
+			);
+			path = "Wikipedia WatchKit Extension";
+			sourceTree = "<group>";
+		};
+		0E587C6A1B1072150067ACDA /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				0E587C6B1B1072150067ACDA /* Info.plist */,
+				0E587C6C1B1072150067ACDA /* PushNotificationPayload.apns */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		0E587C7E1B1072150067ACDA /* Wikipedia WatchKit App */ = {
+			isa = PBXGroup;
+			children = (
+				0E587C811B1072160067ACDA /* Interface.storyboard */,
+				0E587C841B1072160067ACDA /* Images.xcassets */,
+				0E587C7F1B1072160067ACDA /* Supporting Files */,
+			);
+			path = "Wikipedia WatchKit App";
+			sourceTree = "<group>";
+		};
+		0E587C7F1B1072160067ACDA /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				0E587C801B1072160067ACDA /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
 		BC69C3101AB0C16B0090B039 /* View Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -2367,6 +2466,8 @@
 				D4991453181D51DE00E6073C /* Images.xcassets */,
 				0E36C2281AE0B5BD00C58CFF /* SourceIcons.xcassets */,
 				BC8309941A7BF935003FC5C7 /* WikipediaUnitTests */,
+				0E587C691B1072150067ACDA /* Wikipedia WatchKit Extension */,
+				0E587C7E1B1072150067ACDA /* Wikipedia WatchKit App */,
 				D4991437181D51DE00E6073C /* Frameworks */,
 				D4991436181D51DE00E6073C /* Products */,
 				D4F478441A48CD8500D8043C /* OldDataSchema.xcodeproj */,
@@ -2379,6 +2480,8 @@
 			children = (
 				D4991435181D51DE00E6073C /* Wikipedia Debug.app */,
 				BC4273521A7C736800068882 /* WikipediaUnitTests.xctest */,
+				0E587C681B1072150067ACDA /* Wikipedia WatchKit Extension.appex */,
+				0E587C7A1B1072150067ACDA /* Wikipedia WatchKit App.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2523,6 +2626,39 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		0E587C671B1072150067ACDA /* Wikipedia WatchKit Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0E587C8E1B1072160067ACDA /* Build configuration list for PBXNativeTarget "Wikipedia WatchKit Extension" */;
+			buildPhases = (
+				0E587C641B1072150067ACDA /* Sources */,
+				0E587C651B1072150067ACDA /* Frameworks */,
+				0E587C661B1072150067ACDA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0E587C7D1B1072150067ACDA /* PBXTargetDependency */,
+			);
+			name = "Wikipedia WatchKit Extension";
+			productName = "Wikipedia WatchKit Extension";
+			productReference = 0E587C681B1072150067ACDA /* Wikipedia WatchKit Extension.appex */;
+			productType = "com.apple.product-type.watchkit-extension";
+		};
+		0E587C791B1072150067ACDA /* Wikipedia WatchKit App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0E587C891B1072160067ACDA /* Build configuration list for PBXNativeTarget "Wikipedia WatchKit App" */;
+			buildPhases = (
+				0E587C781B1072150067ACDA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Wikipedia WatchKit App";
+			productName = "Wikipedia WatchKit App";
+			productReference = 0E587C7A1B1072150067ACDA /* Wikipedia WatchKit App.app */;
+			productType = "com.apple.product-type.application.watchapp";
+		};
 		BC4273511A7C736800068882 /* WikipediaUnitTests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = BC42735A1A7C736800068882 /* Build configuration list for PBXNativeTarget "WikipediaUnitTests" */;
@@ -2556,12 +2692,14 @@
 				D4991433181D51DE00E6073C /* Resources */,
 				04E0C2771A7750AB00FE22DA /* copy-wmflogo-to-assets */,
 				45FA417DEEAE18B42A662320 /* Copy Pods Resources */,
+				0E587C931B1072160067ACDA /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				BCE912CF1ACCAF6500B74B42 /* PBXTargetDependency */,
 				D4F478761A48D1BB00D8043C /* PBXTargetDependency */,
+				0E587C871B1072160067ACDA /* PBXTargetDependency */,
 			);
 			name = Wikipedia;
 			productName = "Wikipedia-iOS";
@@ -2577,6 +2715,13 @@
 				LastUpgradeCheck = 0600;
 				ORGANIZATIONNAME = "Wikimedia Foundation";
 				TargetAttributes = {
+					0E587C671B1072150067ACDA = {
+						CreatedOnToolsVersion = 6.3.2;
+						DevelopmentTeam = AKK7J2GV64;
+					};
+					0E587C791B1072150067ACDA = {
+						CreatedOnToolsVersion = 6.3.2;
+					};
 					BC4273511A7C736800068882 = {
 						CreatedOnToolsVersion = 6.1.1;
 						TestTargetID = D4991434181D51DE00E6073C;
@@ -2681,6 +2826,8 @@
 			targets = (
 				D4991434181D51DE00E6073C /* Wikipedia */,
 				BC4273511A7C736800068882 /* WikipediaUnitTests */,
+				0E587C671B1072150067ACDA /* Wikipedia WatchKit Extension */,
+				0E587C791B1072150067ACDA /* Wikipedia WatchKit App */,
 			);
 		};
 /* End PBXProject section */
@@ -2703,6 +2850,24 @@
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
+		0E587C661B1072150067ACDA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0E587C7B1B1072150067ACDA /* Wikipedia WatchKit App.app in Resources */,
+				0E587C771B1072150067ACDA /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		0E587C781B1072150067ACDA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0E587C831B1072160067ACDA /* Interface.storyboard in Resources */,
+				0E587C851B1072160067ACDA /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BC4273501A7C736800068882 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -2773,7 +2938,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "./scripts/copy-wmflogo-to-assets.sh";
+			shellScript = "#./scripts/copy-wmflogo-to-assets.sh";
 		};
 		0EB312441ACB96C300C7F7A6 /* Process Icons */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2787,7 +2952,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "./scripts/process-icons.sh";
+			shellScript = "#./scripts/process-icons.sh";
 		};
 		3E12E9E666E87AE6E3CA45E3 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2884,6 +3049,16 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		0E587C641B1072150067ACDA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0E587C721B1072150067ACDA /* NotificationController.m in Sources */,
+				0E587C6F1B1072150067ACDA /* InterfaceController.m in Sources */,
+				0E587C751B1072150067ACDA /* GlanceController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		BC42734E1A7C736800068882 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -3187,6 +3362,16 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		0E587C7D1B1072150067ACDA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0E587C791B1072150067ACDA /* Wikipedia WatchKit App */;
+			targetProxy = 0E587C7C1B1072150067ACDA /* PBXContainerItemProxy */;
+		};
+		0E587C871B1072160067ACDA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0E587C671B1072150067ACDA /* Wikipedia WatchKit Extension */;
+			targetProxy = 0E587C861B1072160067ACDA /* PBXContainerItemProxy */;
+		};
 		BCBDE0AE1AA76F19006BD29A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = D4991434181D51DE00E6073C /* Wikipedia */;
@@ -3205,6 +3390,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		0E587C811B1072160067ACDA /* Interface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0E587C821B1072160067ACDA /* Base */,
+			);
+			name = Interface.storyboard;
+			sourceTree = "<group>";
+		};
 		D46CD8C018A1AC4F0042959E /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -3477,7 +3670,7 @@
 					"$(PROJECT_DIR)/OldDataSchema/**",
 				);
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = "Wikipedia ${CONFIGURATION}";
@@ -3515,6 +3708,180 @@
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Wikipedia ${CONFIGURATION}.app/Wikipedia ${CONFIGURATION}";
 			};
 			name = Alpha;
+		};
+		0E587C8A1B1072160067ACDA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				IBSC_MODULE = Wikipedia_WatchKit_Extension;
+				INFOPLIST_FILE = "Wikipedia WatchKit App/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
+			};
+			name = Debug;
+		};
+		0E587C8B1B1072160067ACDA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				IBSC_MODULE = Wikipedia_WatchKit_Extension;
+				INFOPLIST_FILE = "Wikipedia WatchKit App/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
+			};
+			name = Release;
+		};
+		0E587C8C1B1072160067ACDA /* Alpha */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				IBSC_MODULE = Wikipedia_WatchKit_Extension;
+				INFOPLIST_FILE = "Wikipedia WatchKit App/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
+			};
+			name = Alpha;
+		};
+		0E587C8D1B1072160067ACDA /* Beta */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				IBSC_MODULE = Wikipedia_WatchKit_Extension;
+				INFOPLIST_FILE = "Wikipedia WatchKit App/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				"TARGETED_DEVICE_FAMILY[sdk=iphonesimulator*]" = "1,4";
+			};
+			name = Beta;
+		};
+		0E587C8F1B1072160067ACDA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = "Wikipedia WatchKit Extension/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		0E587C901B1072160067ACDA /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = "Wikipedia WatchKit Extension/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		0E587C911B1072160067ACDA /* Alpha */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = "Wikipedia WatchKit Extension/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SKIP_INSTALL = YES;
+			};
+			name = Alpha;
+		};
+		0E587C921B1072160067ACDA /* Beta */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = "Wikipedia WatchKit Extension/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SKIP_INSTALL = YES;
+			};
+			name = Beta;
 		};
 		A69698A61AC9D08700208A11 /* Beta */ = {
 			isa = XCBuildConfiguration;
@@ -3579,7 +3946,7 @@
 					"$(PROJECT_DIR)/OldDataSchema/**",
 				);
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = "Wikipedia ${CONFIGURATION}";
@@ -3756,7 +4123,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = EDA528BC357952A7D914F8E0 /* Pods.debug.xcconfig */;
 			buildSettings = {
-				APP_ID_SUFFIX = .dev;
+				APP_ID_SUFFIX = "";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -3771,7 +4138,7 @@
 					"$(PROJECT_DIR)/OldDataSchema/**",
 				);
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				OTHER_LDFLAGS = "$(inherited)";
 				PRODUCT_NAME = "Wikipedia ${CONFIGURATION}";
@@ -3807,7 +4174,7 @@
 					"$(PROJECT_DIR)/OldDataSchema/**",
 				);
 				INFOPLIST_FILE = "Wikipedia/Wikipedia-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_NAME = Wikipedia;
 				PROVISIONING_PROFILE = "";
@@ -3826,6 +4193,28 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		0E587C891B1072160067ACDA /* Build configuration list for PBXNativeTarget "Wikipedia WatchKit App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0E587C8A1B1072160067ACDA /* Debug */,
+				0E587C8B1B1072160067ACDA /* Release */,
+				0E587C8C1B1072160067ACDA /* Alpha */,
+				0E587C8D1B1072160067ACDA /* Beta */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		0E587C8E1B1072160067ACDA /* Build configuration list for PBXNativeTarget "Wikipedia WatchKit Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0E587C8F1B1072160067ACDA /* Debug */,
+				0E587C901B1072160067ACDA /* Release */,
+				0E587C911B1072160067ACDA /* Alpha */,
+				0E587C921B1072160067ACDA /* Beta */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		BC42735A1A7C736800068882 /* Build configuration list for PBXNativeTarget "WikipediaUnitTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
