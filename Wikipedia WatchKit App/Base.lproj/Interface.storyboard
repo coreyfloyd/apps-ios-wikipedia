@@ -41,7 +41,7 @@
                     <items>
                         <group width="1" alignment="left" layout="vertical" id="TKb-qI-qLN">
                             <items>
-                                <label width="1" height="20" alignment="left" text=" " id="ONt-MJ-vcT">
+                                <label height="10" alignment="left" text=" " id="ONt-MJ-vcT">
                                     <fontDescription key="font" style="UICTFontTextStyleCaption2"/>
                                 </label>
                                 <label width="1" alignment="left" text="Title" textAlignment="left" numberOfLines="0" id="JE6-1P-PEX">
@@ -54,6 +54,15 @@
                                     <fontDescription key="font" style="UICTFontTextStyleCaption2"/>
                                 </label>
                                 <label width="1" alignment="left" text="Snippet" numberOfLines="0" id="Dxg-vA-kon"/>
+                                <label height="3" alignment="left" text=" " id="0FS-Se-Y8o"/>
+                                <group width="1" alignment="left" id="Ni8-dI-inM">
+                                    <items>
+                                        <label alignment="left" text=" " id="0om-Dh-Cam"/>
+                                        <imageView width="20" height="30" alignment="left" verticalAlignment="center" image="Readonphone" id="fq0-3q-AkC"/>
+                                        <label alignment="left" text="Open iPhone to read more" numberOfLines="0" id="koU-yx-yoe"/>
+                                    </items>
+                                </group>
+                                <label height="5" alignment="left" text=" " id="Efx-Ku-AuV"/>
                                 <button width="0.69999999999999996" alignment="center" title="Read Later" id="NqZ-uq-Pbx">
                                     <color key="backgroundColor" red="0.0" green="0.74059343338012695" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <connections>
@@ -77,9 +86,10 @@
             <objects>
                 <controller identifier="WMFSavedConfirmationInterfaceController" id="w2G-AA-14K" customClass="WMFSavedConfirmationInterfaceController">
                     <items>
-                        <group width="1" alignment="left" layout="vertical" id="oK4-Kq-5gF">
+                        <group width="1" alignment="center" verticalAlignment="center" layout="vertical" id="oK4-Kq-5gF">
                             <items>
-                                <imageView width="136" alignment="left" id="aHK-Hw-vzf"/>
+                                <imageView alignment="center" image="Saved" id="aHK-Hw-vzf"/>
+                                <label height="5" alignment="left" text=" " id="T9A-jG-Q4y"/>
                                 <label width="1" alignment="left" text="Saved! Find it later in your Saved Pages" textAlignment="center" numberOfLines="0" id="VtO-wu-PLF">
                                     <fontDescription key="font" style="UICTFontTextStyleSubhead"/>
                                 </label>

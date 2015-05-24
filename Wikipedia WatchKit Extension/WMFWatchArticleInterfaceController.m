@@ -66,9 +66,6 @@
     
 }
 
-- (IBAction)openOnPhone {
-    
-}
 @end
 
 
