@@ -22,7 +22,7 @@
                                         <action selector="search" destination="AgC-eL-Hgc" id="85P-Xm-kIx"/>
                                     </connections>
                                 </button>
-                                <label width="1" alignment="center" text="Tap to Search" textAlignment="center" id="21B-A3-r4l"/>
+                                <label width="1" alignment="center" text="Tap to Search" textAlignment="center" numberOfLines="0" id="21B-A3-r4l"/>
                             </items>
                         </group>
                     </items>
@@ -41,32 +41,54 @@
                     <items>
                         <group width="1" alignment="left" layout="vertical" id="TKb-qI-qLN">
                             <items>
-                                <label width="1" alignment="left" text="Label" textAlignment="center" numberOfLines="0" id="JE6-1P-PEX">
+                                <label width="1" height="20" alignment="left" text=" " id="ONt-MJ-vcT">
+                                    <fontDescription key="font" style="UICTFontTextStyleCaption2"/>
+                                </label>
+                                <label width="1" alignment="left" text="Title" textAlignment="left" numberOfLines="0" id="JE6-1P-PEX">
                                     <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
                                 </label>
-                                <label width="1" alignment="left" text="Label" numberOfLines="0" id="CbO-NF-eol">
+                                <label width="1" alignment="left" text="Description" numberOfLines="0" id="CbO-NF-eol">
                                     <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
                                 </label>
+                                <label height="3" alignment="left" id="NHB-8x-JkC">
+                                    <fontDescription key="font" style="UICTFontTextStyleCaption2"/>
+                                </label>
+                                <label width="1" alignment="left" text="Snippet" numberOfLines="0" id="Dxg-vA-kon"/>
+                                <button width="0.69999999999999996" alignment="center" title="Read Later" id="NqZ-uq-Pbx">
+                                    <color key="backgroundColor" red="0.0" green="0.74059343338012695" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <connections>
+                                        <action selector="saveArticle" destination="hiY-EO-lZw" id="PS3-Sw-kTM"/>
+                                    </connections>
+                                </button>
                             </items>
                         </group>
-                        <button width="1" alignment="left" title="Save for Later" id="NqZ-uq-Pbx">
-                            <connections>
-                                <action selector="saveArticle" destination="hiY-EO-lZw" id="PS3-Sw-kTM"/>
-                            </connections>
-                        </button>
-                        <button width="1" alignment="left" title="Open on iPhone" id="nIj-SN-SKe">
-                            <connections>
-                                <action selector="openOnPhone" destination="hiY-EO-lZw" id="Ul6-Yj-c6m"/>
-                            </connections>
-                        </button>
                     </items>
                     <connections>
+                        <outlet property="snippetLabel" destination="Dxg-vA-kon" id="UeI-dA-1Ga"/>
                         <outlet property="textLabel" destination="CbO-NF-eol" id="rLi-8G-PjA"/>
                         <outlet property="titleLabel" destination="JE6-1P-PEX" id="xgt-uf-QBg"/>
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="738" y="347"/>
+            <point key="canvasLocation" x="448" y="347"/>
+        </scene>
+        <!--WMFSavedConfirmationInterfaceController-->
+        <scene sceneID="lbg-zH-YpR">
+            <objects>
+                <controller identifier="WMFSavedConfirmationInterfaceController" id="w2G-AA-14K" customClass="WMFSavedConfirmationInterfaceController">
+                    <items>
+                        <group width="1" alignment="left" layout="vertical" id="oK4-Kq-5gF">
+                            <items>
+                                <imageView width="136" alignment="left" id="aHK-Hw-vzf"/>
+                                <label width="1" alignment="left" text="Saved! Find it later in your Saved Pages" textAlignment="center" numberOfLines="0" id="VtO-wu-PLF">
+                                    <fontDescription key="font" style="UICTFontTextStyleSubhead"/>
+                                </label>
+                            </items>
+                        </group>
+                    </items>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="655" y="344"/>
         </scene>
         <!--Glance Interface Controller-->
         <scene sceneID="BOz-TT-tkC">

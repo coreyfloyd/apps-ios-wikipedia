@@ -13,8 +13,6 @@
 
 @property (weak, nonatomic) IBOutlet WKInterfaceButton *searchButton;
 @property (weak, nonatomic) IBOutlet WKInterfaceLabel *searchTermLabel;
-@property (assign, nonatomic) BOOL searchLabelDirty;
-
 
 - (IBAction)search;
 
@@ -40,19 +38,16 @@
 
 - (IBAction)search {
 
-//    [self presentTextInputControllerWithSuggestions:nil allowedInputMode:WKTextInputModePlain completion:^(NSArray *results) {
-    
-//        NSString* searchTerm = [results firstObject];
-        NSString *searchTerm = @"Dog";
-    
+    [self presentTextInputControllerWithSuggestions:nil allowedInputMode:WKTextInputModePlain completion:^(NSArray *results) {
+        
+        NSString* searchTerm = [results firstObject];
+        
         if(searchTerm){
             
             [self.searchTermLabel setText:[NSString stringWithFormat:@"Searching for %@…", searchTerm]];
             [self.searchButton setHidden:YES];
             
-            self.searchLabelDirty = YES;
-
-            [WKInterfaceController openParentApplication:@{@"request" : @"search", @"searchTerm":searchTerm} reply:^(NSDictionary *replyInfo, NSError *error) {
+            [WKInterfaceController openParentApplication:@{@"request":@"search", @"searchTerm":searchTerm} reply:^(NSDictionary *replyInfo, NSError *error) {
                 
                 NSArray* results = replyInfo[@"searchResults"];
                 
@@ -65,6 +60,7 @@
                         [self.searchButton setHidden:NO];
                     });
                     
+                    return;
                 }
                 
                 NSMutableArray* names = [NSMutableArray new];
@@ -82,7 +78,11 @@
                 
             }];
         }
-//    }];
+    }];
+    
+    [self.searchTermLabel setText:@"Searching…"];
+    [self.searchButton setHidden:YES];
+
 }
 @end
 
