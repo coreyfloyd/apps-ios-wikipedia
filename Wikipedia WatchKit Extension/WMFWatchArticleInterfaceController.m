@@ -52,7 +52,6 @@
     else
         [self.snippetLabel setText:self.snippet];
     
-    [self updateUserActivity:@"org.wikimedia.wikipedia.watchkitextension.page" userInfo:@{@"pageTitle" : self.passedInData[@"title"]} webpageURL:nil];
 }
 
 - (void)didDeactivate {
@@ -70,6 +69,10 @@
         
     }];
     
+}
+
+-(IBAction)openOnPhone {
+    [self presentControllerWithName:@"OpenOniPhoneController" context:self.articleTitle];
 }
 
 @end

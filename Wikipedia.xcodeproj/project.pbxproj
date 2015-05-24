@@ -203,6 +203,7 @@
 		0EE768811AFD25CC00A5D046 /* WMFSearchFunnel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0EE768801AFD25CC00A5D046 /* WMFSearchFunnel.m */; };
 		701FF5EE601DEA3FCAB7EFD3 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D82982ED992F47428037BDF2 /* libPods.a */; };
 		954BA118838BF8BA6B01C34A /* libPods-WikipediaUnitTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CE61C6963F825760822A28A /* libPods-WikipediaUnitTests.a */; };
+		96D556CA1B122A4B00F134C1 /* WMFOpenOniPhoneInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 96D556C91B122A4B00F134C1 /* WMFOpenOniPhoneInterfaceController.m */; };
 		BC0FED621AAA0263002488D7 /* WMFCodingStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = BC6FEAE01A9B7EFD00A1D890 /* WMFCodingStyle.m */; };
 		BC0FED631AAA0263002488D7 /* MWKTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB669BB1A83F6D300C7B1FE /* MWKTestCase.m */; };
 		BC0FED641AAA0263002488D7 /* MWKArticleStoreTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = BCB669BD1A83F6D300C7B1FE /* MWKArticleStoreTestCase.m */; };
@@ -791,6 +792,8 @@
 		357504E50DA104E39C6ACFEB /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		429C152FC8B093B59D18CAD3 /* Pods-WikipediaUnitTests.beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WikipediaUnitTests.beta.xcconfig"; path = "Pods/Target Support Files/Pods-WikipediaUnitTests/Pods-WikipediaUnitTests.beta.xcconfig"; sourceTree = "<group>"; };
 		8CE61C6963F825760822A28A /* libPods-WikipediaUnitTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WikipediaUnitTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		96D556C81B122A4B00F134C1 /* WMFOpenOniPhoneInterfaceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFOpenOniPhoneInterfaceController.h; sourceTree = "<group>"; };
+		96D556C91B122A4B00F134C1 /* WMFOpenOniPhoneInterfaceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFOpenOniPhoneInterfaceController.m; sourceTree = "<group>"; };
 		BC2375981AB78D8A00B0BAA8 /* NSParagraphStyle+WMFNaturalAlignmentStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSParagraphStyle+WMFNaturalAlignmentStyle.h"; sourceTree = "<group>"; };
 		BC2375991AB78D8A00B0BAA8 /* NSParagraphStyle+WMFNaturalAlignmentStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSParagraphStyle+WMFNaturalAlignmentStyle.m"; sourceTree = "<group>"; };
 		BC23759D1AB8928600B0BAA8 /* WMFDateFormatterTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFDateFormatterTests.m; sourceTree = "<group>"; };
@@ -2114,6 +2117,8 @@
 				0E8C26AF1B10C19B0037B9F3 /* WMFWatchArticleInterfaceController.m */,
 				0E24E74A1B121AC200191B04 /* WMFSavedConfirmationInterfaceController.h */,
 				0E24E74B1B121AC200191B04 /* WMFSavedConfirmationInterfaceController.m */,
+				96D556C81B122A4B00F134C1 /* WMFOpenOniPhoneInterfaceController.h */,
+				96D556C91B122A4B00F134C1 /* WMFOpenOniPhoneInterfaceController.m */,
 			);
 			path = "Wikipedia WatchKit Extension";
 			sourceTree = "<group>";
@@ -3074,6 +3079,7 @@
 				0E24E74C1B121AC200191B04 /* WMFSavedConfirmationInterfaceController.m in Sources */,
 				0E8C26B01B10C19B0037B9F3 /* WMFWatchArticleInterfaceController.m in Sources */,
 				0E587C751B1072150067ACDA /* GlanceController.m in Sources */,
+				96D556CA1B122A4B00F134C1 /* WMFOpenOniPhoneInterfaceController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

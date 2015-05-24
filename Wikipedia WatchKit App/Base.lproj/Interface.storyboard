@@ -55,18 +55,17 @@
                                 </label>
                                 <label width="1" alignment="left" text="Snippet" numberOfLines="0" id="Dxg-vA-kon"/>
                                 <label height="3" alignment="left" text=" " id="0FS-Se-Y8o"/>
-                                <group width="1" alignment="left" id="Ni8-dI-inM">
-                                    <items>
-                                        <label alignment="left" text=" " id="0om-Dh-Cam"/>
-                                        <imageView width="20" height="30" alignment="left" verticalAlignment="center" image="Readonphone" id="fq0-3q-AkC"/>
-                                        <label alignment="left" text="Open iPhone to read more" numberOfLines="0" id="koU-yx-yoe"/>
-                                    </items>
-                                </group>
                                 <label height="5" alignment="left" text=" " id="Efx-Ku-AuV"/>
                                 <button width="0.69999999999999996" alignment="center" title="Read Later" id="NqZ-uq-Pbx">
                                     <color key="backgroundColor" red="0.0" green="0.74059343338012695" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <connections>
                                         <action selector="saveArticle" destination="hiY-EO-lZw" id="PS3-Sw-kTM"/>
+                                    </connections>
+                                </button>
+                                <button width="0.70000000000000007" alignment="center" title="Open on iPhone" id="c2Q-ux-sd9">
+                                    <color key="backgroundColor" red="0.0" green="0.74117647058823533" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <connections>
+                                        <action selector="openOnPhone" destination="hiY-EO-lZw" id="8R6-v9-jfP"/>
                                     </connections>
                                 </button>
                             </items>
@@ -99,6 +98,22 @@
                 </controller>
             </objects>
             <point key="canvasLocation" x="655" y="344"/>
+        </scene>
+        <!--OpenOniPhoneController-->
+        <scene sceneID="6Iv-fR-6mR">
+            <objects>
+                <controller identifier="OpenOniPhoneController" id="HYm-KE-ETb" customClass="WMFOpenOniPhoneInterfaceController">
+                    <items>
+                        <group width="1" alignment="center" verticalAlignment="center" layout="vertical" id="Ni8-dI-inM">
+                            <items>
+                                <imageView width="40" height="60" alignment="center" image="Readonphone" id="fq0-3q-AkC"/>
+                                <label alignment="left" text="Open iPhone to read more using Handoff." textAlignment="center" numberOfLines="0" id="koU-yx-yoe"/>
+                            </items>
+                        </group>
+                    </items>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="826" y="344"/>
         </scene>
         <!--Glance Interface Controller-->
         <scene sceneID="BOz-TT-tkC">
