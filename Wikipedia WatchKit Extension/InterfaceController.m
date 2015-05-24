@@ -10,6 +10,12 @@
 
 
 @interface InterfaceController()
+
+@property (weak, nonatomic) IBOutlet WKInterfaceButton *searchButton;
+@property (weak, nonatomic) IBOutlet WKInterfaceLabel *searchTermLabel;
+@property (assign, nonatomic) BOOL searchLabelDirty;
+
+
 - (IBAction)search;
 
 @end
@@ -24,7 +30,6 @@
 }
 
 - (void)willActivate {
-    // This method is called when watch view controller is about to be visible to user
     [super willActivate];
 }
 
@@ -41,7 +46,43 @@
         
         if(searchTerm){
             
-            [self pushControllerWithName:@"WMFSearchTermInterfaceController" context:searchTerm];
+            [self.searchTermLabel setText:[NSString stringWithFormat:@"Searching for %@…", searchTerm]];
+            [self.searchButton setHidden:YES];
+            
+            self.searchLabelDirty = YES;
+
+            [WKInterfaceController openParentApplication:@{@"searchTerm":searchTerm} reply:^(NSDictionary *replyInfo, NSError *error) {
+                
+                NSArray* results = replyInfo[@"searchResults"];
+                
+                if([results count] == 0){
+                    
+                    [self.searchTermLabel setText:@"No Results"];
+                    
+                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                        [self.searchTermLabel setText:@"Tap to Search"];
+                        [self.searchButton setHidden:NO];
+                    });
+                    
+                }
+                
+                NSMutableArray* names = [NSMutableArray new];
+                
+                [results enumerateObjectsUsingBlock:^(NSDictionary* obj, NSUInteger idx, BOOL *stop) {
+                    
+                    [names addObject:@"WMFWatchArticleInterfaceController"];
+                }];
+                
+                [self presentControllerWithNames:names contexts:results];
+
+                [self.searchTermLabel setText:@"Tap to Search"];
+                [self.searchButton setHidden:NO];
+
+                
+            }];
+
+            
+            
         }
        
         

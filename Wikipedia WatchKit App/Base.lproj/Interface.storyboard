@@ -26,23 +26,13 @@
                             </items>
                         </group>
                     </items>
-                </controller>
-            </objects>
-            <point key="canvasLocation" x="235" y="347"/>
-        </scene>
-        <!--Back-->
-        <scene sceneID="aao-Oa-aPf">
-            <objects>
-                <controller identifier="WMFSearchTermInterfaceController" title="Back" id="JPY-Wf-iwv" customClass="WMFSearchTermInterfaceController">
-                    <items>
-                        <label width="1" alignment="left" verticalAlignment="center" text="Label" textAlignment="center" numberOfLines="0" id="Y98-oI-7Sh"/>
-                    </items>
                     <connections>
-                        <outlet property="searchTermLabel" destination="Y98-oI-7Sh" id="O2D-He-aSh"/>
+                        <outlet property="searchButton" destination="1fG-Ca-XGo" id="1uV-Bu-4L3"/>
+                        <outlet property="searchTermLabel" destination="21B-A3-r4l" id="FOZ-q8-SO9"/>
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="534" y="347"/>
+            <point key="canvasLocation" x="235" y="347"/>
         </scene>
         <!--WMFWatchArticleInterfaceController-->
         <scene sceneID="BhX-BP-8aq">
