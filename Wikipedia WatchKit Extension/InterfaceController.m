@@ -39,27 +39,12 @@
 }
 
 - (IBAction)search {
-    
-<<<<<<< HEAD
+//
 //    [self presentTextInputControllerWithSuggestions:nil allowedInputMode:WKTextInputModePlain completion:^(NSArray *results) {
 //        
 //        NSString* searchTerm = [results firstObject];
-//        
-//        if(searchTerm){
-//            
-//            [self pushControllerWithName:@"WMFSearchTermInterfaceController" context:searchTerm];
-//        }
-//       
-//        
-//        
-//        
-//    }];
-    [self pushControllerWithName:@"WMFSearchTermInterfaceController" context:@"Dog"];
-=======
-    [self presentTextInputControllerWithSuggestions:nil allowedInputMode:WKTextInputModePlain completion:^(NSArray *results) {
-        
-        NSString* searchTerm = [results firstObject];
-        
+        NSString *searchTerm = @"Dog";
+    
         if(searchTerm){
             
             [self.searchTermLabel setText:[NSString stringWithFormat:@"Searching for %@…", searchTerm]];
@@ -67,7 +52,7 @@
             
             self.searchLabelDirty = YES;
 
-            [WKInterfaceController openParentApplication:@{@"searchTerm":searchTerm} reply:^(NSDictionary *replyInfo, NSError *error) {
+            [WKInterfaceController openParentApplication:@{@"request" : @"search", @"searchTerm":searchTerm} reply:^(NSDictionary *replyInfo, NSError *error) {
                 
                 NSArray* results = replyInfo[@"searchResults"];
                 
@@ -96,16 +81,8 @@
 
                 
             }];
-
-            
-            
         }
-       
-        
-        
-        
-    }];
->>>>>>> 84ca477f6668e1a0c256192da781261006bd2ab6
+//    }];
 }
 @end
 

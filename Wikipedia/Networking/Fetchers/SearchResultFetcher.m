@@ -24,6 +24,8 @@
 @property (nonatomic, strong) NSRegularExpression* spaceCollapsingRegex;
 @property (nonatomic, strong) NSString* language;
 
+@property (strong, nonatomic) NSString *pageTitle;
+
 @end
 
 @implementation SearchResultFetcher
@@ -47,6 +49,23 @@
         self.maxSearchResults      = maxResults ? maxResults : SEARCH_MAX_RESULTS;
         self.spaceCollapsingRegex  =
             [NSRegularExpression regularExpressionWithPattern:@"\\s{2,}+" options:NSRegularExpressionCaseInsensitive error:nil];
+        [self searchWithManager:manager];
+    }
+    return self;
+}
+
+-(instancetype)initAndSearchWithPageTitle:(NSString *)pageTitle searchType:(SearchType)searchType language:(NSString *)language maxResults:(NSInteger)maxResults withManager:(AFHTTPRequestOperationManager *)manager thenNotifyDelegate:(id<FetchFinishedDelegate>)delegate {
+    self = [super init];
+    if(self) {
+        self.searchResults = @[];
+        self.searchSuggestion = nil;
+        self.pageTitle = pageTitle;
+        self.searchType            = searchType;
+        self.language              = language;
+        self.fetchFinishedDelegate = delegate;
+        self.maxSearchResults      = maxResults ? maxResults : SEARCH_MAX_RESULTS;
+        self.spaceCollapsingRegex  =
+        [NSRegularExpression regularExpressionWithPattern:@"\\s{2,}+" options:NSRegularExpressionCaseInsensitive error:nil];
         [self searchWithManager:manager];
     }
     return self;
@@ -167,6 +186,14 @@
                        @"format": @"json"
             };
             break;
+        case SEARCH_TYPE_SNIPPET:
+            return @{
+                     @"action" : @"query",
+                     @"prop" : @"extracts",
+                     @"exchars" : @(100),
+                     @"titles" : self.pageTitle,
+                     @"format" : @"json"
+         };
         default:
             return @{};
             break;

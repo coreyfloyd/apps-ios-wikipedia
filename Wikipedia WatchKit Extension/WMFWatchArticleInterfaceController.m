@@ -26,12 +26,18 @@
 
     [self.titleLabel setText:dict[@"title"]];
     [self.textLabel setText:dict[@"description"]];
-     
+
+//    [WKInterfaceController openParentApplication:@{@"request" : @"snippet", @"pageTitle" : dict[@"title"]} reply:^(NSDictionary *replyInfo, NSError *error) {
+//        NSArray *results = replyInfo[@"searchResults"];
+//        NSLog(@"%@", results.description);
+////        [self.textLabel setText:snippet];
+//    }];
 }
 
 - (void)willActivate {
     // This method is called when watch view controller is about to be visible to user
     [super willActivate];
+
 }
 
 - (void)didDeactivate {
