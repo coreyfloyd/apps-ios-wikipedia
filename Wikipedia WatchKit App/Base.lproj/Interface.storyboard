@@ -10,11 +10,21 @@
             <objects>
                 <controller id="AgC-eL-Hgc" customClass="InterfaceController">
                     <items>
-                        <button width="1" alignment="left" title="Search" id="1fG-Ca-XGo">
-                            <connections>
-                                <action selector="search" destination="AgC-eL-Hgc" id="85P-Xm-kIx"/>
-                            </connections>
-                        </button>
+                        <group width="1" alignment="center" verticalAlignment="center" layout="vertical" id="7fQ-AP-wBr">
+                            <items>
+                                <button alignment="left" id="1fG-Ca-XGo">
+                                    <group key="contentGroup" width="1" alignment="left" id="BSm-GF-ljf">
+                                        <items>
+                                            <imageView alignment="center" verticalAlignment="center" image="Search" id="ied-uu-6e5"/>
+                                        </items>
+                                    </group>
+                                    <connections>
+                                        <action selector="search" destination="AgC-eL-Hgc" id="85P-Xm-kIx"/>
+                                    </connections>
+                                </button>
+                                <label width="1" alignment="center" text="Tap to Search" textAlignment="center" id="21B-A3-r4l"/>
+                            </items>
+                        </group>
                     </items>
                 </controller>
             </objects>
@@ -25,7 +35,7 @@
             <objects>
                 <controller identifier="WMFSearchTermInterfaceController" title="Back" id="JPY-Wf-iwv" customClass="WMFSearchTermInterfaceController">
                     <items>
-                        <label width="1" alignment="left" verticalAlignment="center" text="Label" textAlignment="center" id="Y98-oI-7Sh"/>
+                        <label width="1" alignment="left" verticalAlignment="center" text="Label" textAlignment="center" numberOfLines="0" id="Y98-oI-7Sh"/>
                     </items>
                     <connections>
                         <outlet property="searchTermLabel" destination="Y98-oI-7Sh" id="O2D-He-aSh"/>
@@ -41,10 +51,12 @@
                     <items>
                         <group width="1" alignment="left" layout="vertical" id="TKb-qI-qLN">
                             <items>
-                                <label width="1" alignment="left" text="Label" textAlignment="center" id="JE6-1P-PEX">
+                                <label width="1" alignment="left" text="Label" textAlignment="center" numberOfLines="0" id="JE6-1P-PEX">
                                     <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
                                 </label>
-                                <label width="1" alignment="left" text="Label" id="CbO-NF-eol"/>
+                                <label width="1" alignment="left" text="Label" numberOfLines="0" id="CbO-NF-eol">
+                                    <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
+                                </label>
                             </items>
                         </group>
                         <button width="1" alignment="left" title="Save for Later" id="NqZ-uq-Pbx">

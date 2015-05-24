@@ -21,6 +21,7 @@
 - (void)awakeWithContext:(id)context {
     [super awakeWithContext:context];
     
+    [self setTitle:@"X"];
     NSDictionary* dict = context;
 
     [self.titleLabel setText:dict[@"title"]];
