@@ -38,7 +38,7 @@
     return self;
 }
 
-- (NSUInteger)length{
+- (NSUInteger)length {
     return [self.entries count];
 }
 
@@ -52,16 +52,16 @@
 }
 
 - (void)addEntry:(MWKRecentSearchEntry*)entry {
-    if([entry.searchTerm length] == 0)
+    if ([entry.searchTerm length] == 0) {
         return;
-    
-    NSUInteger oldIndex = [self.entries indexOfObjectPassingTest:^BOOL(MWKRecentSearchEntry *obj, NSUInteger idx, BOOL *stop) {
-        
-        if([entry.searchTerm isEqualToString:obj.searchTerm]){
+    }
+
+    NSUInteger oldIndex = [self.entries indexOfObjectPassingTest:^BOOL (MWKRecentSearchEntry* obj, NSUInteger idx, BOOL* stop) {
+        if ([entry.searchTerm isEqualToString:obj.searchTerm]) {
             *stop = YES;
             return YES;
         }
-        
+
         return NO;
     }];
     if (oldIndex != NSNotFound) {
@@ -73,23 +73,20 @@
     // @todo trim to max?
 }
 
-- (void)removeEntry:(MWKRecentSearchEntry*)entry;{
-    
+- (void)removeEntry:(MWKRecentSearchEntry*)entry; {
     NSUInteger oldIndex = [self.entries indexOfObject:entry];
-    
-    if(oldIndex != NSNotFound){
+
+    if (oldIndex != NSNotFound) {
         [self.entries removeObjectAtIndex:oldIndex];
     }
     self.dirty = YES;
 }
 
 
-- (void)removeAllEntries
-{
+- (void)removeAllEntries {
     [self.entries removeAllObjects];
     self.dirty = YES;
 }
-
 
 - (MWKRecentSearchEntry*)entryAtIndex:(NSUInteger)index {
     return self.entries[index];

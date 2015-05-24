@@ -114,7 +114,6 @@ static NSUInteger const kWMFReadMoreNumberOfArticles           = 3;
 }
 
 - (void)updateRecentSearchesContainerVisibility {
-    
     NSUInteger count = [[[[SessionSingleton sharedInstance] userDataStore] historyList] length];
 
     BOOL shouldHide = (
@@ -672,12 +671,11 @@ static NSUInteger const kWMFReadMoreNumberOfArticles           = 3;
 }
 
 - (void)saveSearchTermToRecentList {
-    
     MWKRecentSearchEntry* entry = [[MWKRecentSearchEntry alloc] initWithSite:[SessionSingleton sharedInstance].searchSite searchTerm:self.searchString];
-    
+
     [[[[SessionSingleton sharedInstance] userDataStore] recentSearchList] addEntry:entry];
     [[[SessionSingleton sharedInstance] userDataStore] save];
-    
+
     [self.recentSearchesViewController reloadTable];
 }
 

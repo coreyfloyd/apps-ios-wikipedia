@@ -41,13 +41,11 @@
 
 @implementation RecentSearchesViewController
 
-- (MWKUserDataStore*)userdataStore{
-    
+- (MWKUserDataStore*)userdataStore {
     return [[SessionSingleton sharedInstance] userDataStore];
 }
 
-- (MWKRecentSearchList*)recentList{
-    
+- (MWKRecentSearchList*)recentList {
     return [[self userdataStore] recentSearchList];
 }
 
@@ -61,7 +59,6 @@
     [self adjustConstraintsScaleForViews:@[self.headingLabel, self.trashButton]];
 
     [self updateTrashButtonEnabledState];
-
 }
 
 - (void)setupTable {
@@ -90,8 +87,7 @@
                                                                                    action:@selector(trashButtonTapped)]];
 }
 
-- (void)reloadTable{
-    
+- (void)reloadTable {
     [self.table reloadData];
     [self updateTrashButtonEnabledState];
 }
@@ -100,7 +96,7 @@
     self.trashButton.enabled = ([[self recentList] length] > 0) ? YES : NO;
 }
 
-- (void)removeEntry:(MWKRecentSearchEntry*)entry{
+- (void)removeEntry:(MWKRecentSearchEntry*)entry {
     [[[self userdataStore] recentSearchList] removeEntry:entry];
     [[self userdataStore] save];
 }

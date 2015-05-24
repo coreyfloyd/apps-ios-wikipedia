@@ -38,7 +38,6 @@
                @"domain": self.site.domain,
                @"language": self.site.language,
                @"searchTerm": self.searchTerm,
-
     };
 }
 

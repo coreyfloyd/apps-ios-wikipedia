@@ -65,7 +65,6 @@
 }
 
 - (void)application:(UIApplication*)application handleWatchKitExtensionRequest:(NSDictionary*)userInfo reply:(void (^)(NSDictionary*))reply {
-    
     // Reference: http://www.fiveminutewatchkit.com/blog/2015/3/11/one-weird-trick-to-fix-openparentapplicationreply
     // --------------------
     __block UIBackgroundTaskIdentifier bogusWorkaroundTask;
@@ -77,9 +76,9 @@
     });
 
     // --------------------
-    
+
     UIBackgroundTaskIdentifier task = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
-        reply(@{@"error" : @"expired"});
+        reply(@{@"error": @"expired"});
     }];
 
     self.watchTask       = task;
