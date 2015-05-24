@@ -114,10 +114,13 @@ static NSUInteger const kWMFReadMoreNumberOfArticles           = 3;
 }
 
 - (void)updateRecentSearchesContainerVisibility {
+    
+    NSUInteger count = [[[[SessionSingleton sharedInstance] userDataStore] historyList] length];
+
     BOOL shouldHide = (
         (self.searchString.length == 0)
         &&
-        (self.recentSearchesViewController.recentSearchesItemCount.integerValue > 0)
+        (count > 0)
         ) ? NO : YES;
 
     if (self.recentSearchesContainer.hidden == shouldHide) {
@@ -174,11 +177,6 @@ static NSUInteger const kWMFReadMoreNumberOfArticles           = 3;
     self.didYouMeanButton.userInteractionEnabled = YES;
     [self.didYouMeanButton addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(didYouMeanButtonPushed)]];
 
-    [self.recentSearchesViewController addObserver:self
-                                        forKeyPath:@"recentSearchesItemCount"
-                                           options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld
-                                           context:nil];
-
     // Single off-screen cell for determining dynamic cell height.
     self.offScreenSizingCell = (SearchResultCell*)[self.searchResultsTable dequeueReusableCellWithIdentifier:kWMFSearchCellID];
 }
@@ -206,15 +204,6 @@ static NSUInteger const kWMFReadMoreNumberOfArticles           = 3;
     [self.searchFunnel logSearchDidYouMean];
 }
 
-- (void)observeValueForKeyPath:(NSString*)keyPath
-                      ofObject:(id)object
-                        change:(NSDictionary*)change
-                       context:(void*)context {
-    if ((object == self.recentSearchesViewController) && [keyPath isEqualToString:@"recentSearchesItemCount"]) {
-        [self updateRecentSearchesContainerVisibility];
-    }
-}
-
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
 
@@ -225,6 +214,8 @@ static NSUInteger const kWMFReadMoreNumberOfArticles           = 3;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+
+    [self updateRecentSearchesContainerVisibility];
 
     // Important to only auto-search when the view appears if-and-only-if it isn't already showing results!
     if ((self.searchString.length > 0) && (self.searchResults.count == 0)) {
@@ -681,9 +672,13 @@ static NSUInteger const kWMFReadMoreNumberOfArticles           = 3;
 }
 
 - (void)saveSearchTermToRecentList {
-    [self.recentSearchesViewController saveTerm:self.searchString
-                                      forDomain:[SessionSingleton sharedInstance].searchSite.language
-                                           type:SEARCH_TYPE_TITLES];
+    
+    MWKRecentSearchEntry* entry = [[MWKRecentSearchEntry alloc] initWithSite:[SessionSingleton sharedInstance].searchSite searchTerm:self.searchString];
+    
+    [[[[SessionSingleton sharedInstance] userDataStore] recentSearchList] addEntry:entry];
+    [[[SessionSingleton sharedInstance] userDataStore] save];
+    
+    [self.recentSearchesViewController reloadTable];
 }
 
 - (BOOL)perfectSearchStringTitleMatchFoundInSearchResults {

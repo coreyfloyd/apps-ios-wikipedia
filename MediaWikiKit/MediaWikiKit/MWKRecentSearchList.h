@@ -17,6 +17,8 @@
 
 - (MWKRecentSearchEntry*)entryAtIndex:(NSUInteger)index;
 - (void)addEntry:(MWKRecentSearchEntry*)entry;
+- (void)removeEntry:(MWKRecentSearchEntry*)entry;
+- (void)removeAllEntries;
 
 - (instancetype)initWithDict:(NSDictionary*)dict;
 

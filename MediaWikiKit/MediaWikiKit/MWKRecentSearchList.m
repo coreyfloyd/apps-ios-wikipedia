@@ -10,7 +10,6 @@
 
 @interface MWKRecentSearchList ()
 
-@property (readwrite, nonatomic, assign) NSUInteger length;
 @property (readwrite, nonatomic, assign) BOOL dirty;
 @property (nonatomic, strong) NSMutableArray* entries;
 
@@ -39,6 +38,10 @@
     return self;
 }
 
+- (NSUInteger)length{
+    return [self.entries count];
+}
+
 - (id)dataExport {
     NSMutableArray* dicts = [[NSMutableArray alloc] init];
     for (MWKRecentSearchEntry* entry in self.entries) {
@@ -49,7 +52,18 @@
 }
 
 - (void)addEntry:(MWKRecentSearchEntry*)entry {
-    NSUInteger oldIndex = [self.entries indexOfObject:entry];
+    if([entry.searchTerm length] == 0)
+        return;
+    
+    NSUInteger oldIndex = [self.entries indexOfObjectPassingTest:^BOOL(MWKRecentSearchEntry *obj, NSUInteger idx, BOOL *stop) {
+        
+        if([entry.searchTerm isEqualToString:obj.searchTerm]){
+            *stop = YES;
+            return YES;
+        }
+        
+        return NO;
+    }];
     if (oldIndex != NSNotFound) {
         // Move to top!
         [self.entries removeObjectAtIndex:oldIndex];
@@ -58,6 +72,24 @@
     self.dirty = YES;
     // @todo trim to max?
 }
+
+- (void)removeEntry:(MWKRecentSearchEntry*)entry;{
+    
+    NSUInteger oldIndex = [self.entries indexOfObject:entry];
+    
+    if(oldIndex != NSNotFound){
+        [self.entries removeObjectAtIndex:oldIndex];
+    }
+    self.dirty = YES;
+}
+
+
+- (void)removeAllEntries
+{
+    [self.entries removeAllObjects];
+    self.dirty = YES;
+}
+
 
 - (MWKRecentSearchEntry*)entryAtIndex:(NSUInteger)index {
     return self.entries[index];
