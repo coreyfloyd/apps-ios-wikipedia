@@ -15,8 +15,8 @@
 #import "MWKUserDataStore.h"
 #import "MWKRecentSearchList.h"
 #import "MWKRecentSearchEntry.h"
-
-
+#import "WebViewController.h"
+#import "UINavigationController+SearchNavStack.h"
 
 @interface AppDelegate ()
 <DataMigrationProgressDelegate, FetchFinishedDelegate>
@@ -146,6 +146,10 @@
     NSString *pageTitle = userActivity.userInfo[@"pageTitle"];
 
     NSLog(@"%s - type is %@, pageTitle is %@", __PRETTY_FUNCTION__, type, pageTitle);
+    
+    MWKTitle* title = [[MWKTitle alloc] initWithString:pageTitle site:[[SessionSingleton sharedInstance] currentArticleSite]];
+    WebViewController* webVC = [NAV searchNavStackForViewControllerOfClass:[WebViewController class]];
+    [webVC navigateToPage:title discoveryMethod:MWKHistoryDiscoveryMethodSearch];
     
     return NO;
 }

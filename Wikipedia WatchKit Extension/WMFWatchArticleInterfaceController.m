@@ -50,7 +50,7 @@
             [self.snippetLabel setText:self.snippet];
         }];
     else
-        [self.textLabel setText:self.snippet];
+        [self.snippetLabel setText:self.snippet];
     
     [self updateUserActivity:@"org.wikimedia.wikipedia.watchkitextension.page" userInfo:@{@"pageTitle" : self.passedInData[@"title"]} webpageURL:nil];
 }
