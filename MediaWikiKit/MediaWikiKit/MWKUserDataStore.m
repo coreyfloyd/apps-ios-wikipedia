@@ -78,7 +78,7 @@
 }
 
 - (MWKRecentSearchList*)recentSearchList {
-    if (_recentSearchList) {
+    if (_recentSearchList == nil) {
         _recentSearchList = [self.dataStore recentSearchList];
         if (_recentSearchList == nil) {
             _recentSearchList = [[MWKRecentSearchList alloc] init];
