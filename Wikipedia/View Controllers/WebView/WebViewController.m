@@ -1374,7 +1374,7 @@ static CGFloat const kScrollIndicatorMinYMargin = 4.0f;
 }
 
 - (void)cancelSearchLoading {
-    [[QueuesSingleton sharedInstance].searchResultsFetchManager.operationQueue cancelAllOperations];
+//    [[QueuesSingleton sharedInstance].searchResultsFetchManager.operationQueue cancelAllOperations];
 }
 
 - (void)retrieveArticleForPageTitle:(MWKTitle*)pageTitle
