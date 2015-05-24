@@ -11,6 +11,9 @@
 @interface WMFWatchArticleInterfaceController ()
 @property (weak, nonatomic) IBOutlet WKInterfaceLabel *titleLabel;
 @property (weak, nonatomic) IBOutlet WKInterfaceLabel *textLabel;
+@property (strong, nonatomic) NSDictionary *passedInData;
+@property (strong, nonatomic) NSString *snippet;
+
 - (IBAction)saveArticle;
 - (IBAction)openOnPhone;
 
@@ -22,28 +25,32 @@
     [super awakeWithContext:context];
     
     [self setTitle:@"X"];
-    NSDictionary* dict = context;
+    self.passedInData = context;
 
-    [self.titleLabel setText:dict[@"title"]];
-//    [self.textLabel setText:dict[@"description"]];
+    [self.titleLabel setText:context[@"title"]];
+    [self.textLabel setText:@""];
 
-    [WKInterfaceController openParentApplication:@{@"request" : @"snippet", @"pageTitle" : dict[@"title"]} reply:^(NSDictionary *replyInfo, NSError *error) {
-        NSDictionary *pages = replyInfo[@"searchResults"][0][@"query"][@"pages"];
-        NSString *key = pages.allKeys.firstObject;
-        [self.textLabel setText:pages[key][@"extract"]];
-        NSLog(@"%@", pages[key][@"extract"]);
-    }];
 }
 
 - (void)willActivate {
     // This method is called when watch view controller is about to be visible to user
     [super willActivate];
-
+    if(!self.snippet)
+        [WKInterfaceController openParentApplication:@{@"request" : @"snippet", @"pageTitle" : self.passedInData[@"title"]} reply:^(NSDictionary *replyInfo, NSError *error) {
+            NSDictionary *pages = replyInfo[@"searchResults"][0][@"query"][@"pages"];
+            NSString *key = pages.allKeys.firstObject;
+            self.snippet = pages[key][@"extract"];
+            [self.textLabel setText:self.snippet];
+            NSLog(@"%@", self.snippet);
+        }];
+    else
+        [self.textLabel setText:self.snippet];
 }
 
 - (void)didDeactivate {
     // This method is called when watch view controller is no longer visible
     [super didDeactivate];
+
 }
 
 - (IBAction)saveArticle {
