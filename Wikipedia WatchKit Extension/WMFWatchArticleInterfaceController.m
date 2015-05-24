@@ -25,13 +25,14 @@
     NSDictionary* dict = context;
 
     [self.titleLabel setText:dict[@"title"]];
-    [self.textLabel setText:dict[@"description"]];
+//    [self.textLabel setText:dict[@"description"]];
 
-//    [WKInterfaceController openParentApplication:@{@"request" : @"snippet", @"pageTitle" : dict[@"title"]} reply:^(NSDictionary *replyInfo, NSError *error) {
-//        NSArray *results = replyInfo[@"searchResults"];
-//        NSLog(@"%@", results.description);
-////        [self.textLabel setText:snippet];
-//    }];
+    [WKInterfaceController openParentApplication:@{@"request" : @"snippet", @"pageTitle" : dict[@"title"]} reply:^(NSDictionary *replyInfo, NSError *error) {
+        NSDictionary *pages = replyInfo[@"searchResults"][0][@"query"][@"pages"];
+        NSString *key = pages.allKeys.firstObject;
+        [self.textLabel setText:pages[key][@"extract"]];
+        NSLog(@"%@", pages[key][@"extract"]);
+    }];
 }
 
 - (void)willActivate {

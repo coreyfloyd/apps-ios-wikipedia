@@ -98,18 +98,23 @@
         }
 
         if (!error) {
-            self.searchResults = [self getSanitizedResponse:responseObject];
-            self.searchSuggestion = [self getSearchSuggestionFromResponse:responseObject];
+            if(self.searchType == SEARCH_TYPE_SNIPPET) {
+                self.searchResults = @[responseObject];
+            }
+            else {
+                self.searchResults = [self getSanitizedResponse:responseObject];
+                self.searchSuggestion = [self getSearchSuggestionFromResponse:responseObject];
 
-            // Populate the map so the article fetcher can grab thumb
-            // from temp dir.
-            NSMutableDictionary* map = [SessionSingleton sharedInstance].titleToTempDirThumbURLMap;
-            [map removeAllObjects];
-            for (NSDictionary* result in self.searchResults) {
-                NSString* title = result[@"title"];
-                NSString* thumbUrl = result[@"thumbnail"][@"source"];
-                if (title && thumbUrl) {
-                    map[title] = thumbUrl;
+                // Populate the map so the article fetcher can grab thumb
+                // from temp dir.
+                NSMutableDictionary* map = [SessionSingleton sharedInstance].titleToTempDirThumbURLMap;
+                [map removeAllObjects];
+                for (NSDictionary* result in self.searchResults) {
+                    NSString* title = result[@"title"];
+                    NSString* thumbUrl = result[@"thumbnail"][@"source"];
+                    if (title && thumbUrl) {
+                        map[title] = thumbUrl;
+                    }
                 }
             }
         }
@@ -192,7 +197,9 @@
                      @"prop" : @"extracts",
                      @"exchars" : @(100),
                      @"titles" : self.pageTitle,
-                     @"format" : @"json"
+                     @"format" : @"json",
+                     @"explaintext" : @(YES),
+                     @"redirects" : @(YES)
          };
         default:
             return @{};
