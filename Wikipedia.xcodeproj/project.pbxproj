@@ -182,6 +182,7 @@
 		04F27B7818FE0F2E00EDD838 /* PageHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F27B7418FE0F2E00EDD838 /* PageHistoryViewController.m */; };
 		04F39590186CF80100B0D6FC /* TOCViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F3958F186CF80100B0D6FC /* TOCViewController.m */; };
 		08D631F71A69B1AB00D87AD0 /* WMFImageGalleryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 08D631F61A69B1AB00D87AD0 /* WMFImageGalleryViewController.m */; };
+		0E24E74C1B121AC200191B04 /* WMFSavedConfirmationInterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E24E74B1B121AC200191B04 /* WMFSavedConfirmationInterfaceController.m */; };
 		0E36C2271AE0B59D00C58CFF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D4991453181D51DE00E6073C /* Images.xcassets */; };
 		0E587C6F1B1072150067ACDA /* InterfaceController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E587C6E1B1072150067ACDA /* InterfaceController.m */; };
 		0E587C721B1072150067ACDA /* NotificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0E587C711B1072150067ACDA /* NotificationController.m */; };
@@ -755,6 +756,8 @@
 		08D631F81A69B8CD00D87AD0 /* WMFImageGalleryCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WMFImageGalleryCollectionViewCell.h; path = "Image Gallery/WMFImageGalleryCollectionViewCell.h"; sourceTree = "<group>"; };
 		08D631F91A69B8CD00D87AD0 /* WMFImageGalleryCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WMFImageGalleryCollectionViewCell.m; path = "Image Gallery/WMFImageGalleryCollectionViewCell.m"; sourceTree = "<group>"; };
 		08F646F7D0488CE3C6D6A763 /* Pods.beta.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.beta.xcconfig; path = "Pods/Target Support Files/Pods/Pods.beta.xcconfig"; sourceTree = "<group>"; };
+		0E24E74A1B121AC200191B04 /* WMFSavedConfirmationInterfaceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMFSavedConfirmationInterfaceController.h; sourceTree = "<group>"; };
+		0E24E74B1B121AC200191B04 /* WMFSavedConfirmationInterfaceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMFSavedConfirmationInterfaceController.m; sourceTree = "<group>"; };
 		0E36C2281AE0B5BD00C58CFF /* SourceIcons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = SourceIcons.xcassets; path = Wikipedia/SourceIcons.xcassets; sourceTree = "<group>"; };
 		0E587C681B1072150067ACDA /* Wikipedia WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Wikipedia WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E587C6B1B1072150067ACDA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -2109,6 +2112,8 @@
 				0E8C26AC1B10BB340037B9F3 /* WMFWatchSearchResultsRow.m */,
 				0E8C26AE1B10C19B0037B9F3 /* WMFWatchArticleInterfaceController.h */,
 				0E8C26AF1B10C19B0037B9F3 /* WMFWatchArticleInterfaceController.m */,
+				0E24E74A1B121AC200191B04 /* WMFSavedConfirmationInterfaceController.h */,
+				0E24E74B1B121AC200191B04 /* WMFSavedConfirmationInterfaceController.m */,
 			);
 			path = "Wikipedia WatchKit Extension";
 			sourceTree = "<group>";
@@ -3066,6 +3071,7 @@
 				0E8C26AD1B10BB340037B9F3 /* WMFWatchSearchResultsRow.m in Sources */,
 				0E587C721B1072150067ACDA /* NotificationController.m in Sources */,
 				0E587C6F1B1072150067ACDA /* InterfaceController.m in Sources */,
+				0E24E74C1B121AC200191B04 /* WMFSavedConfirmationInterfaceController.m in Sources */,
 				0E8C26B01B10C19B0037B9F3 /* WMFWatchArticleInterfaceController.m in Sources */,
 				0E587C751B1072150067ACDA /* GlanceController.m in Sources */,
 			);

@@ -11,6 +11,7 @@
 @interface WMFWatchArticleInterfaceController ()
 @property (weak, nonatomic) IBOutlet WKInterfaceLabel *titleLabel;
 @property (weak, nonatomic) IBOutlet WKInterfaceLabel *textLabel;
+@property (weak, nonatomic) IBOutlet WKInterfaceLabel *snippetLabel;
 @property (strong, nonatomic) NSDictionary *passedInData;
 @property (strong, nonatomic) NSString *snippet;
 
@@ -28,10 +29,12 @@
     
     [self setTitle:@"Done"];
     NSDictionary* dict = context;
-
+    self.passedInData = dict;
+    
     self.articleTitle = dict[@"title"];
     [self.titleLabel setText:dict[@"title"]];
     [self.textLabel setText:dict[@"description"]];
+    [self.snippetLabel setText:nil];
 
 }
 
@@ -43,11 +46,8 @@
             NSDictionary *pages = replyInfo[@"searchResults"][0][@"query"][@"pages"];
             NSString *key = pages.allKeys.firstObject;
             self.snippet = pages[key][@"extract"];
-            [self.textLabel setText:self.snippet];
-            NSLog(@"%@", self.snippet);
+            [self.snippetLabel setText:self.snippet];
         }];
-    else
-        [self.textLabel setText:self.snippet];
 }
 
 - (void)didDeactivate {
@@ -60,7 +60,7 @@
     
     [WKInterfaceController openParentApplication:@{@"request":@"save", @"title":self.articleTitle} reply:^(NSDictionary *replyInfo, NSError *error) {
        
-        NSLog(@"saved!");
+        [self presentControllerWithName:@"WMFSavedConfirmationInterfaceController" context:nil];
         
     }];
     

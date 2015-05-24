@@ -16,7 +16,6 @@ typedef NS_ENUM (NSInteger, SearchType) {
     SEARCH_TYPE_IN_ARTICLES,
     SEARCH_TYPE_SNIPPET,
     SEARCH_TYPE_NEARBY // Placeholder
-
 };
 
 typedef NS_ENUM (NSInteger, SearchReason) {
@@ -48,11 +47,11 @@ typedef NS_ENUM (NSInteger, SearchReason) {
                          withManager:(AFHTTPRequestOperationManager*)manager
                   thenNotifyDelegate:(id <FetchFinishedDelegate>)delegate;
 
--(instancetype)initAndSearchWithPageTitle:(NSString *)pageTitle
-                      searchType:(SearchType)searchType
-                                 language:(NSString *)language
-                               maxResults:(NSInteger)maxResults
-                              withManager:(AFHTTPRequestOperationManager*)manager
-                       thenNotifyDelegate:(id <FetchFinishedDelegate>)delegate;
+- (instancetype)initAndSearchWithPageTitle:(NSString*)pageTitle
+                                searchType:(SearchType)searchType
+                                  language:(NSString*)language
+                                maxResults:(NSInteger)maxResults
+                               withManager:(AFHTTPRequestOperationManager*)manager
+                        thenNotifyDelegate:(id <FetchFinishedDelegate>)delegate;
 
 @end
