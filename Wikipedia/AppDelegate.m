@@ -12,6 +12,9 @@
 #import "WikipediaAppUtils.h"
 #import "QueuesSingleton.h"
 #import "SearchResultFetcher.h"
+#import "MWKUserDataStore.h"
+#import "MWKRecentSearchList.h"
+#import "MWKRecentSearchEntry.h"
 
 
 
@@ -85,6 +88,10 @@
         self.watchTask       = task;
         self.watchReplyBlock = reply;
         
+ 		MWKRecentSearchEntry* entry = [[MWKRecentSearchEntry alloc] initWithSite:[[SessionSingleton sharedInstance] currentArticleSite] searchTerm:userInfo[@"searchTerm"]];
+    	[[[[SessionSingleton sharedInstance] userDataStore] recentSearchList] addEntry:entry];
+    	[[[SessionSingleton sharedInstance] userDataStore] save];
+
         [[QueuesSingleton sharedInstance].searchResultsFetchManager.operationQueue cancelAllOperations];
         
         (void)[[SearchResultFetcher alloc] initAndSearchForTerm:userInfo[@"searchTerm"]
