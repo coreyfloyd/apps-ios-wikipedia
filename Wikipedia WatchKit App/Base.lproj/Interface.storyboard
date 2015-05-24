@@ -50,13 +50,9 @@
                             </items>
                         </group>
                         <button width="1" alignment="left" title="Save for Later" id="NqZ-uq-Pbx">
+                            <color key="backgroundColor" red="0.0" green="0.74059343338012695" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <connections>
                                 <action selector="saveArticle" destination="hiY-EO-lZw" id="PS3-Sw-kTM"/>
-                            </connections>
-                        </button>
-                        <button width="1" alignment="left" title="Open on iPhone" id="nIj-SN-SKe">
-                            <connections>
-                                <action selector="openOnPhone" destination="hiY-EO-lZw" id="Ul6-Yj-c6m"/>
                             </connections>
                         </button>
                     </items>
@@ -66,7 +62,7 @@
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="738" y="347"/>
+            <point key="canvasLocation" x="448" y="347"/>
         </scene>
         <!--Glance Interface Controller-->
         <scene sceneID="BOz-TT-tkC">

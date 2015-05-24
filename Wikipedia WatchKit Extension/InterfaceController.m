@@ -41,14 +41,13 @@
     [self presentTextInputControllerWithSuggestions:nil allowedInputMode:WKTextInputModePlain completion:^(NSArray *results) {
         
         NSString* searchTerm = [results firstObject];
-//        NSString *searchTerm = @"Dog";
-    
+        
         if(searchTerm){
             
             [self.searchTermLabel setText:[NSString stringWithFormat:@"Searching for %@…", searchTerm]];
             [self.searchButton setHidden:YES];
             
-            [WKInterfaceController openParentApplication:@{@"searchTerm":searchTerm} reply:^(NSDictionary *replyInfo, NSError *error) {
+            [WKInterfaceController openParentApplication:@{@"request":@"search", @"searchTerm":searchTerm} reply:^(NSDictionary *replyInfo, NSError *error) {
                 
                 NSArray* results = replyInfo[@"searchResults"];
                 
@@ -61,6 +60,7 @@
                         [self.searchButton setHidden:NO];
                     });
                     
+                    return;
                 }
                 
                 NSMutableArray* names = [NSMutableArray new];
@@ -79,6 +79,10 @@
             }];
         }
     }];
+    
+    [self.searchTermLabel setText:@"Searching…"];
+    [self.searchButton setHidden:YES];
+
 }
 @end
 

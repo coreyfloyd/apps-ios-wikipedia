@@ -25,7 +25,9 @@
 @property (nonatomic, strong) DataMigrationProgressViewController* migrationViewController;
 
 @property (nonatomic, copy) void (^ watchReplyBlock)(NSDictionary*);
-@property (nonatomic, assign) UIBackgroundTaskIdentifier watchTask;
+@property (nonatomic, assign) UIBackgroundTaskIdentifier searchTask;
+@property (nonatomic, assign) UIBackgroundTaskIdentifier saveTask;
+@property (nonatomic, assign) UIBackgroundTaskIdentifier snippetTask;
 
 @end
 
@@ -81,11 +83,14 @@
     // --------------------
     
     if([userInfo[@"request"] isEqualToString:@"search"]) {
+        
         UIBackgroundTaskIdentifier task = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
             reply(@{@"error" : @"expired"});
+            self.searchTask       = 0;
+            self.watchReplyBlock = NULL;
         }];
         
-        self.watchTask       = task;
+        self.searchTask       = task;
         self.watchReplyBlock = reply;
         
  		MWKRecentSearchEntry* entry = [[MWKRecentSearchEntry alloc] initWithSite:[[SessionSingleton sharedInstance] currentArticleSite] searchTerm:userInfo[@"searchTerm"]];
@@ -103,18 +108,44 @@
                                              thenNotifyDelegate:self];
     }
     else if([userInfo[@"request"] isEqualToString:@"snippet"]) {
+        
         UIBackgroundTaskIdentifier task = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
             reply(@{@"error" : @"expired"});
+            self.snippetTask       = 0;
+            self.watchReplyBlock = NULL;
+
         }];
-        self.watchTask = task;
+        
+        self.snippetTask = task;
         self.watchReplyBlock = reply;
         
         (void)[[SearchResultFetcher alloc] initAndSearchWithPageTitle:userInfo[@"pageTitle"]
-                                                     searchType:SEARCH_TYPE_SNIPPET
+                                                      searchType:SEARCH_TYPE_SNIPPET
                                                        language:[SessionSingleton sharedInstance].searchLanguage
                                                      maxResults:5
                                                     withManager:[QueuesSingleton sharedInstance].searchResultsFetchManager
                                              thenNotifyDelegate:self];
+        
+    }else if ([userInfo[@"request"] isEqualToString:@"save"]){
+        
+        UIBackgroundTaskIdentifier task = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
+            reply(@{@"error" : @"expired"});
+            self.saveTask = 0;
+            self.watchReplyBlock       = NULL;
+            
+        }];
+
+        self.saveTask = task;
+        self.watchReplyBlock = reply;
+        
+        MWKTitle* title = [[MWKTitle alloc] initWithString:userInfo[@"title"] site:[[SessionSingleton sharedInstance] currentArticleSite]];
+        [[[SessionSingleton sharedInstance] userDataStore] savePage:title];
+        [[[SessionSingleton sharedInstance] userDataStore] save];
+        self.watchReplyBlock(nil);
+        self.watchReplyBlock = NULL;
+        [[UIApplication sharedApplication] endBackgroundTask:self.saveTask];
+        self.saveTask = 0;
+
     }
 }
 
@@ -126,8 +157,22 @@
     SearchResultFetcher* searchResultFetcher = (SearchResultFetcher*)sender;
     
     self.watchReplyBlock(@{@"searchResults": searchResultFetcher.searchResults});
-    
-    [[UIApplication sharedApplication] endBackgroundTask:self.watchTask];
+    self.watchReplyBlock = NULL;
+
+    if([sender isKindOfClass:[SearchResultFetcher class]]){
+        
+        if([sender searchTerm] == nil){
+            
+            [[UIApplication sharedApplication] endBackgroundTask:self.snippetTask];
+            self.snippetTask = 0;
+            
+        }else{
+            
+            [[UIApplication sharedApplication] endBackgroundTask:self.searchTask];
+            self.searchTask = 0;
+            
+        }
+    }
 }
 
 - (void)transitionToRootViewController:(UIViewController*)viewController animated:(BOOL)animated {

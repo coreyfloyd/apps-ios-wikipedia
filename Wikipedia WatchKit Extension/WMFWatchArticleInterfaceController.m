@@ -14,6 +14,8 @@
 @property (strong, nonatomic) NSDictionary *passedInData;
 @property (strong, nonatomic) NSString *snippet;
 
+@property (strong, nonatomic)  NSString *articleTitle;
+
 - (IBAction)saveArticle;
 - (IBAction)openOnPhone;
 
@@ -24,11 +26,12 @@
 - (void)awakeWithContext:(id)context {
     [super awakeWithContext:context];
     
-    [self setTitle:@"Close"];
+    [self setTitle:@"Done"];
     NSDictionary* dict = context;
 
-    [self.titleLabel setText:context[@"title"]];
-    [self.textLabel setText:@""];
+    self.articleTitle = dict[@"title"];
+    [self.titleLabel setText:dict[@"title"]];
+    [self.textLabel setText:dict[@"description"]];
 
 }
 
@@ -54,6 +57,13 @@
 }
 
 - (IBAction)saveArticle {
+    
+    [WKInterfaceController openParentApplication:@{@"request":@"save", @"title":self.articleTitle} reply:^(NSDictionary *replyInfo, NSError *error) {
+       
+        NSLog(@"saved!");
+        
+    }];
+    
 }
 
 - (IBAction)openOnPhone {
