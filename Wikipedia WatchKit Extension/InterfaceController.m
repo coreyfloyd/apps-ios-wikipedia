@@ -35,19 +35,20 @@
 
 - (IBAction)search {
     
-    [self presentTextInputControllerWithSuggestions:nil allowedInputMode:WKTextInputModePlain completion:^(NSArray *results) {
-        
-        NSString* searchTerm = [results firstObject];
-        
-        if(searchTerm){
-            
-            [self pushControllerWithName:@"WMFSearchTermInterfaceController" context:searchTerm];
-        }
-       
-        
-        
-        
-    }];
+//    [self presentTextInputControllerWithSuggestions:nil allowedInputMode:WKTextInputModePlain completion:^(NSArray *results) {
+//        
+//        NSString* searchTerm = [results firstObject];
+//        
+//        if(searchTerm){
+//            
+//            [self pushControllerWithName:@"WMFSearchTermInterfaceController" context:searchTerm];
+//        }
+//       
+//        
+//        
+//        
+//    }];
+    [self pushControllerWithName:@"WMFSearchTermInterfaceController" context:@"Dog"];
 }
 @end
 
