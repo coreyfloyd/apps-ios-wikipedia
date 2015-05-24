@@ -24,8 +24,8 @@
 - (void)awakeWithContext:(id)context {
     [super awakeWithContext:context];
     
-    [self setTitle:@"X"];
-    self.passedInData = context;
+    [self setTitle:@"Close"];
+    NSDictionary* dict = context;
 
     [self.titleLabel setText:context[@"title"]];
     [self.textLabel setText:@""];

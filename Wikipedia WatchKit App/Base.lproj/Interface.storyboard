@@ -22,7 +22,7 @@
                                         <action selector="search" destination="AgC-eL-Hgc" id="85P-Xm-kIx"/>
                                     </connections>
                                 </button>
-                                <label width="1" alignment="center" text="Tap to Search" textAlignment="center" id="21B-A3-r4l"/>
+                                <label width="1" alignment="center" text="Tap to Search" textAlignment="center" numberOfLines="0" id="21B-A3-r4l"/>
                             </items>
                         </group>
                     </items>

@@ -13,8 +13,6 @@
 
 @property (weak, nonatomic) IBOutlet WKInterfaceButton *searchButton;
 @property (weak, nonatomic) IBOutlet WKInterfaceLabel *searchTermLabel;
-@property (assign, nonatomic) BOOL searchLabelDirty;
-
 
 - (IBAction)search;
 
@@ -50,9 +48,7 @@
             [self.searchTermLabel setText:[NSString stringWithFormat:@"Searching for %@…", searchTerm]];
             [self.searchButton setHidden:YES];
             
-            self.searchLabelDirty = YES;
-
-            [WKInterfaceController openParentApplication:@{@"request" : @"search", @"searchTerm":searchTerm} reply:^(NSDictionary *replyInfo, NSError *error) {
+            [WKInterfaceController openParentApplication:@{@"searchTerm":searchTerm} reply:^(NSDictionary *replyInfo, NSError *error) {
                 
                 NSArray* results = replyInfo[@"searchResults"];
                 
