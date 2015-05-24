@@ -111,6 +111,15 @@
     }
 }
 
+-(BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray *))restorationHandler {
+    NSString *type = userActivity.activityType;
+    NSString *pageTitle = userActivity.userInfo[@"pageTitle"];
+
+    NSLog(@"%s - type is %@, pageTitle is %@", __PRETTY_FUNCTION__, type, pageTitle);
+    
+    return NO;
+}
+
 - (void)fetchFinished:(id)sender
           fetchedData:(id)fetchedData
                status:(FetchFinalStatus)status

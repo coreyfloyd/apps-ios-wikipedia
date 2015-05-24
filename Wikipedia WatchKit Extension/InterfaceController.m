@@ -40,10 +40,10 @@
 
 - (IBAction)search {
 
-    [self presentTextInputControllerWithSuggestions:nil allowedInputMode:WKTextInputModePlain completion:^(NSArray *results) {
-        
-        NSString* searchTerm = [results firstObject];
-//        NSString *searchTerm = @"Dog";
+//    [self presentTextInputControllerWithSuggestions:nil allowedInputMode:WKTextInputModePlain completion:^(NSArray *results) {
+    
+//        NSString* searchTerm = [results firstObject];
+        NSString *searchTerm = @"Dog";
     
         if(searchTerm){
             
@@ -82,7 +82,7 @@
                 
             }];
         }
-    }];
+//    }];
 }
 @end
 

@@ -35,6 +35,7 @@
 - (void)willActivate {
     // This method is called when watch view controller is about to be visible to user
     [super willActivate];
+    
     if(!self.snippet)
         [WKInterfaceController openParentApplication:@{@"request" : @"snippet", @"pageTitle" : self.passedInData[@"title"]} reply:^(NSDictionary *replyInfo, NSError *error) {
             NSDictionary *pages = replyInfo[@"searchResults"][0][@"query"][@"pages"];
@@ -45,12 +46,15 @@
         }];
     else
         [self.textLabel setText:self.snippet];
+    
+    [self updateUserActivity:@"org.wikimedia.wikipedia.watchkitextension.page" userInfo:@{@"pageTitle" : self.passedInData[@"title"]} webpageURL:nil];
 }
 
 - (void)didDeactivate {
     // This method is called when watch view controller is no longer visible
     [super didDeactivate];
 
+//    [self invalidateUserActivity];
 }
 
 - (IBAction)saveArticle {
