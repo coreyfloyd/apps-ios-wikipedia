@@ -17,6 +17,7 @@
 #import "MWKRecentSearchEntry.h"
 #import "WebViewController.h"
 #import "UINavigationController+SearchNavStack.h"
+#import "NearbyFetcher.h"
 
 @interface AppDelegate ()
 <DataMigrationProgressDelegate, FetchFinishedDelegate>
@@ -28,6 +29,8 @@
 @property (nonatomic, assign) UIBackgroundTaskIdentifier searchTask;
 @property (nonatomic, assign) UIBackgroundTaskIdentifier saveTask;
 @property (nonatomic, assign) UIBackgroundTaskIdentifier snippetTask;
+@property (nonatomic, assign) UIBackgroundTaskIdentifier nearbyTask;
+@property (strong, nonatomic) NSDictionary *nearbySnippetInfo;
 
 @end
 
@@ -43,29 +46,29 @@
 
 - (BOOL)application:(UIApplication*)application didFinishLaunchingWithOptions:(NSDictionary*)launchOptions {
     [[BITHockeyManager sharedHockeyManager] wmf_setupAndStart];
-
+    
     [self systemWideStyleOverrides];
-
+    
     // Enables Alignment Rect highlighting for debugging
     //[[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"UIViewShowAlignmentRects"];
     //[[NSUserDefaults standardUserDefaults] synchronize];
-
+    
     // Override point for customization after application launch.
-
+    
     //[self printAllNotificationsToConsole];
-
+    
 #if TARGET_IPHONE_SIMULATOR
     // From: http://pinkstone.co.uk/where-is-the-documents-directory-for-the-ios-8-simulator/
     NSLog(@"\n\n\nSimulator Documents Directory:\n%@\n\n\n",
           [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory
                                                   inDomains:NSUserDomainMask] lastObject]);
 #endif
-
+    
     if (![self presentDataMigrationViewControllerIfNeeded]) {
         [self performMigrationCleanup];
         [self presentRootViewController:NO withSplash:YES];
     }
-
+    
     return YES;
 }
 
@@ -79,25 +82,25 @@
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [[UIApplication sharedApplication] endBackgroundTask:bogusWorkaroundTask];
     });
-
+    
     // --------------------
-
+    
     if ([userInfo[@"request"] isEqualToString:@"search"]) {
         UIBackgroundTaskIdentifier task = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
             reply(@{@"error": @"expired"});
             self.searchTask = 0;
             self.watchReplyBlock = NULL;
         }];
-
+        
         self.searchTask      = task;
         self.watchReplyBlock = reply;
-
+        
         MWKRecentSearchEntry* entry = [[MWKRecentSearchEntry alloc] initWithSite:[[SessionSingleton sharedInstance] currentArticleSite] searchTerm:userInfo[@"searchTerm"]];
         [[[[SessionSingleton sharedInstance] userDataStore] recentSearchList] addEntry:entry];
         [[[SessionSingleton sharedInstance] userDataStore] save];
-
+        
         [[QueuesSingleton sharedInstance].searchResultsFetchManager.operationQueue cancelAllOperations];
-
+        
         (void)[[SearchResultFetcher alloc] initAndSearchForTerm:userInfo[@"searchTerm"]
                                                      searchType:SEARCH_TYPE_TITLES
                                                    searchReason:SEARCH_REASON_WATCH
@@ -111,10 +114,10 @@
             self.snippetTask = 0;
             self.watchReplyBlock = NULL;
         }];
-
+        
         self.snippetTask     = task;
         self.watchReplyBlock = reply;
-
+        
         (void)[[SearchResultFetcher alloc] initAndSearchWithPageTitle:userInfo[@"pageTitle"]
                                                            searchType:SEARCH_TYPE_SNIPPET
                                                              language:[SessionSingleton sharedInstance].searchLanguage
@@ -127,10 +130,10 @@
             self.saveTask = 0;
             self.watchReplyBlock = NULL;
         }];
-
+        
         self.saveTask        = task;
         self.watchReplyBlock = reply;
-
+        
         MWKTitle* title = [[MWKTitle alloc] initWithString:userInfo[@"title"] site:[[SessionSingleton sharedInstance] currentArticleSite]];
         [[[SessionSingleton sharedInstance] userDataStore] savePage:title];
         [[[SessionSingleton sharedInstance] userDataStore] save];
@@ -138,6 +141,23 @@
         self.watchReplyBlock = NULL;
         [[UIApplication sharedApplication] endBackgroundTask:self.saveTask];
         self.saveTask = 0;
+    }
+    else if([userInfo[@"request"] isEqualToString:@"nearby"]) {
+        UIBackgroundTaskIdentifier task = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
+            reply(@{@"error" : @"expired"});
+            self.nearbyTask = 0;
+            self.watchReplyBlock = NULL;
+        }];
+        
+        self.nearbyTask = task;
+        self.watchReplyBlock = reply;
+        
+        CLLocationDegrees lat = [userInfo[@"lat"] doubleValue];
+        CLLocationDegrees lon = [userInfo[@"lon"] doubleValue];
+        (void)[[NearbyFetcher alloc] initAndFetchNearbyForLatitude:lat
+                                                         longitude:lon
+                                                       withManager:[QueuesSingleton sharedInstance].nearbyFetchManager
+                                                thenNotifyDelegate:self];
     }
 }
 
@@ -157,19 +177,50 @@
                status:(FetchFinalStatus)status
                 error:(NSError*)error;
 {
-    SearchResultFetcher* searchResultFetcher = (SearchResultFetcher*)sender;
-
-    self.watchReplyBlock(@{@"searchResults": searchResultFetcher.searchResults});
-    self.watchReplyBlock = NULL;
-
-    if ([sender isKindOfClass:[SearchResultFetcher class]]) {
-        if ([sender searchTerm] == nil) {
+    if([sender isKindOfClass:[SearchResultFetcher class]]) {
+        SearchResultFetcher* searchResultFetcher = (SearchResultFetcher*)sender;
+        
+        if(self.nearbySnippetInfo) {
+            self.watchReplyBlock(@{@"title" : self.nearbySnippetInfo[@"title"], @"distance" : self.nearbySnippetInfo[@"distance"], @"searchResults": searchResultFetcher.searchResults});
+            self.watchReplyBlock = NULL;
+            self.nearbySnippetInfo = nil;
+        }
+        else if ([sender searchTerm] == nil) {
+            self.watchReplyBlock(@{@"searchResults": searchResultFetcher.searchResults});
+            self.watchReplyBlock = NULL;
             [[UIApplication sharedApplication] endBackgroundTask:self.snippetTask];
             self.snippetTask = 0;
         } else {
+            self.watchReplyBlock(@{@"searchResults": searchResultFetcher.searchResults});
+            self.watchReplyBlock = NULL;
             [[UIApplication sharedApplication] endBackgroundTask:self.searchTask];
             self.searchTask = 0;
         }
+    }
+    else if([sender isKindOfClass:[NearbyFetcher class]]) {
+        switch(status) {
+            case FETCH_FINAL_STATUS_SUCCEEDED: {
+                NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"initialDistance" ascending:YES];
+                NSArray* arraySortedByDistance = [((NSArray *)fetchedData) sortedArrayUsingDescriptors:@[sortDescriptor]];
+                (void)[[SearchResultFetcher alloc] initAndSearchWithPageTitle:arraySortedByDistance[0][@"title"]
+                                                                   searchType:SEARCH_TYPE_SNIPPET
+                                                                     language:[SessionSingleton sharedInstance].searchLanguage
+                                                                   maxResults:5
+                                                                  withManager:[QueuesSingleton sharedInstance].searchResultsFetchManager
+                                                           thenNotifyDelegate:self];
+
+                
+                self.nearbySnippetInfo = @{@"title" : arraySortedByDistance[0][@"title"], @"distance" : arraySortedByDistance[0][@"initialDistance"]};
+            }
+                break;
+            case FETCH_FINAL_STATUS_CANCELLED:
+                break;
+            case FETCH_FINAL_STATUS_FAILED:
+                break;
+        }
+        [[UIApplication sharedApplication] endBackgroundTask:self.nearbyTask];
+        self.nearbyTask = 0;
+        
     }
 }
 
@@ -190,7 +241,7 @@
 - (void)presentRootViewController:(BOOL)animated withSplash:(BOOL)withSplash {
     self.migrationViewController = nil;
     RootViewController* mainInitialVC =
-        [[UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil] instantiateInitialViewController];
+    [[UIStoryboard storyboardWithName:@"Main_iPhone" bundle:nil] instantiateInitialViewController];
     NSParameterAssert([mainInitialVC isKindOfClass:[RootViewController class]]);
     mainInitialVC.shouldShowSplashOnAppear = withSplash;
     [self transitionToRootViewController:mainInitialVC animated:animated];
@@ -202,32 +253,32 @@
                         object:nil
                          queue:nil
                     usingBlock:^(NSNotification* notification) {
-        NSLog(@"NOTIFICATION %@ -> %@", notification.name, notification.userInfo);
-    }];
+                        NSLog(@"NOTIFICATION %@ -> %@", notification.name, notification.userInfo);
+                    }];
 }
 
 - (void)systemWideStyleOverrides {
     // Minimize flicker of search result table cells being recycled as they
     // pass completely beneath translucent nav bars
     [[UIApplication sharedApplication] delegate].window.backgroundColor = [UIColor whiteColor];
-
+    
     /*
-       if (NSFoundationVersionNumber <= NSFoundationVersionNumber_iOS_6_1) {
-       // Pre iOS 7:
-       CGRect rect = CGRectMake(0, 0, 10, 10);
-       UIGraphicsBeginImageContextWithOptions(rect.size, NO, 0);
-       [[UIColor clearColor] setFill];
-       UIRectFill(rect);
-       UIImage *bgImage = UIGraphicsGetImageFromCurrentImageContext();
-       UIGraphicsEndImageContext();
-
-       [[UINavigationBar appearance] setTintColor:[UIColor clearColor]];
-       [[UINavigationBar appearance] setBackgroundImage:bgImage forBarMetrics:UIBarMetricsDefault];
-       }
+     if (NSFoundationVersionNumber <= NSFoundationVersionNumber_iOS_6_1) {
+     // Pre iOS 7:
+     CGRect rect = CGRectMake(0, 0, 10, 10);
+     UIGraphicsBeginImageContextWithOptions(rect.size, NO, 0);
+     [[UIColor clearColor] setFill];
+     UIRectFill(rect);
+     UIImage *bgImage = UIGraphicsGetImageFromCurrentImageContext();
+     UIGraphicsEndImageContext();
+     
+     [[UINavigationBar appearance] setTintColor:[UIColor clearColor]];
+     [[UINavigationBar appearance] setBackgroundImage:bgImage forBarMetrics:UIBarMetricsDefault];
+     }
      */
-
+    
     [[UIButton appearance] setTitleShadowColor:[UIColor clearColor] forState:UIControlStateNormal];
-
+    
     // Make buttons look the same on iOS 6 & 7.
     [[UIButton appearance] setBackgroundImage:[UIImage imageNamed:@"clear.png"] forState:UIControlStateNormal];
     [[UIButton appearance] setTitleColor:[UIColor lightGrayColor] forState:UIControlStateDisabled];
@@ -262,7 +313,7 @@
         _migrationViewController          = [[DataMigrationProgressViewController alloc] init];
         _migrationViewController.delegate = self;
     }
-
+    
     return _migrationViewController;
 }
 
@@ -273,11 +324,11 @@
 - (BOOL)presentDataMigrationViewControllerIfNeeded {
     if ([self.migrationViewController needsMigration]) {
         UIAlertView* dialog =
-            [[UIAlertView alloc] initWithTitle:MWLocalizedString(@"migration-prompt-title", nil)
-                                       message:MWLocalizedString(@"migration-prompt-message", nil)
-                                      delegate:self
-                             cancelButtonTitle:MWLocalizedString(@"migration-skip-button-title", nil)
-                             otherButtonTitles:MWLocalizedString(@"migration-confirm-button-title", nil), nil];
+        [[UIAlertView alloc] initWithTitle:MWLocalizedString(@"migration-prompt-title", nil)
+                                   message:MWLocalizedString(@"migration-prompt-message", nil)
+                                  delegate:self
+                         cancelButtonTitle:MWLocalizedString(@"migration-skip-button-title", nil)
+                         otherButtonTitles:MWLocalizedString(@"migration-confirm-button-title", nil), nil];
         [dialog show];
         self.dataMigrationAlert = dialog;
         return YES;
