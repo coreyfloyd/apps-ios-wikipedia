@@ -75,6 +75,20 @@
                             </items>
                         </group>
                     </items>
+                    <menu key="menu" id="Psa-RE-IEe">
+                        <items>
+                            <menuItem title="Read Later" image="ReadLater" id="1zx-rt-Q06" userLabel="Read Later">
+                                <connections>
+                                    <action selector="saveArticle" destination="hiY-EO-lZw" id="h3R-ds-yn2"/>
+                                </connections>
+                            </menuItem>
+                            <menuItem title="Read More" image="ReadMore" id="doz-dV-4I6">
+                                <connections>
+                                    <action selector="openOnPhone" destination="hiY-EO-lZw" id="D03-YP-Old"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
                     <connections>
                         <outlet property="snippetLabel" destination="Dxg-vA-kon" id="UeI-dA-1Ga"/>
                         <outlet property="textLabel" destination="CbO-NF-eol" id="rLi-8G-PjA"/>
