@@ -55,7 +55,7 @@
 }
 
 - (void)didDeactivate {
-    // This method is called when watch view controller is no longer visible
+    // This method is called when watch view controller is no longer visiblex
     [super didDeactivate];
 
 //    [self invalidateUserActivity];

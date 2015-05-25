@@ -194,7 +194,7 @@
             return @{
                        @"action": @"query",
                        @"prop": @"extracts",
-                       @"exchars": @(100),
+                       @"exchars": @(150),
                        @"titles": self.pageTitle,
                        @"format": @"json",
                        @"explaintext": @(YES),

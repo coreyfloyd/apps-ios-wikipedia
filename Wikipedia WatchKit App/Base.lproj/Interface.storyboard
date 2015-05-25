@@ -42,11 +42,11 @@
                     <items>
                         <group width="1" alignment="left" layout="vertical" id="TKb-qI-qLN">
                             <items>
-                                <label height="10" alignment="left" text=" " id="ONt-MJ-vcT">
+                                <label height="12" alignment="left" text=" " id="ONt-MJ-vcT">
                                     <fontDescription key="font" style="UICTFontTextStyleCaption2"/>
                                 </label>
                                 <label width="1" alignment="left" text="Title" textAlignment="left" numberOfLines="0" id="JE6-1P-PEX">
-                                    <fontDescription key="font" style="UICTFontTextStyleHeadline"/>
+                                    <fontDescription key="font" type="system" weight="heavy" pointSize="18"/>
                                 </label>
                                 <label width="1" alignment="left" text="Description" numberOfLines="0" id="CbO-NF-eol">
                                     <color key="textColor" red="0.49014008045196533" green="0.49022823572158813" blue="0.49013453722000122" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -56,42 +56,22 @@
                                     <fontDescription key="font" style="UICTFontTextStyleCaption2"/>
                                 </label>
                                 <label width="1" alignment="left" text="Snippet" numberOfLines="0" id="Dxg-vA-kon"/>
-                                <label height="3" alignment="left" text=" " id="0FS-Se-Y8o"/>
-                                <label height="5" alignment="left" text=" " id="Efx-Ku-AuV"/>
-                                <button alignment="center" id="c2Q-ux-sd9">
-                                    <group key="contentGroup" width="0.94999999999999996" height="35" alignment="left" radius="3" id="xOX-Pp-vcM">
-                                        <items>
-                                            <label alignment="left" text=" " id="FU5-5s-vPu"/>
-                                            <imageView width="20" height="30" alignment="left" verticalAlignment="center" image="Saved" contentMode="scaleAspectFit" id="w15-yw-W9H">
-                                                <color key="tintColor" red="0.99989169836044312" green="1" blue="0.99988096952438354" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            </imageView>
-                                            <label alignment="left" verticalAlignment="center" text="Read Later" id="QZM-oG-pWa">
-                                                <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
-                                            </label>
-                                        </items>
-                                        <color key="backgroundColor" red="0.0" green="0.74117647060000003" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </group>
-                                    <connections>
-                                        <action selector="saveArticle" destination="hiY-EO-lZw" id="abA-2f-3yH"/>
-                                    </connections>
-                                </button>
-                                <label height="2" alignment="left" text=" " id="Ax2-QF-g5W"/>
-                                <button alignment="center" id="NqZ-uq-Pbx">
-                                    <group key="contentGroup" width="0.94999999999999996" height="35" alignment="left" radius="3" id="X7s-L9-KTq">
-                                        <items>
-                                            <label alignment="left" text=" " id="El7-pt-6KB"/>
-                                            <imageView width="20" height="30" alignment="left" verticalAlignment="center" image="Readonphone" contentMode="scaleAspectFit" id="dAZ-8Z-bMx"/>
-                                            <label alignment="left" verticalAlignment="center" text="Open on iPhone" id="sYf-ai-WMr">
-                                                <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
-                                            </label>
-                                        </items>
-                                        <color key="backgroundColor" red="0.49014008045196533" green="0.49022823572158813" blue="0.49013453722000122" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    </group>
-                                    <connections>
-                                        <action selector="openOnPhone" destination="hiY-EO-lZw" id="eIa-Ec-hcc"/>
-                                    </connections>
-                                </button>
-                                <label height="5" alignment="left" text=" " id="i4s-IQ-9yJ"/>
+                                <label height="5" alignment="left" text=" " id="0FS-Se-Y8o"/>
+                                <group width="1" alignment="left" id="DrO-WL-NLM">
+                                    <items>
+                                        <button alignment="center" verticalAlignment="center" backgroundImage="ReadLater" id="c2Q-ux-sd9">
+                                            <connections>
+                                                <action selector="saveArticle" destination="hiY-EO-lZw" id="abA-2f-3yH"/>
+                                            </connections>
+                                        </button>
+                                        <label width="0.10000000000000001" alignment="center" verticalAlignment="center" text="   " id="Fmj-Tc-7FN"/>
+                                        <button alignment="center" verticalAlignment="center" backgroundImage="ReadMore" id="NqZ-uq-Pbx">
+                                            <connections>
+                                                <action selector="openOnPhone" destination="hiY-EO-lZw" id="eIa-Ec-hcc"/>
+                                            </connections>
+                                        </button>
+                                    </items>
+                                </group>
                             </items>
                         </group>
                     </items>
@@ -131,7 +111,10 @@
                         <group width="1" alignment="center" verticalAlignment="center" layout="vertical" id="Ni8-dI-inM">
                             <items>
                                 <imageView width="35" height="60" alignment="center" image="Readonphone" id="fq0-3q-AkC"/>
-                                <label width="1" alignment="left" text="Open iPhone to read more using Handoff" textAlignment="center" numberOfLines="0" id="koU-yx-yoe">
+                                <label height="5" alignment="left" text=" " id="5hF-Uk-3yl"/>
+                                <label width="1" alignment="left" textAlignment="center" numberOfLines="0" id="koU-yx-yoe">
+                                    <string key="text">Open your iPhone 
+to read more</string>
                                     <fontDescription key="font" style="UICTFontTextStyleSubhead"/>
                                 </label>
                             </items>
