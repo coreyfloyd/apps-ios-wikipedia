@@ -16,7 +16,8 @@
 
 - (void)awakeWithContext:(id)context {
     [super awakeWithContext:context];
-    
+    [self setTitle:@"Done"];
+
     // Configure interface objects here.
     [self updateUserActivity:@"org.wikimedia.wikipedia.watchkitextension.page" userInfo:@{@"pageTitle" : context} webpageURL:nil];
 }
