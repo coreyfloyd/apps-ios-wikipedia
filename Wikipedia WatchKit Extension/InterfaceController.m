@@ -23,7 +23,7 @@
 
 - (void)awakeWithContext:(id)context {
     [super awakeWithContext:context];
-
+    
     // Configure interface objects here.
 }
 
@@ -37,52 +37,57 @@
 }
 
 - (IBAction)search {
-
+    
     [self presentTextInputControllerWithSuggestions:nil allowedInputMode:WKTextInputModePlain completion:^(NSArray *results) {
-        
-        NSString* searchTerm = [results firstObject];
-        
-        if(searchTerm){
+        if(!results) {
+            [self.searchTermLabel setText:@"Tap to Search"];
+            [self.searchButton setHidden:NO];
+        }
+        else {
+            NSString* searchTerm = [results firstObject];
             
-            [self.searchTermLabel setText:[NSString stringWithFormat:@"Searching for %@…", searchTerm]];
-            [self.searchButton setHidden:YES];
-            
-            [WKInterfaceController openParentApplication:@{@"request":@"search", @"searchTerm":searchTerm} reply:^(NSDictionary *replyInfo, NSError *error) {
+            if(searchTerm){
                 
-                NSArray* results = replyInfo[@"searchResults"];
+                [self.searchTermLabel setText:[NSString stringWithFormat:@"Searching for %@…", searchTerm]];
+                [self.searchButton setHidden:YES];
                 
-                if([results count] == 0){
+                [WKInterfaceController openParentApplication:@{@"request":@"search", @"searchTerm":searchTerm} reply:^(NSDictionary *replyInfo, NSError *error) {
                     
-                    [self.searchTermLabel setText:@"No Results"];
+                    NSArray* results = replyInfo[@"searchResults"];
                     
-                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                        [self.searchTermLabel setText:@"Tap to Search"];
-                        [self.searchButton setHidden:NO];
-                    });
+                    if([results count] == 0){
+                        
+                        [self.searchTermLabel setText:@"No Results"];
+                        
+                        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                            [self.searchTermLabel setText:@"Tap to Search"];
+                            [self.searchButton setHidden:NO];
+                        });
+                        
+                        return;
+                    }
                     
-                    return;
-                }
-                
-                NSMutableArray* names = [NSMutableArray new];
-                
-                [results enumerateObjectsUsingBlock:^(NSDictionary* obj, NSUInteger idx, BOOL *stop) {
+                    NSMutableArray* names = [NSMutableArray new];
                     
-                    [names addObject:@"WMFWatchArticleInterfaceController"];
+                    [results enumerateObjectsUsingBlock:^(NSDictionary* obj, NSUInteger idx, BOOL *stop) {
+                        
+                        [names addObject:@"WMFWatchArticleInterfaceController"];
+                    }];
+                    
+                    [self presentControllerWithNames:names contexts:results];
+                    
+                    [self.searchTermLabel setText:@"Tap to Search"];
+                    [self.searchButton setHidden:NO];
+                    
+                    
                 }];
-                
-                [self presentControllerWithNames:names contexts:results];
-
-                [self.searchTermLabel setText:@"Tap to Search"];
-                [self.searchButton setHidden:NO];
-
-                
-            }];
+            }
         }
     }];
     
     [self.searchTermLabel setText:@"Searching…"];
     [self.searchButton setHidden:YES];
-
+    
 }
 @end
 

@@ -142,16 +142,14 @@
 }
 
 -(BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray *))restorationHandler {
-    NSString *type = userActivity.activityType;
+    
     NSString *pageTitle = userActivity.userInfo[@"pageTitle"];
-
-    NSLog(@"%s - type is %@, pageTitle is %@", __PRETTY_FUNCTION__, type, pageTitle);
     
     MWKTitle* title = [[MWKTitle alloc] initWithString:pageTitle site:[[SessionSingleton sharedInstance] currentArticleSite]];
     WebViewController* webVC = [NAV searchNavStackForViewControllerOfClass:[WebViewController class]];
     [webVC navigateToPage:title discoveryMethod:MWKHistoryDiscoveryMethodSearch];
     
-    return NO;
+    return YES;
 }
 
 - (void)fetchFinished:(id)sender

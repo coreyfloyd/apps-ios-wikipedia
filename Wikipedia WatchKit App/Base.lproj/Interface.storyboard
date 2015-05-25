@@ -106,8 +106,8 @@
                     <items>
                         <group width="1" alignment="center" verticalAlignment="center" layout="vertical" id="Ni8-dI-inM">
                             <items>
-                                <imageView width="40" height="60" alignment="center" image="Readonphone" id="fq0-3q-AkC"/>
-                                <label alignment="left" text="Open iPhone to read more using Handoff." textAlignment="center" numberOfLines="0" id="koU-yx-yoe"/>
+                                <imageView width="35" height="60" alignment="center" image="Readonphone" id="fq0-3q-AkC"/>
+                                <label width="1" alignment="left" text="Open iPhone to read more using Handoff." textAlignment="center" numberOfLines="0" id="koU-yx-yoe"/>
                             </items>
                         </group>
                     </items>
