@@ -31,20 +31,17 @@ NSString* const WMFDefaultStoryBoardName = @"iPhone_Root";
 
 @implementation WMFAppViewController
 
+#pragma mark - Setup
+
 + (WMFAppViewController*)initialAppViewControllerFromDefaultStoryBoard{
     
     return [[UIStoryboard wmf_defaultStoryBoard] instantiateInitialViewController];
 }
 
 - (void)launchAppInWindow:(UIWindow*)window{
-    
+
     [window setRootViewController:self];
-    [self showSplashView];
-    
-    [self runDataMigrationIfNeededWithCompletion:^{
-        
-        [self showMainUI];
-    }];
+    [window makeKeyAndVisible];
 }
 
 - (void)resumeApp{
@@ -52,6 +49,23 @@ NSString* const WMFDefaultStoryBoardName = @"iPhone_Root";
     //TODO: restore any UI, show Today
 }
 
+#pragma mark - UIViewController
+
+- (void)viewDidLoad{
+    
+    [super viewDidLoad];
+ 
+    [self showSplashView];
+    
+    [self runDataMigrationIfNeededWithCompletion:^{
+        
+        [self hideSplashViewAnimated:YES];
+        [self loadMainUI];
+    }];
+}
+
+
+#pragma mark - Splash
 
 - (void)showSplashView{
     
@@ -63,7 +77,8 @@ NSString* const WMFDefaultStoryBoardName = @"iPhone_Root";
 - (void)hideSplashViewAnimated:(BOOL)animated{
     
     NSTimeInterval duration = animated ? 0.3 : 0.0;
-    
+
+
     [UIView animateWithDuration:duration animations:^{
         
         self.splashView.layer.transform = CATransform3DMakeScale(10.0f, 10.0f, 1.0f);
@@ -81,31 +96,10 @@ NSString* const WMFDefaultStoryBoardName = @"iPhone_Root";
     return self.splashView.hidden == NO;
 }
 
-- (void)showMainUI{
+- (void)loadMainUI{
     
-    //TODO: tell embeded VCs to load their data
+    //TODO: Tell embeded VCs to load their data
 }
-
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view.
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 #pragma mark - Migration
 
