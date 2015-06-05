@@ -5,13 +5,11 @@ static WMFStyleManager* _styleManager = nil;
 
 @implementation WMFStyleManager
 
-+ (void)setSharedStyleManager:(WMFStyleManager*)styleManger{
-    
++ (void)setSharedStyleManager:(WMFStyleManager*)styleManger {
     _styleManager = styleManger;
 }
 
-- (void)applyStyleToWindow:(UIWindow*)window{
-    
+- (void)applyStyleToWindow:(UIWindow*)window {
     window.backgroundColor = [UIColor whiteColor];
     [[UIButton appearance] setTitleShadowColor:[UIColor clearColor] forState:UIControlStateNormal];
     [[UIButton appearance] setBackgroundImage:[UIImage imageNamed:@"clear.png"] forState:UIControlStateNormal];
@@ -23,7 +21,7 @@ static WMFStyleManager* _styleManager = nil;
 
 @implementation UIViewController (WMFStyleManager)
 
-- (WMFStyleManager*)wmf_styleManager{
+- (WMFStyleManager*)wmf_styleManager {
     return _styleManager;
 }
 
@@ -31,7 +29,7 @@ static WMFStyleManager* _styleManager = nil;
 
 @implementation UIView (WMFStyleManager)
 
-- (WMFStyleManager*)wmf_styleManager{
+- (WMFStyleManager*)wmf_styleManager {
     return _styleManager;
 }
 

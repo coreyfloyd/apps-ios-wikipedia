@@ -5,7 +5,7 @@
 @class DataMigrationProgressViewController;
 @class WMFProgressLineView;
 
-typedef void (^WMFDataMigrationCompletionBlock)(BOOL migrationCompleted);
+typedef void (^ WMFDataMigrationCompletionBlock)(BOOL migrationCompleted);
 
 @interface DataMigrationProgressViewController : UIViewController
 

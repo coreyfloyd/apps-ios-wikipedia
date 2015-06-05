@@ -37,26 +37,23 @@ enum {
     self.progressLabel.text = MWLocalizedString(@"migration-update-progress-label", nil);
 }
 
-- (void)runMigrationWithCompletion:(WMFDataMigrationCompletionBlock)completion{
-    
+- (void)runMigrationWithCompletion:(WMFDataMigrationCompletionBlock)completion {
     self.completionBlock = completion;
-    
+
     UIAlertView* dialog = [UIAlertView bk_alertViewWithTitle:MWLocalizedString(@"migration-prompt-title", nil) message:MWLocalizedString(@"migration-prompt-message", nil)];
-    
+
     [dialog bk_setCancelButtonWithTitle:MWLocalizedString(@"migration-skip-button-title", nil) handler:^{
-        
         [self moveOldDataToBackupLocation];
         [self dispatchCOmpletionBlockWithStatus:NO];
     }];
     [dialog bk_addButtonWithTitle:MWLocalizedString(@"migration-confirm-button-title", nil) handler:^{
-        
         [self performMigration];
     }];
 
     [dialog show];
 }
 
-- (void)performMigration{
+- (void)performMigration {
     if ([self.oldDataSchema exists]) {
         [self runNewMigration];
     }
@@ -140,16 +137,13 @@ enum {
 - (void)displayErrorCondition {
     UIActionSheet* actionSheet = [UIActionSheet bk_actionSheetWithTitle:@"Migration failure: submit old data to developers to help diagnose?"];
     [actionSheet bk_setDestructiveButtonWithTitle:@"Discard old data" handler:^{
-        
         [self dispatchCOmpletionBlockWithStatus:NO];
     }];
     [actionSheet bk_addButtonWithTitle:@"Submit to developers" handler:^{
-        
         [self submitDataToDevs];
     }];
-    
+
     [actionSheet showInView:self.view];
-    
 }
 
 - (void)submitDataToDevs {
@@ -172,10 +166,8 @@ enum {
     [self presentViewController:picker animated:YES completion:nil];
 }
 
-
-- (void)dispatchCOmpletionBlockWithStatus:(BOOL)completed{
-
-    if(self.completionBlock){
+- (void)dispatchCOmpletionBlockWithStatus:(BOOL)completed {
+    if (self.completionBlock) {
         self.completionBlock(completed);
     }
     self.completionBlock = NULL;
